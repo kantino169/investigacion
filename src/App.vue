@@ -7,6 +7,7 @@
           Quasar Framework v{{$q.version}}
         </q-toolbar-title>
       </div>
+      <h1 class="text-center">Kevin y Adrián se la comen</h1>
       <router-view class="layout-view"></router-view>
     </q-layout>
   </div>
