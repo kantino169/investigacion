@@ -10,11 +10,8 @@
       <div class="row">
         <router-view class="layout-view"></router-view>
       </div>  
-      <q-tabs
-        :refs="$refs"
-        default-tab="tab-4"
-        class="justify-between tabs">
-        <q-tab name="tab-1">Login</q-tab>
+      <q-tabs slot="navigation">
+        <q-tab name="tab-1" route="/admins">Login</q-tab>
         <q-tab name="tab-2">Administrar</q-tab>
         <q-tab name="tab-3">Proyectos</q-tab>
         <q-tab name="tab-4">Usuarios</q-tab>
@@ -38,7 +35,7 @@ export default {}
   .q-tab-label {
     color: white;
   }
-  .q-tab-scroller {
+  .q-tabs-scroller {
     width: 100%;
     justify-content: space-around;
   }
