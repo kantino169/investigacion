@@ -7,8 +7,10 @@
           Quasar Framework v{{$q.version}}
         </q-toolbar-title>
       </div>
-      <h1 class="text-center">Kevin y Adrián se la comen</h1>
-      <router-view class="layout-view"></router-view>
+      <h1>Hola</h1>
+      <div class="row">
+        <router-view class="layout-view"></router-view>
+      </div>
     </q-layout>
   </div>
 </template>
@@ -20,4 +22,8 @@
 export default {}
 </script>
 
-<style></style>
+<style>
+  .layout-content {
+    flex-direction: column;
+  }
+</style>
