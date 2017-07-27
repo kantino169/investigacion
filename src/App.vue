@@ -4,11 +4,22 @@
     <q-layout>
       <div slot="header" class="toolbar">
         <q-toolbar-title :padding="0">
-          Quasar Framework v{{$q.version}}
+          <img src="~assets/logo-uap-martin.png" alt="">
         </q-toolbar-title>
       </div>
-      <h1 class="text-center">Kevin y Adrián se la comen</h1>
-      <router-view class="layout-view"></router-view>
+      <div class="row">
+        <router-view class="layout-view"></router-view>
+      </div>  
+      <q-tabs
+        :refs="$refs"
+        default-tab="tab-4"
+        class="justify-between tabs">
+        <q-tab name="tab-1">Login</q-tab>
+        <q-tab name="tab-2">Administrar</q-tab>
+        <q-tab name="tab-3">Proyectos</q-tab>
+        <q-tab name="tab-4">Usuarios</q-tab>
+        <q-tab name="tab-5">Fechas de entrega</q-tab>
+      </q-tabs>
     </q-layout>
   </div>
 </template>
@@ -20,4 +31,15 @@
 export default {}
 </script>
 
-<style></style>
+<style>
+  .layout-content {
+    flex-direction: column;
+  }
+  .q-tab-label {
+    color: white;
+  }
+  .q-tab-scroller {
+    width: 100%;
+    justify-content: space-around;
+  }
+</style>
