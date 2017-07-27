@@ -7,9 +7,6 @@
           <img src="~assets/logo-uap-martin.png" alt="">
         </q-toolbar-title>
       </div>
-      <div class="row">
-        <router-view class="layout-view"></router-view>
-      </div>  
       <q-tabs slot="navigation">
         <q-tab name="tab-1" route="/admins">Login</q-tab>
         <q-tab name="tab-2">Administrar</q-tab>
@@ -17,6 +14,9 @@
         <q-tab name="tab-4">Usuarios</q-tab>
         <q-tab name="tab-5">Fechas de entrega</q-tab>
       </q-tabs>
+      <div class="row">
+        <router-view class="layout-view"></router-view>
+      </div>  
     </q-layout>
   </div>
 </template>
