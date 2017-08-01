@@ -24,6 +24,7 @@ export default new VueRouter({
     { path: '/', component: load('Index') }, // Default
     { path: '/todos', component: load('Todos') },
     { path: '*', component: load('Error404') }, // Not found
-    { path: '/Alumnos', component: load('Alumnos/Alumnos') }
+    { path: '/alumnos', component: load('Alumnos/Alumnos') },
+    { path: '/administradores', component: load('Administradores/Administradores') }
   ]
 })

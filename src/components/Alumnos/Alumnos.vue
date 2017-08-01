@@ -9,9 +9,7 @@
 .row {
   margin-top: 3%;
 }
-
 </style>
-
 
 <script>
 import PerfilAlumno from './PerfilAlumno.vue'
