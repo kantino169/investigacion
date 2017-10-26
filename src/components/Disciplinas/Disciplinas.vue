@@ -12,8 +12,9 @@
       </div>
     </div>
     <div class="row justify-around">
-      <button class="secondary" icon="delete"></button>
-      <button class="primary">Borrar Disciplina</button>
+      <button class="primary"><i>note_add</i></button>
+      <button class="secondary"><i>mode_edit</i></button>
+      <button class="red"><i>delete</i></button>
     </div>
   </div>
 </template>

@@ -27,6 +27,14 @@ export default new VueRouter({
     { path: '/alumnos', component: load('Alumnos/Alumnos') },
     { path: '/administradores', component: load('Administradores/Administradores') },
     { path: '/proyectos', component: load('Proyectos/Proyectos') },
-    { path: '/disciplinas', component: load('Disciplinas/Disciplinas') }
+    { path: '/disciplinas', component: load('Disciplinas/Disciplinas') },
+    { path: '/lineasInvestigacion', component: load('LineasInvestigacion/LineasInvestigacion') },
+    { path: '/fechasEntrega', component: load('FechasEntrega/FechasEntrega') },
+    { path: '/estadisticas', component: load('Estadisticas/Estadisticas') },
+    { path: '/evaluadores', component: load('Evaluadores/Evaluadores') },
+    { path: '/equipos', component: load('Equipos/Equipos') },
+    { path: '/profesores', component: load('Profesores/Profesores') },
+    { path: '/evaluaciones', component: load('Evaluaciones/Evaluaciones') },
+    { path: '/login', component: load('Login') }
   ]
 })

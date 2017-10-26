@@ -1,8 +1,14 @@
 <template>
   <div class="row justify-around">
-    <PerfilAdministrador class="gt-md-width-2of3"/>
+    <PerfilAdministrador class="gt-md-width-1of3"/>
     <MenuAdministrador class="gt-md-width-3of5"/>
+    <div>
+
+    </div>
+  
   </div>
+  
+
 </template>
 
 <style scoped>

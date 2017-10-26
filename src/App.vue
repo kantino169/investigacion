@@ -8,10 +8,9 @@
         </q-toolbar-title>
       </div>
       <q-tabs slot="navigation" v-if="user">
-        <q-tab name="tab-2">Administrar</q-tab>
-        <q-tab name="tab-3">Proyectos</q-tab>
-        <q-tab name="tab-4">Usuarios</q-tab>
-        <q-tab name="tab-5">Fechas de entrega</q-tab>
+        <q-tab name="tab-2"><a class="href" href="/index">Inicio</a></q-tab>
+        <q-tab name="tab-3"><a class="href" href="/index#/proyectos">Proyectos</a></q-tab>
+        <q-tab name="tab-4"><a class="href" href="/index#/login">Login</a></q-tab>    
       </q-tabs>
       <q-tabs v-else>
         <q-tab @click.native="entrar">Login</q-tab>
@@ -56,4 +55,11 @@ export default {
     width: 100%;
     justify-content: space-around;
   }
+  .href{
+    color: white;
+  }
+  a:hover{
+    background-color: white;
+  }
+  
 </style>
