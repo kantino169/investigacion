@@ -1,5 +1,5 @@
 <template>
-  <div class="width-3of5"> 
+  <div> 
     <div class="row wrap justify-around">
         <button class="primary"
           v-for="button of buttons"

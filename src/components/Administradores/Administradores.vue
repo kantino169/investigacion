@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-around">
-    <PerfilAdministrador/>
-    <MenuAdministrador/>
+    <PerfilAdministrador class="gt-md-width-2of3"/>
+    <MenuAdministrador class="gt-md-width-3of5"/>
   </div>
 </template>
 

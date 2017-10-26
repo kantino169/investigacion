@@ -1,5 +1,5 @@
 <template>
-  <div class="width-4of6 justify-center">
+  <div>
     <div class="list">
       <div class="item item-link"
         v-for="proyecto in proyectos"
