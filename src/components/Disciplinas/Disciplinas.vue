@@ -1,16 +1,38 @@
 <template>
-  <div class="row justify-around">
+  <div class="wrapper width-5of6">
+    <div>
+    <h5>Disciplinas</h5> 
+    </div> 
+    <br/>
     <div class="list">
       <div class="item"  >
         <div class="item-content">
-          Disciplina: 
-        </div>
-      </div>
-      <div class="item"  >
-        <div class="item-content">
-            Descripcion?
+          Nombre: 
         </div>
       </div>
     </div>
+    <div class="row justify-around">
+      <button class="secondary" icon="delete"></button>
+      <button class="primary">Borrar Disciplina</button>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.wrapper {
+  margin-top: 1%;
+  margin-left: 1%;
+}
+.row {
+  margin-top: 1%
+}
+button {
+    width: 15%;
+    margin-bottom: 20px;
+    /*height: 80px; */
+  }
+
+  button > i {
+    font-size: 30px;
+  }
+</style>
