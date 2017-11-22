@@ -1,6 +1,6 @@
 <template>
-  <div class="row justify-around">
-    <PerfilAdministrador class="gt-md-width-1of3"/>
+  <div class="wrapper justify-around">
+    <PerfilAdministrador class=" gt-md-width-1of3"/> <br>
     <MenuAdministrador class="gt-md-width-3of5"/>
     <div>
 
@@ -14,6 +14,10 @@
 <style scoped>
 .row {
   margin-top: 3%;
+}
+.wrapper {
+  margin-top: 3%;
+  margin-left: 3%;
 }
 </style>
 
