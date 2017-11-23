@@ -1,8 +1,14 @@
 import axios from 'axios'
 
-const api = axios.create({
-  baseURL: 'http://192.168.1.106:3000/api/'
+let api = axios.create({
+  baseURL: 'http://192.168.50.107:3000/api/'
 })
+
+export function setInstance (url) {
+  api = axios.create({
+    baseURL: `http://${url}:3000/api/`
+  })
+}
 
 function process (promise) {
   return promise.then(r => r.data)
@@ -38,7 +44,14 @@ export async function getProyectos () {
   const proyectos = await process(api.get('proyecto'))
   return proyectos
 }
-
+export async function getProyecto (id) {
+  const proyecto = await process(api.get(`proyecto/${id}`))
+  proyecto.grupo = undefined
+  return proyecto
+}
+export async function editFormularioProyecto (proyecto) {
+  await process(api.put(`proyecto/${proyecto.id}`, proyecto))
+}
 export async function deleteProyecto (id) {
   await api.delete(`proyecto/${id}`)
 }

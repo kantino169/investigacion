@@ -11,8 +11,8 @@
       <q-collapsible icon="description" v-for="proyecto in proyectos" :key="proyecto.id" :label="proyecto.titulo" >
         <div>{{proyecto.resumen}}</div>
         <div style="text-align: center;">
-          <button class="light small"><i class="on-right">remove_red_eye</i>Ver</button>
-          <button class="warning small"><i class="on-right">mode_edit</i>Editar</button>
+          <button class="light small"><i v-link="`/proyectos/${proyecto.id}`" class="on-right">remove_red_eye</i>Ver</button>
+          <button class="warning small" v-link="`/proyectos/${proyecto.id}/editar`"><i class="on-right">mode_edit</i>Editar</button>
           <button class="red small" @click="deleteProject(proyecto.id)"><i class="on-right">delete</i>Borrar</button>
 
         </div>
@@ -44,6 +44,10 @@ export default {
     async deleteProject (id) {
       await api.deleteProyecto(id)
       this.proyectos = this.proyectos.filter(p => p.id !== id)
+    },
+    async getProjecto  (id) {
+      await api.getProyecto(id)
+      this.proyectos = this.proyectos.filter(p => p.id === id)
     }
   }
 }

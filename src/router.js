@@ -21,7 +21,8 @@ export default new VueRouter({
    */
 
   routes: [
-    { path: '/', component: load('Index') }, // Default
+    { path: '/', component: load('SetIP/SetIP') }, // Default
+    { path: '/index', component: load('Index') }, // Default
     { path: '/todos', component: load('Todos') },
     { path: '*', component: load('Error404') }, // Not found
     { path: '/alumnos', component: load('Alumnos/Alumnos') },
@@ -36,6 +37,8 @@ export default new VueRouter({
     { path: '/profesores', component: load('Profesores/Profesores') },
     { path: '/evaluaciones', component: load('Evaluaciones/Evaluaciones') },
     { path: '/login', component: load('Login') },
-    { path: '/proyectos/nuevo', component: load('Proyectos/CargarProyecto') }
+    { path: '/proyectos/nuevo', component: load('Proyectos/CargarProyecto') },
+    { path: '/proyectos/:id', component: load('Proyectos/VerProyecto') },
+    { path: '/proyectos/:id/editar', component: load('Proyectos/EditProyecto') }
   ]
 })
