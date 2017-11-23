@@ -35,6 +35,7 @@ export default new VueRouter({
     { path: '/equipos', component: load('Equipos/Equipos') },
     { path: '/profesores', component: load('Profesores/Profesores') },
     { path: '/evaluaciones', component: load('Evaluaciones/Evaluaciones') },
-    { path: '/login', component: load('Login') }
+    { path: '/login', component: load('Login') },
+    { path: '/proyectos/nuevo', component: load('Proyectos/CargarProyecto') }
   ]
 })

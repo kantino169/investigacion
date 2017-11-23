@@ -29,13 +29,13 @@ import { Dialog } from 'quasar'
 
 export default {
   computed: {
-    user () { return this.$store.state.user }
+    user () { return true }
   },
   mounted () {
-    const user = localStorage.getItem('inv-user')
-    if (user) {
-      this.$store.dispatch('iniciar-sesion', JSON.parse(user))
-    }
+    // const user = localStorage.getItem('inv-user')
+    // if (user) {
+    //   this.$store.dispatch('iniciar-sesion', JSON.parse(user))
+    // }
   },
   methods: {
     entrar () {
