@@ -1,7 +1,7 @@
 <template>
   <div class="adrian">
       <h6>PROTOCOLO PROYECTO DE INVESTIGACION</h6>
-      <q-stepper @finish="finish()" ref="stepper">
+      <q-stepper @finish="finish" ref="stepper">
         <q-step title="I. IDENTIFICACION DEL PROYECTO">
           <div class="stacked-label">
             <q-dialog-select type="radio" class="full-width"
@@ -24,8 +24,6 @@
           </div>
         </q-step>
 
-        <!-- Step specifying when user should be able to jump to next step -->
-
         <q-step title="II. DESCRIPCION DEL PROYECTO" >
           <div class="stacked-label">
             <q-dialog-select type="radio" class="full-width"
@@ -40,7 +38,7 @@
           <div class="stacked-label">
             <q-dialog-select type="toggle" class="full-width"
               :options="disciplinasOptions" v-model="form.disciplinaEstudio"/>
-            <label>2. Disciplina general y area especifica del conocimiento</label>
+            <label>2. Disciplina y area del conocimiento</label>
           </div>
           <input v-model="form.titulo" class="full-width" placeholder="Título del proyecto">
           <textarea v-model="form.resumen" class="full-width" placeholder="4. Resumen tecnico - (entre 150-250 palabras)"></textarea>
@@ -78,20 +76,18 @@
               - Constancia de aprobación del Comité de Ética de la UAP, en caso de trabajar con personas o animales (adjuntar la misma si ya fue presentado al Comité). 
           </div></q-collapsible>
         </q-step>
-
         <q-step title="V. PUBLICACION CIENTIFICA">
           <textarea v-model="form.publicacion" class="full-width" placeholder="1. Presentar un plan viable de publicación de la investigación (Especificar si se pretende publicar los resultados de la investigación en forma de un artículo científico o un libro)."></textarea>
         </q-step>
 
         <q-step title="VI. PRESUPUESTO">
           <input v-model="form.duracion" type="number" class="full-width" placeholder="Estimacion de la duracion del proyecto (expresado en cantidad de años)">
-          <input v-model="form.duracion" type="number" class="full-width" placeholder="Estimacion del tiempo semanal necesario para realizar la investigacion (expresado en cantidad de horas reloj semanal por miembro de equipo)">
+          <input v-model="form.tiempo_semanal" type="number" class="full-width" placeholder="Estimacion del tiempo semanal necesario para realizar la investigacion (expresado en cantidad de horas reloj semanal por miembro de equipo)">
         </q-step>
         <q-step title="VII. REFERENCIAS BIBLIOGRAFICAS">
-          <textarea v-model="form.publicacion" class="full-width" placeholder="1.Listado de referencias bibliograficas (citados en el proyecto)"></textarea>
+          <textarea v-model="form.referencias" class="full-width" placeholder="1.Listado de referencias bibliograficas (citados en el proyecto)"></textarea>
         </q-step>
-      </q-stepper>
-    
+      </q-stepper> 
   </div>
 </template>
 
@@ -101,8 +97,11 @@
   margin-right: 4%;
   margin-left: 4%;
 }
+.stacked-label {
+  margin-bottom: 5px;
+}
 label {
-  margin-top: 2%;
+  margin-top: -1%;
   font-weight: 700;
 }
 textarea {
@@ -111,7 +110,9 @@ textarea {
 </style>
 
 <script>
-import {getModalidades, getUnidadesAcademicas, getGrupoLineaDeInvestigacion, getLineasDeInvestigacion, getDisciplinasDeEstudio} from '../../api'
+import {getModalidades, getUnidadesAcademicas, getGrupoLineaDeInvestigacion, getLineasDeInvestigacion, getDisciplinasDeEstudio, mandarFormularioProyecto} from '../../api'
+import {Toast} from 'quasar'
+
 export default {
   data: () => ({
     modalidades: [],
@@ -121,10 +122,29 @@ export default {
     disciplinasEstudio: [],
     form: {
       modalidad: undefined,
+      director: undefined,
+      codirector: undefined,
+      otros_miembros_uap: undefined,
+      otros_miembros: undefined,
+      asistentes: undefined,
+      becarios: undefined,
       unidadAcademica: [],
       grupo: undefined,
       lineaInvestigacion: [],
-      disciplinaEstudio: []
+      disciplinaEstudio: [],
+      titulo: undefined,
+      resumen: undefined,
+      palabras_clave: undefined,
+      estado_actual: undefined,
+      problema_hipotesis: undefined,
+      justificacion: undefined,
+      objetivos: undefined,
+      metodologia: undefined,
+      anexos: undefined,
+      publicacion: undefined,
+      duracion: undefined,
+      tiempo_semanal: undefined,
+      referencias: undefined
     }
   }),
   computed: {
@@ -172,6 +192,13 @@ export default {
     this.grupos = await getGrupoLineaDeInvestigacion()
     this.unidadesAcademicas = await getUnidadesAcademicas()
     this.disciplinasEstudio = await getDisciplinasDeEstudio()
+  },
+  methods: {
+    async finish () {
+      await mandarFormularioProyecto(this.form)
+      Toast.create.positive('Se ha creado el proyecto con exito')
+      this.$router.push('/proyectos')
+    }
   }
 }
 </script>

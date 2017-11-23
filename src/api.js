@@ -31,3 +31,14 @@ export async function getDisciplinasDeEstudio () {
   const disciplinas = await process(api.get('disciplina'))
   return disciplinas
 }
+export async function mandarFormularioProyecto (proyecto) {
+  await api.post('proyecto', proyecto)
+}
+export async function getProyectos () {
+  const proyectos = await process(api.get('proyecto'))
+  return proyectos
+}
+
+export async function deleteProyecto (id) {
+  await api.delete(`proyecto/${id}`)
+}

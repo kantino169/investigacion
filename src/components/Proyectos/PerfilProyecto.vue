@@ -1,40 +1,45 @@
 <template>
-  <div class="list_with_heading width-1of6">
+  <div class="list_with_heading">
     <h4>Proyectos</h4>
-    <ul id="menuProyecto">
-      <li v-for="proyecto in proyectos" :key="proyecto.id">{{proyecto.nombre}}</li>
-    </ul>
     <div class="row justify-around">
-      <button class="primary circular"
-          v-for="button of buttons"
-          :key="button.title"
-          :title="button.title"
-          v-link="button.link">
-          <i>{{button.icon}}</i>
-        </button>
+      <button class="light full-width"><i class="on-right">note_add</i>Nuevo Proyecto</button>
     </div>
+    <div class="list">
+      <q-collapsible icon="description" v-for="proyecto in proyectos" :key="proyecto.id" :label="proyecto.titulo" >
+        <div>{{proyecto.resumen}}</div>
+        <div style="text-align: center;">
+          <button class="light small"><i class="on-right">remove_red_eye</i>Ver</button>
+          <button class="warning small"><i class="on-right">mode_edit</i>Editar</button>
+          <button class="red small" @click="deleteProject(proyecto.id)"><i class="on-right">delete</i>Borrar</button>
+
+        </div>
+      </q-collapsible>
+    </div>
+    
   </div>
 </template>
-
 <style scoped>
-  .list_with_heading {
-    font-weight: normal;
-  }
-  .row {
-    margin: auto;
-  }
-  
+.list_with_heading {
+  width: 80%;
+}
+.list {
+  margin-top: 10px;
+}
 </style>
 
 <script>
-const proyectos = [
-  {nombre: 'A', id: '1'}, {nombre: 'B', id: '1'}
-]
-const buttons = [
-  {icon: 'note_add', link: '/proyectos/nuevo', title: 'Cargar Proyecto'}, {icon: 'mode_edit', link: '/proyectos/editarproyecto', title: 'Profesores/Investigadores'}
-]
+import * as api from '../../api'
 
 export default {
-  data: () => ({ proyectos, buttons })
+  data: () => ({ proyectos: [] }),
+  async mounted () {
+    this.proyectos = await api.getProyectos()
+  },
+  methods: {
+    async deleteProject (id) {
+      await api.deleteProyecto(id)
+      this.proyectos = this.proyectos.filter(p => p.id !== id)
+    }
+  }
 }
 </script>

@@ -1,7 +1,6 @@
 <template>
   <div class="row justify-around">
     <PerfilProyecto/>
-    <MenuProyecto/>
   </div>
 </template>
 
