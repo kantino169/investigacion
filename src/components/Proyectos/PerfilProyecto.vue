@@ -2,7 +2,10 @@
   <div class="list_with_heading">
     <h4>Proyectos</h4>
     <div class="row justify-around">
-      <button class="light full-width"><i class="on-right">note_add</i>Nuevo Proyecto</button>
+      <button class="light"
+           v-for="button of buttons" :key="button.title"
+           :title="button.title"
+           v-link="button.link"><i>{{button.icon}}</i>Nuevo Proyecto</button>
     </div>
     <div class="list">
       <q-collapsible icon="description" v-for="proyecto in proyectos" :key="proyecto.id" :label="proyecto.titulo" >
@@ -29,9 +32,11 @@
 
 <script>
 import * as api from '../../api'
-
+const buttons = [
+    {icon: 'note_add', link: '/proyectos/nuevo', title: 'Cargar Proyecto'}
+]
 export default {
-  data: () => ({ proyectos: [] }),
+  data: () => ({ proyectos: [], buttons }),
   async mounted () {
     this.proyectos = await api.getProyectos()
   },
