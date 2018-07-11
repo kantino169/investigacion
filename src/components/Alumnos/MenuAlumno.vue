@@ -1,8 +1,8 @@
 <template>
-  <div class="width-3of5">
+  <div >
      <div class="row justify-around ">
-      <button class="primary big">Mis Proyectos</button>
-      <button class="primary big">Mis horas</button>
+      <button class="primary">Mis Proyectos</button>
+      <button class="primary">Mis horas</button>
      </div>
   </div>
 </template>

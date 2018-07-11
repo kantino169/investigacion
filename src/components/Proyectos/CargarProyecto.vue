@@ -110,16 +110,10 @@ textarea {
 </style>
 
 <script>
-import {getModalidades, getUnidadesAcademicas, getGrupoLineaDeInvestigacion, getLineasDeInvestigacion, getDisciplinasDeEstudio, mandarFormularioProyecto} from '../../api'
 import {Toast} from 'quasar'
 
 export default {
   data: () => ({
-    modalidades: [],
-    unidadesAcademicas: [],
-    lineasInvestigacion: [],
-    grupos: [],
-    disciplinasEstudio: [],
     form: {
       modalidad: undefined,
       director: undefined,
@@ -148,26 +142,35 @@ export default {
     }
   }),
   computed: {
+    projectInformation () {
+      return this.$store.state.projectsInformation || {
+        modes: [],
+        academicUnits: [],
+        groups: [],
+        investigationLines: [],
+        studyDisciplines: []
+      }
+    },
     modalidadesOptions () {
-      return this.modalidades.map(m => ({
+      return this.projectInformation.modes.map(m => ({
         label: m.nombre,
         value: m.id
       }))
     },
     unidadOptions () {
-      return this.unidadesAcademicas.map(u => ({
+      return this.projectInformation.academicUnits.map(u => ({
         label: u.nombre,
         value: u.id
       }))
     },
     gruposOptions () {
-      return this.grupos.map(g => ({
+      return this.projectInformation.groups.map(g => ({
         label: g.nombre,
         value: g.id
       }))
     },
     lineasOptions () {
-      return this.lineasInvestigacion
+      return this.projectInformation.investigationLines
         .filter(l => l.id_grupo === this.form.grupo)
         .map(l => ({
           label: l.linea,
@@ -175,7 +178,7 @@ export default {
         }))
     },
     disciplinasOptions () {
-      return this.disciplinasEstudio.map(d => ({
+      return this.projectInformation.studyDisciplines.map(d => ({
         label: d.nombre,
         value: d.id
       }))
@@ -187,15 +190,10 @@ export default {
     }
   },
   async mounted () {
-    this.modalidades = await getModalidades()
-    this.lineasInvestigacion = await getLineasDeInvestigacion()
-    this.grupos = await getGrupoLineaDeInvestigacion()
-    this.unidadesAcademicas = await getUnidadesAcademicas()
-    this.disciplinasEstudio = await getDisciplinasDeEstudio()
+    this.$store.dispatch('load-project-config')
   },
   methods: {
     async finish () {
-      await mandarFormularioProyecto(this.form)
       Toast.create.positive('Se ha creado el proyecto con exito')
       this.$router.push('/proyectos')
     }

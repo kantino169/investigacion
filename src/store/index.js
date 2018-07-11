@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as api from './api'
+import * as api from './fake-api'
+// import * as api from './api'
 
 Vue.use(Vuex)
 
 const state = {
   user: undefined,
-  userList: []
+  userList: [],
+  projects: {},
+  projectsInformation: undefined
 }
 
 const mutations = {
@@ -24,6 +27,20 @@ const mutations = {
       const index = state.userList.indexOf(list.$remove)
       if (index > -1) state.userList.splice(index, 1)
     }
+  },
+
+  'add-or-update-project' (state, {id, project}) {
+    if (id === undefined) return
+    if (state.projects[id]) {
+      state.projects[id] = project
+    }
+    else {
+      Vue.set(state.projects, id, project)
+    }
+  },
+
+  'set-projects-information' (state, payload) {
+    Vue.set(state, 'projectsInformation', Object.assign({}, state.projectsInformation || {}, payload))
   }
 }
 
@@ -36,7 +53,6 @@ const actions = {
     }
     else {
       const user = await api.login(datos)
-      localStorage.setItem('inv-user', JSON.stringify(user))
       store.commit('set-user', user)
       api.setToken(user.token)
     }
@@ -45,7 +61,6 @@ const actions = {
   'cerrar-sesion' (store) {
     api.logout()
       .then(() => store.commit('set-user'))
-      .then(() => localStorage.removeItem('teo-user'))
   },
 
   async 'cambiar-password' (store, {oldPassword, newPassword}) {
@@ -67,12 +82,49 @@ const actions = {
   async 'eliminar-usuario' (store, user) {
     await api.removeUser(user._id)
     store.commit('set-user-list', {$remove: user})
+  },
+
+  async 'load-project' (store, id) {
+    store.commit('add-or-update-project', {id, project: await api.getProyecto(id)})
+  },
+
+  async 'load-projects' (store) {
+    const projects = await api.getProyectos()
+    for (const project of projects) {
+      store.commit('add-or-update-project', {id: project.id, project})
+    }
+  },
+
+  async 'delete-project' (store, id) {
+    await api.deleteProyecto(id)
+    store.commit('add-or-update-project', {id})
+  },
+
+  async 'load-project-config' (store) {
+    const modes = await api.getModalidades()
+    const investigationLines = await api.getLineasDeInvestigacion()
+    const groups = await api.getGrupoLineaDeInvestigacion()
+    const academicUnits = await api.getUnidadesAcademicas()
+    const studyDisciplines = await api.getDisciplinasDeEstudio()
+    store.commit('set-projects-information', {modes, investigationLines, groups, academicUnits, studyDisciplines})
   }
 
 }
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state,
   mutations,
   actions
 })
+
+// store.subscribe(({type, payload}, state) => {
+//   if (type !== 'set-user') return
+//   if (payload) {
+//     localStorage.setItem('inv-user', JSON.stringify(payload))
+//   }
+//   else {
+//     localStorage.removeItem('inv-user')
+//   }
+// })
+
+export default store

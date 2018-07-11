@@ -8,10 +8,10 @@
         </q-toolbar-title>
       </div>
       <q-tabs slot="navigation" v-if="user">
-        <q-tab name="tab-2"><a class="href" href="/index">Inicio</a></q-tab>
-        <q-tab name="tab-3"><a class="href" href="/index#/proyectos">Proyectos</a></q-tab>
-        <q-tab name="tab-4"><a class="href" href="/index#/login">Login</a></q-tab>
-        <q-tab name="tab-5"><a class="href" href="/index#/administradores">Administrar</a></q-tab>    
+        <q-tab name="tab-2" v-link="'/'">Inicio</q-tab>
+        <q-tab name="tab-3" v-link="'/proyectos'">Proyectos</q-tab>
+        <q-tab name="tab-4" v-link="'/administradores'">Administrar</q-tab>    
+        <q-tab name="tab-5" @click.native="salir">Cerrar sesión</q-tab>    
       </q-tabs>
       <q-tabs v-else>
         <q-tab @click.native="entrar">Login</q-tab>
@@ -26,20 +26,18 @@
 <script>
 import LoginDialog from 'components/LoginDialog'
 import { Dialog } from 'quasar'
+// import { mapState } from 'vuex'
 
 export default {
   computed: {
-    user () { return true }
-  },
-  mounted () {
-    // const user = localStorage.getItem('inv-user')
-    // if (user) {
-    //   this.$store.dispatch('iniciar-sesion', JSON.parse(user))
-    // }
+    user () { return this.$store.state.user }
   },
   methods: {
     entrar () {
       Dialog.create(LoginDialog(this))
+    },
+    salir () {
+      this.$store.dispatch('cerrar-sesion')
     }
   }
 }

@@ -27,12 +27,12 @@
         </q-step>
 
         <q-step title="II. DESCRIPCION DEL PROYECTO" >
-          <div class="stacked-label">
+          <!--<div class="stacked-label">
             <q-dialog-select type="radio" class="full-width"
               :options="gruposOptions" :readonly="true" v-model="form.grupo"/>
             <label>1. Grupo de línea de investigación</label>
-          </div>
-          <div class="stacked-label" v-if="form.grupo">
+          </div>-->
+          <div class="stacked-label">
             <q-dialog-select type="toggle" class="full-width"
               :options="lineasOptions" :readonly="true" v-model="form.lineaInvestigacion"/>
             <label>Línea de investigación</label>
@@ -161,7 +161,6 @@ export default {
     },
     lineasOptions () {
       return this.lineasInvestigacion
-        .filter(l => l.id_grupo === this.form.grupo)
         .map(l => ({
           label: l.linea,
           value: l.id
