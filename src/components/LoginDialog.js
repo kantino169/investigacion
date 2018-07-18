@@ -5,7 +5,7 @@ export default that => ({
   form: {
     email: {
       type: 'textbox',
-      label: 'Nombre de usuario',
+      label: 'Correo electrónico',
       model: ''
     },
     password: {

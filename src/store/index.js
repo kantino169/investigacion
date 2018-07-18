@@ -9,7 +9,8 @@ const state = {
   user: undefined,
   userList: [],
   projects: {},
-  projectsInformation: undefined
+  projectsInformation: undefined,
+  investigationLines: [{ id: '0', name: 'linea 1', id_grupo: '1' }]
 }
 
 const mutations = {
@@ -41,6 +42,13 @@ const mutations = {
 
   'set-projects-information' (state, payload) {
     Vue.set(state, 'projectsInformation', Object.assign({}, state.projectsInformation || {}, payload))
+  },
+
+  'remove-investigation-line' (state, line) {
+    const index = state.investigationLines.indexOf(line)
+    if (index > -1) {
+      state.investigationLines.splice(index, 1)
+    }
   }
 }
 
@@ -48,19 +56,16 @@ const actions = {
 
   async 'iniciar-sesion' (store, datos) {
     if (datos.token) {
-      api.setToken(datos.token)
       store.commit('set-user', datos)
     }
     else {
       const user = await api.login(datos)
       store.commit('set-user', user)
-      api.setToken(user.token)
     }
   },
 
   'cerrar-sesion' (store) {
-    api.logout()
-      .then(() => store.commit('set-user'))
+    store.commit('set-user')
   },
 
   async 'cambiar-password' (store, {oldPassword, newPassword}) {
@@ -107,6 +112,14 @@ const actions = {
     const academicUnits = await api.getUnidadesAcademicas()
     const studyDisciplines = await api.getDisciplinasDeEstudio()
     store.commit('set-projects-information', {modes, investigationLines, groups, academicUnits, studyDisciplines})
+  },
+
+  async 'update-investigation-line' (store, line) {
+
+  },
+
+  async 'remove-investigation-line' (store, line) {
+    store.commit('remove-investigation-line', line)
   }
 
 }
@@ -120,10 +133,12 @@ const store = new Vuex.Store({
 // store.subscribe(({type, payload}, state) => {
 //   if (type !== 'set-user') return
 //   if (payload) {
+//     api.setToken(payload.token)
 //     localStorage.setItem('inv-user', JSON.stringify(payload))
 //   }
 //   else {
 //     localStorage.removeItem('inv-user')
+//     api.setToken()
 //   }
 // })
 

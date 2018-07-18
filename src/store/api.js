@@ -18,7 +18,7 @@ export const setToken = token => token ? headers.set('token', token) : headers.d
 // export const login = datos => post('users/session', datos)
 export const login = ({email}) => Promise.resolve({email, token: '123', _id: 'hola'})
 
-export const logout = () => post('users/session', {}, 'DELETE').catch(() => undefined).then(setToken)
+// export const logout = () => post('users/session', {}, 'DELETE').catch(() => undefined).then(setToken)
 
 export const changePassword = ({oldPassword, newPassword, email}) => post('users', {oldPassword, newPassword, email}, 'PUT')
 

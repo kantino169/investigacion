@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import store from './store'
 Vue.use(VueRouter)
 
 function load (component) {
   return () => System.import(`components/${component}.vue`)
+}
+
+function beforeEnter (to, from, next) {
+  if (!store.state.user) next('/')
+  else next()
 }
 
 export default new VueRouter({
@@ -26,7 +31,7 @@ export default new VueRouter({
     { path: '/todos', component: load('Todos') },
     { path: '*', component: load('Error404') }, // Not found
     { path: '/alumnos', component: load('Alumnos/Alumnos') },
-    { path: '/administradores', component: load('Administradores/Administradores') },
+    { path: '/administradores', beforeEnter, component: load('Administradores/Administradores') },
     { path: '/proyectos', component: load('Proyectos/Proyectos') },
     { path: '/disciplinas', component: load('Disciplinas/Disciplinas') },
     { path: '/lineasInvestigacion', component: load('LineasInvestigacion/LineasInvestigacion') },
