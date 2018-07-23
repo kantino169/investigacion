@@ -15,6 +15,8 @@
       </q-tabs>
       <q-tabs v-else>
         <q-tab @click.native="entrar">Login</q-tab>
+        <q-tab @click.native="signup">Crear cuenta</q-tab>
+        <!-- <q-tab name="tab-test" v-link="'test'" >Test</q-tab>   -->
       </q-tabs>
       <div class="row">
         <router-view class="layout-view"></router-view>
@@ -25,6 +27,7 @@
 
 <script>
 import LoginDialog from 'components/LoginDialog'
+import SignupDialog from './components/Usuarios/SignupDialog'
 import { Dialog } from 'quasar'
 // import { mapState } from 'vuex'
 
@@ -35,6 +38,9 @@ export default {
   methods: {
     entrar () {
       Dialog.create(LoginDialog(this))
+    },
+    signup () {
+      Dialog.create(SignupDialog(this))
     },
     salir () {
       this.$store.dispatch('cerrar-sesion')

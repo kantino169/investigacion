@@ -12,7 +12,7 @@ function beforeEnter (to, from, next) {
   else next()
 }
 
-export default new VueRouter({
+const router = new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
    * it is only to be used only for websites.
@@ -32,7 +32,7 @@ export default new VueRouter({
     { path: '*', component: load('Error404') }, // Not found
     { path: '/alumnos', component: load('Alumnos/Alumnos') },
     { path: '/administradores', beforeEnter, component: load('Administradores/Administradores') },
-    { path: '/proyectos', component: load('Proyectos/Proyectos') },
+    { path: '/proyectos', beforeEnter, component: load('Proyectos/Proyectos') },
     { path: '/disciplinas', component: load('Disciplinas/Disciplinas') },
     { path: '/lineasInvestigacion', component: load('LineasInvestigacion/LineasInvestigacion') },
     { path: '/fechasEntrega', component: load('FechasEntrega/FechasEntrega') },
@@ -42,8 +42,20 @@ export default new VueRouter({
     { path: '/profesores', component: load('Profesores/Profesores') },
     { path: '/evaluaciones', component: load('Evaluaciones/Evaluaciones') },
     { path: '/login', component: load('Login') },
-    { path: '/proyectos/nuevo', component: load('Proyectos/CargarProyecto') },
-    { path: '/proyectos/:id', component: load('Proyectos/VerProyecto') },
-    { path: '/proyectos/:id/editar', component: load('Proyectos/EditProyecto') }
+    { path: '/proyectos/nuevo', beforeEnter, component: load('Proyectos/CargarProyecto') },
+    { path: '/proyectos/:id', beforeEnter, component: load('Proyectos/VerProyecto') },
+    { path: '/proyectos/:id/editar', beforeEnter, component: load('Proyectos/EditProyecto') },
+    { path: '/grupos', beforeEnter, component: load('Grupos/Grupos') },
+    { path: '/usuarios', beforeEnter, component: load('Usuarios/Usuarios') },
+    { path: '/test', component: load('Test') }
   ]
 })
+
+store.subscribe(({type, payload}, state) => {
+  if (type !== 'set-user') return
+  if (!payload) {
+    router.replace('/')
+  }
+})
+
+export default router

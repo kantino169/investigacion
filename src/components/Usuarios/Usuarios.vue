@@ -1,22 +1,25 @@
 <template>
 <div>
   <div class="">
-    <h4>Lineas de Investigacion</h4>
+    <h4>Usuarios</h4>
   </div>
   <table class="q-table bordered full-width"> 
       <tr>
         <td>Id</td>
         <td>Nombre</td>
-        <td>Id grupo</td>
+        <td>Email</td>
+        <td>Tipo de usuario</td>
         <td colspan="2"></td>
       </tr>
-      <tr v-for="linea in lineas"
-        :key="linea.id">
-        <td class="">{{linea.id}}</td>
-        <td class="">{{linea.name}}</td>
-        <td class="">{{linea.id_grupo}}</td>
+      <tr v-for="usuario in usuarios"
+        :key="usuario.id">
+        <td class="">{{usuario.id}}</td>
+        <td class="">{{usuario.name}}</td>
+        <td class="">{{usuario.email}}</td>
+        <td class="">{{usuario.tipo_usuario}}</td>
+        <td class=""></td>
         <td><button class="orange" @click="editLine(linea)">Modificar linea</button></td>
-        <td><button class="red" @click="confirmRemoval(linea)">Eliminar linea</button></td>
+        <td><button class="red" @click="confirmRemoval(usuario)">Eliminar usuario</button></td>
       </tr>
     </table>
     <button class="primary ">Crear nueva linea</button>
@@ -29,15 +32,16 @@ import {mapState, mapActions} from 'vuex'
 
 export default {
   computed: {
-    ...mapState({lineas: 'investigationLines'}),
-    groups () {
-      return Array.from(new Set(this.lineas.map(l => l.id_grupo)))
-    }
+    ...mapState({usuarios: 'userList'})
+  },
+  mounted () {
+    this.cargarUsuarios()
   },
   methods: {
     ...mapActions({
       updateLine: 'update-investigation-line',
-      removeLine: 'remove-investigation-line'
+      removeUser: 'eliminar-usuario',
+      cargarUsuarios: 'cargar-usuarios'
     }),
     editLine (linea) {
       Dialog.create({
@@ -62,13 +66,13 @@ export default {
         ]
       })
     },
-    confirmRemoval (linea) {
+    confirmRemoval (usuario) {
       Dialog.create({
-        title: 'Seguro que desea eliminar esta linea?',
+        title: 'Seguro que desea eliminar este usuario?',
         buttons: [
           'No', {
             label: 'Si',
-            handler: () => this.removeLine(linea)
+            handler: () => this.removeUser(usuario)
           }
         ]
       })
