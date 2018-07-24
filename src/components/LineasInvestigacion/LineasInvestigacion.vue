@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="">
-    <h4>Lineas de Investigacion</h4>
+    <h4 style="text-align: center">Lineas de Investigacion</h4>
   </div>
   <table class="q-table bordered full-width"> 
       <tr>
@@ -13,18 +13,18 @@
       <tr v-for="linea in lineas"
         :key="linea.id">
         <td class="">{{linea.id}}</td>
-        <td class="">{{linea.name}}</td>
+        <td class="">{{linea.linea}}</td>
         <td class="">{{linea.id_grupo}}</td>
         <td><button class="orange" @click="editLine(linea)">Modificar linea</button></td>
         <td><button class="red" @click="confirmRemoval(linea)">Eliminar linea</button></td>
       </tr>
     </table>
-    <button class="primary ">Crear nueva linea</button>
+    <button class="primary" @click="newLineCreationDialog()">Crear nueva linea</button>
 </div>
 </template>
 
 <script>
-import {Dialog} from 'quasar'
+import {Dialog, Toast} from 'quasar'
 import {mapState, mapActions} from 'vuex'
 
 export default {
@@ -34,14 +34,42 @@ export default {
       return Array.from(new Set(this.lineas.map(l => l.id_grupo)))
     }
   },
+  mounted () {
+    this.getLineasDeInvestigacion()
+  },
   methods: {
     ...mapActions({
+      createLine: 'create-investigation-line',
       updateLine: 'update-investigation-line',
-      removeLine: 'remove-investigation-line'
+      removeLine: 'remove-investigation-line',
+      getLineasDeInvestigacion: 'get-lines'
     }),
+    newLineCreationDialog () {
+      Dialog.create({
+        title: 'Crear nueva linea de investigacion',
+        form: {
+          name: {
+            type: 'textbox',
+            label: 'Nombre',
+            model: ''
+          },
+          group_id: {
+            type: 'radio',
+            model: '',
+            items: this.groups.map(id => ({label: `Grupo ${id}`, value: id}))
+          }
+        },
+        buttons: [
+          'Cancelar', {
+            label: 'Crear',
+            handler: (data) => { this.createLine(data) }
+          }
+        ]
+      })
+    },
     editLine (linea) {
       Dialog.create({
-        title: 'Editar linea de ivestigacion',
+        title: 'Editar linea de investigacion',
         form: {
           name: {
             type: 'textbox',
@@ -64,12 +92,11 @@ export default {
     },
     confirmRemoval (linea) {
       Dialog.create({
-        title: 'Seguro que desea eliminar esta linea?',
+        title: 'Seguro que desea eliminar esta linea de investigacion?',
         buttons: [
           'No', {
             label: 'Si',
-            handler: () => this.removeLine(linea)
-          }
+            handler: () => this.removeLine(linea).catch((error) => Toast.create.negative({html: error.toString()}))}
         ]
       })
     }

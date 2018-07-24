@@ -14,20 +14,22 @@
       <tr v-for="usuario in usuarios"
         :key="usuario.id">
         <td class="">{{usuario.id}}</td>
-        <td class="">{{usuario.name}}</td>
+        <td class="">{{usuario.nombre}}</td>
         <td class="">{{usuario.email}}</td>
         <td class="">{{usuario.tipo_usuario}}</td>
-        <td class=""></td>
-        <td><button class="orange" @click="editLine(linea)">Modificar linea</button></td>
+        <!-- <td class=""></td> -->
+        <td><button class="green" @click="giveAccessCreationDialog(usuario)">Dar privilegios</button></td>
+        <td><button class="orange" @click="editUserCreationDialog(usuario)">Modificar datos usuario</button></td>
         <td><button class="red" @click="confirmRemoval(usuario)">Eliminar usuario</button></td>
       </tr>
     </table>
-    <button class="primary ">Crear nueva linea</button>
+    <button class="primary" @click="signup">Crear nuevo usuario</button>
 </div>
 </template>
 
 <script>
 import {Dialog} from 'quasar'
+import SignupDialog from '../Usuarios/SignupDialog'
 import {mapState, mapActions} from 'vuex'
 
 export default {
@@ -39,29 +41,30 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateLine: 'update-investigation-line',
+      updateUser: 'update-user',
       removeUser: 'eliminar-usuario',
-      cargarUsuarios: 'cargar-usuarios'
+      cargarUsuarios: 'cargar-usuarios', // listado de los usuarios
+      giveAccess: 'give-access'
     }),
-    editLine (linea) {
+    editUserCreationDialog (usuario) {
       Dialog.create({
-        title: 'Editar linea de ivestigacion',
+        title: 'Editar usuario',
         form: {
           name: {
             type: 'textbox',
             label: 'Nombre',
-            model: linea.name
+            model: usuario.name
           },
-          group_id: {
-            type: 'radio',
-            model: linea.group_id,
-            items: this.groups.map(id => ({label: id, value: id}))
+          email: {
+            type: 'textbox',
+            label: 'Email',
+            model: usuario.email
           }
         },
         buttons: [
           'Cancelar', {
             label: 'Modificar',
-            handler: (data) => { this.updateLine(Object.assign(data, {id: linea.id})) }
+            handler: (data) => { this.updateUser(Object.assign(data, {id: usuario.id})) }
           }
         ]
       })
@@ -73,6 +76,32 @@ export default {
           'No', {
             label: 'Si',
             handler: () => this.removeUser(usuario)
+          }
+        ]
+      })
+    },
+    signup () {
+      console.log('hi')
+      Dialog.create(SignupDialog(this))
+    },
+    giveAccessCreationDialog (usuario) {
+      Dialog.create({
+        title: 'Editar privilegios del usuario', // {{this.usuario.name}}
+        form: {
+          tipo_usuario: {
+            type: 'radio',
+            model: '0',
+            items: [
+              {label: 'Privilegios nivel: Alumno', value: '0'},
+              {label: 'Privilegios nivel: Profesor', value: '1'},
+              {label: 'Privilegios nivel: Administrador', value: '2'}
+            ]
+          }
+        },
+        buttons: [
+          'Cancelar', {
+            label: 'Modificar',
+            handler: (data) => { this.giveAccess(Object.assign(data, {id: usuario.id})) }
           }
         ]
       })

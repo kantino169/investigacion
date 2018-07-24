@@ -28,6 +28,35 @@ export const userList = () => get('usuarios')
 
 export const createUser = ({email, password}) => post('users', {email, password})
 
-export const removeUser = (_id) => post(`usuarios/${_id}`, {}, 'DELETE')
-
 export const getGroups = () => get('grupo')
+
+export const createGroup = (data) => post('grupo', data)
+
+export const updateGroup = (data) => post('grupo', data, 'PUT')
+
+export const deleteGroup = (_id) => post(`grupo/${_id}`, {}, 'DELETE')
+
+// lineas de investigacion
+export const getLineasDeInvestigacion = () => get('linea_investigacion')
+
+export const createInvestigationLine = (data) => post('linea_investigacion', data)
+
+export const updateInvestigationLine = (data) => post('linea_investigacion', data, 'PUT')
+
+export const deleteLine = (_id) => post(`linea_investigacion/${_id}`, {}, 'DELETE')
+
+// disciplinas de estudio
+export const getDisciplinasDeEstudio = () => get('disciplina')
+
+export const createDiscipline = (data) => post('disciplina', data)
+
+export const updateDiscipline = (data) => post('disciplina', data, 'PUT')
+
+export const deleteDiscipline = (_id) => post(`disciplina/${_id}`, {}, 'DELETE')
+
+// usuarios
+export const removeUser = (id) => post(`usuarios/${id}`, {}, 'DELETE')
+
+export const updateUser = (data) => post('usuarios', data, 'PUT')
+
+export const giveAccess = (data) => post('usuarios/privilegios', data, 'PUT')

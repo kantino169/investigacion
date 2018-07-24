@@ -25,7 +25,7 @@
 
 <script>
 const buttons = [
-  {icon: 'description', link: '/proyectos', title: 'Proyectos'}, {icon: 'directions_walk', link: '/usuarios', title: 'Usuarios'}, {icon: 'assignment', link: '/evaluaciones', title: 'Evaluaciones'}, {icon: 'group_work', link: '/grupos', title: 'Grupos'}, {icon: 'reorder', link: '/lineasInvestigacion', title: 'Lineas de Investigacion'}, {icon: 'date_range', link: '/fechasEntrega', title: 'Fechas de entrega'}, {icon: 'assignment_ind', link: '/evaluadores', title: 'Evaluadores'}, {icon: 'important_devices', link: '/equipos', title: 'Equipos'}, {icon: 'list', link: '/disciplinas', title: 'Disciplinas'}
+  {icon: 'description', link: '/proyectos', title: 'Proyectos'}, {icon: 'directions_walk', link: '/usuarios', title: 'Usuarios'}, {icon: 'group_work', link: '/grupos', title: 'Grupos'}, {icon: 'reorder', link: '/lineasInvestigacion', title: 'Lineas de Investigacion'}, {icon: 'list', link: '/disciplinas', title: 'Disciplinas'}, {icon: 'assignment', link: '/evaluaciones', title: 'Evaluaciones'}, {icon: 'date_range', link: '/fechasEntrega', title: 'Fechas de entrega'}, {icon: 'assignment_ind', link: '/evaluadores', title: 'Evaluadores'}, {icon: 'important_devices', link: '/equipos', title: 'Equipos'}
 ]/* {icon: 'face', link: '/alumnos', title: 'Alumnos'},  */
 /* {icon: 'assessment', link: '/estadisticas', title: 'Estadisticas'}, */
 
