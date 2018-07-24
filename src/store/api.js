@@ -22,7 +22,7 @@ export const signup = (datos) => post('usuarios', datos)
 
 // export const logout = () => post('users/session', {}, 'DELETE').catch(() => undefined).then(setToken)
 
-export const changePassword = ({oldPassword, newPassword, email}) => post('users', {oldPassword, newPassword, email}, 'PUT')
+export const changePassword = (data) => post('usuarios/contraseña', data, 'PUT')
 
 export const userList = () => get('usuarios')
 
@@ -60,3 +60,5 @@ export const removeUser = (id) => post(`usuarios/${id}`, {}, 'DELETE')
 export const updateUser = (data) => post('usuarios', data, 'PUT')
 
 export const giveAccess = (data) => post('usuarios/privilegios', data, 'PUT')
+
+// export const updatePassword = (data) => post('usuarios/contraseña', data, 'PUT')

@@ -10,8 +10,9 @@
       <q-tabs slot="navigation" v-if="user">
         <q-tab name="tab-2" v-link="'/'">Inicio</q-tab>
         <q-tab name="tab-3" v-link="'/proyectos'">Proyectos</q-tab>
-        <q-tab name="tab-4" v-link="'/administradores'">Administrar</q-tab>    
-        <q-tab name="tab-5" @click.native="salir">Cerrar sesión</q-tab>    
+        <q-tab name="tab-4" v-link="'/administradores'">Administrar</q-tab>
+        <q-tab name="tab-5" @click.native="changePasswordDialog">Cambiar contraseña</q-tab>    
+        <q-tab name="tab-6" @click.native="salir">Cerrar sesión</q-tab>    
       </q-tabs>
       <q-tabs v-else>
         <q-tab @click.native="entrar">Login</q-tab>
@@ -44,6 +45,34 @@ export default {
     },
     salir () {
       this.$store.dispatch('cerrar-sesion')
+    },
+    changePasswordDialog (user) {
+      Dialog.create({
+        title: 'Contraseña actual',
+        form: {
+          oldPassword: {
+            type: 'password',
+            label: 'Contraseña actual: ',
+            model: ''
+          },
+          newPassword: {
+            type: 'password',
+            label: 'Nueva contraseña: ',
+            model: ''
+          }
+          /* repeatNewPassword: {
+            type: 'password',
+            label: 'Repetir nueva contraseña',
+            model: ''
+          } */
+        },
+        buttons: [
+          'Cancelar', {
+            label: 'Modificar',
+            handler: (data) => { this.updatePassword(Object.assign(data, {email: user.email})) }
+          }
+        ]
+      })
     }
   }
 }

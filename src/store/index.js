@@ -141,7 +141,7 @@ const mutations = {
 // ################################################################################
 // ################################################################################
 const actions = {
-
+  // USERS
   async 'crear-cuenta' (store, datos) {
     await api2.signup(datos)
     await store.dispatch('iniciar-sesion', datos)
