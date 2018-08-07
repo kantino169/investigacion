@@ -2,7 +2,7 @@ const headers = new Headers({
   'Content-Type': 'application/json'
 })
 
-const base = 'http://192.168.1.116:3000/api'
+const base = 'http://192.168.1.103:3000/api'
 
 const get = (url) => fetch(`${base}/${url}`, {headers})
   .then(r => r.json())
@@ -28,6 +28,7 @@ export const userList = () => get('usuarios')
 
 export const createUser = ({email, password}) => post('users', {email, password})
 
+// grupos
 export const getGroups = () => get('grupo')
 
 export const createGroup = (data) => post('grupo', data)
@@ -62,3 +63,4 @@ export const updateUser = (data) => post('usuarios', data, 'PUT')
 export const giveAccess = (data) => post('usuarios/privilegios', data, 'PUT')
 
 // export const updatePassword = (data) => post('usuarios/contraseña', data, 'PUT')
+export const getUnidadesAcademicas = () => get('unidad_academica')

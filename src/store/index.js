@@ -212,8 +212,8 @@ const actions = {
       api.getModalidades(),
       api2.getLineasDeInvestigacion(),
       api2.getGroups(),
-      api.getUnidadesAcademicas(),
-      api.getDisciplinasDeEstudio()
+      api2.getUnidadesAcademicas(),
+      api2.getDisciplinasDeEstudio()
     ])
     store.commit('set-projects-information', {modes, investigationLines, groups, academicUnits, studyDisciplines})
   },

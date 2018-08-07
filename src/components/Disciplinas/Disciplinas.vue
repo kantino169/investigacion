@@ -6,7 +6,7 @@
   <div class="buttons row justify-center">
     <button class="primary" @click="newDisciplineCreationDialog()">Crear nueva disciplina</button>
   </div>
-    <table class="q-table vertical-delimeter bordered full-width"> 
+    <table class="q-table bordered striped  vertical-delimeter full-width"> 
         <tr>
             <th>Id</th>
             <th>Nombre</th>

@@ -81,4 +81,7 @@ export default {
     text-align: center;
     text-transform: uppercase;
   }
+  .row {
+    margin: 10px 10px;
+  }
 </style>
