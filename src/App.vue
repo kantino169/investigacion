@@ -11,7 +11,7 @@
         <q-tab name="tab-2" v-link="'/'">Inicio</q-tab>
         <q-tab name="tab-3" v-link="'/proyectos'">Proyectos</q-tab>
         <q-tab name="tab-4" v-link="'/administradores'">Administrar</q-tab>
-        <q-tab name="tab-5" @click.native="changePasswordDialog">Cambiar contraseña</q-tab>    
+        <q-tab name="tab-5" @click.native="changePasswordDialog()">Cambiar contraseña</q-tab>    
         <q-tab name="tab-6" @click.native="salir">Cerrar sesión</q-tab>    
       </q-tabs>
       <q-tabs v-else>
@@ -27,16 +27,20 @@
 </template>
 
 <script>
-import LoginDialog from 'components/LoginDialog'
-import SignupDialog from './components/Usuarios/SignupDialog'
 import { Dialog } from 'quasar'
-// import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
+import LoginDialog from './components/LoginDialog'
+import SignupDialog from './components/Usuarios/SignupDialog'
+import ChangePasswordDialog from './components/Usuarios/ChangePasswordDialog'
 
 export default {
   computed: {
     user () { return this.$store.state.user }
   },
   methods: {
+    ...mapActions({
+      changePassword: 'cambiar-password'
+    }),
     entrar () {
       Dialog.create(LoginDialog(this))
     },
@@ -46,33 +50,8 @@ export default {
     salir () {
       this.$store.dispatch('cerrar-sesion')
     },
-    changePasswordDialog (user) {
-      Dialog.create({
-        title: 'Contraseña actual',
-        form: {
-          oldPassword: {
-            type: 'password',
-            label: 'Contraseña actual: ',
-            model: ''
-          },
-          newPassword: {
-            type: 'password',
-            label: 'Nueva contraseña: ',
-            model: ''
-          }
-          /* repeatNewPassword: {
-            type: 'password',
-            label: 'Repetir nueva contraseña',
-            model: ''
-          } */
-        },
-        buttons: [
-          'Cancelar', {
-            label: 'Modificar',
-            handler: (data) => { this.updatePassword(Object.assign(data, {email: user.email})) }
-          }
-        ]
-      })
+    changePasswordDialog (errors) {
+      Dialog.create(ChangePasswordDialog(this, errors))
     }
   }
 }
@@ -95,5 +74,11 @@ export default {
   a:hover{
     background-color: white;
   }
-  
+  .buttons {
+    margin: 10px 0;
+  }
+  h4 {
+    text-align: center;
+    text-transform: uppercase;
+  }
 </style>

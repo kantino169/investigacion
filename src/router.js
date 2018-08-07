@@ -46,8 +46,7 @@ const router = new VueRouter({
     { path: '/proyectos/:id', beforeEnter, component: load('Proyectos/VerProyecto') },
     { path: '/proyectos/:id/editar', beforeEnter, component: load('Proyectos/EditProyecto') },
     { path: '/grupos', beforeEnter, component: load('Grupos/Grupos') },
-    { path: '/usuarios', beforeEnter, component: load('Usuarios/Usuarios') },
-    { path: '/test', component: load('Test') }
+    { path: '/usuarios', beforeEnter, component: load('Usuarios/Usuarios') }
   ]
 })
 

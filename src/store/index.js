@@ -25,6 +25,15 @@ const state = {
 // ################################################################################
 // ################################################################################
 const mutations = {
+  // #
+  // #
+  // ################################################################################
+  // ################################################################################
+  // problema: si el admin crea un usuario para otra persona, se le loguea automaticamente con ese user.
+  // ################################################################################
+  // ################################################################################
+  // #####################
+  // #####################
   'set-user' (state, user) {
     state.user = user
   },
@@ -162,7 +171,7 @@ const actions = {
   },
 
   async 'cambiar-password' (store, {oldPassword, newPassword}) {
-    await api.changePassword({oldPassword, newPassword, email: store.state.user.email})
+    await api2.changePassword({oldPassword, newPassword, email: store.state.user.email})
   },
 
   async 'cargar-usuarios' (store) {

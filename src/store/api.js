@@ -2,7 +2,7 @@ const headers = new Headers({
   'Content-Type': 'application/json'
 })
 
-const base = 'http://192.168.1.117:3000/api'
+const base = 'http://192.168.1.116:3000/api'
 
 const get = (url) => fetch(`${base}/${url}`, {headers})
   .then(r => r.json())
@@ -22,7 +22,7 @@ export const signup = (datos) => post('usuarios', datos)
 
 // export const logout = () => post('users/session', {}, 'DELETE').catch(() => undefined).then(setToken)
 
-export const changePassword = (data) => post('usuarios/contraseña', data, 'PUT')
+export const changePassword = (data) => post('usuarios/password', data, 'PUT')
 
 export const userList = () => get('usuarios')
 

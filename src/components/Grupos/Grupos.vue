@@ -1,21 +1,27 @@
 <template>
 <div>
-    <h4 style="text-align: center">Grupos</h4>
-    <table class="q-table bordered full-width"> 
+    <div>
+      <h4 style="text-align: center">Grupos</h4>
+    </div>
+    <div class="buttons row justify-center">
+      <button class="primary " @click="newGroupCreationDialog()">Crear nuevo grupo</button>
+    </div>
+    <table class="q-table bordered vertical-delimiter striped bordered full-width"> 
         <tr>
-            <td>Id</td>
-            <td>Nombre</td>
-            <td colspan="2"></td>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th colspan="2"></th>
         </tr>
-        <tr v-for="grupo in grupos"
-            :key="grupo.id">
-            <td class="">{{grupo.id}}</td>
-            <td class="">{{grupo.nombre}}</td>
-            <td><button class="orange" @click="editGroupCreationDialog(grupo)">Modificar grupo</button></td>
-            <td><button class="red" @click="confirmRemoval(grupo)">Eliminar grupo</button></td>
-        </tr>
+        <tbody>
+          <tr v-for="grupo in grupos"
+              :key="grupo.id">
+              <td class="">{{grupo.id}}</td>
+              <td class="">{{grupo.nombre}}</td>
+              <td><button class="orange" @click="editGroupCreationDialog(grupo)">Modificar grupo</button></td>
+              <td><button class="red" @click="confirmRemoval(grupo)">Eliminar grupo</button></td>
+          </tr>
+        </tbody>
     </table>
-    <button class="primary " @click="newGroupCreationDialog()">Crear nuevo grupo</button>
 </div>
 </template>
 

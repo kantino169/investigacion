@@ -3,32 +3,36 @@
   <div class="">
     <h4>Usuarios</h4>
   </div>
-  <table class="q-table bordered full-width"> 
-      <tr>
-        <td>Id</td>
-        <td>Nombre</td>
-        <td>Email</td>
-        <td>Tipo de usuario</td>
-        <td colspan="2"></td>
-      </tr>
-      <tr v-for="usuario in usuarios"
-        :key="usuario.id">
-        <td class="">{{usuario.id}}</td>
-        <td class="">{{usuario.nombre}}</td>
-        <td class="">{{usuario.email}}</td>
-        <td class="">{{usuario.tipo_usuario}}</td>
-        <!-- <td class=""></td> -->
-        <td><button class="green" @click="giveAccessCreationDialog(usuario)">Dar privilegios</button></td>
-        <td><button class="orange" @click="editUserCreationDialog(usuario)">Modificar datos usuario</button></td>
-        <td><button class="red" @click="confirmRemoval(usuario)">Eliminar usuario</button></td>
-      </tr>
-    </table>
+  <div class="buttons row justify-center">
     <button class="primary" @click="signup">Crear nuevo usuario</button>
+  </div>
+  <table class="q-table bordered vertical-delimiter striped full-width"> 
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Tipo de usuario</th>
+        <th colspan="2"></th>
+      </tr>
+      <tbody>
+        <tr v-for="usuario in usuarios"
+          :key="usuario.id">
+          <td class="">{{usuario.id}}</td>
+          <td class="">{{usuario.nombre}}</td>
+          <td class="">{{usuario.email}}</td>
+          <td class="">{{usuario.tipo_usuario}}</td>
+          <!-- <td class=""></td> -->
+          <td><button class="green" @click="giveAccessCreationDialog(usuario)">Dar privilegios</button></td>
+          <td><button class="orange" @click="editUserCreationDialog(usuario)">Modificar datos usuario</button></td>
+          <td><button class="red" @click="confirmRemoval(usuario)">Eliminar usuario</button></td>
+        </tr>
+      </tbody>
+    </table>
 </div>
 </template>
 
 <script>
-import {Dialog} from 'quasar'
+import {Dialog, Toast} from 'quasar'
 import SignupDialog from '../Usuarios/SignupDialog'
 import {mapState, mapActions} from 'vuex'
 
@@ -48,7 +52,7 @@ export default {
     }),
     editUserCreationDialog (usuario) {
       Dialog.create({
-        title: 'Editar usuario',
+        title: `Editar usuario: ${usuario.nombre}`,
         form: {
           name: {
             type: 'textbox',
@@ -64,14 +68,14 @@ export default {
         buttons: [
           'Cancelar', {
             label: 'Modificar',
-            handler: (data) => { this.updateUser(Object.assign(data, {id: usuario.id})) }
+            handler: (data) => { this.updateUser(Object.assign(data, {id: usuario.id})).then(() => Toast.create.positive({html: 'Usuario modificado con exito'})) }
           }
         ]
       })
     },
     confirmRemoval (usuario) {
       Dialog.create({
-        title: 'Seguro que desea eliminar este usuario?',
+        title: `Seguro que desea eliminar el usuario ${usuario.nombre}?`,
         buttons: [
           'No', {
             label: 'Si',
@@ -101,7 +105,7 @@ export default {
         buttons: [
           'Cancelar', {
             label: 'Modificar',
-            handler: (data) => { this.giveAccess(Object.assign(data, {id: usuario.id})) }
+            handler: (data) => { this.giveAccess(Object.assign(data, {id: usuario.id})).then(() => Toast.create.positive({html: 'Privilegios modificados con exito'})) }
           }
         ]
       })

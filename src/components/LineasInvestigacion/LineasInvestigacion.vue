@@ -3,38 +3,46 @@
   <div class="">
     <h4 style="text-align: center">Lineas de Investigacion</h4>
   </div>
-  <table class="q-table bordered full-width"> 
-      <tr>
-        <td>Id</td>
-        <td>Nombre</td>
-        <td>Id grupo</td>
-        <td colspan="2"></td>
-      </tr>
-      <tr v-for="linea in lineas"
-        :key="linea.id">
-        <td class="">{{linea.id}}</td>
-        <td class="">{{linea.linea}}</td>
-        <td class="">{{linea.id_grupo}}</td>
-        <td><button class="orange" @click="editLine(linea)">Modificar linea</button></td>
-        <td><button class="red" @click="confirmRemoval(linea)">Eliminar linea</button></td>
-      </tr>
-    </table>
+  <div class="buttons row justify-center">
     <button class="primary" @click="newLineCreationDialog()">Crear nueva linea</button>
+  </div>
+  <table class="q-table bordered striped vertical-delimiter full-width"> 
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Grupo</th>
+      </tr>
+      <tbody>
+        <tr v-for="linea in lineas"
+          :key="linea.id">
+          <td class="">{{linea.id}}</td>
+          <td class="">{{linea.linea}}</td>
+          <td class="">{{linea.group.label}}</td>
+          <td><button class="orange" @click="editLine(linea)">Modificar linea</button></td>
+          <td><button class="red" @click="confirmRemoval(linea)">Eliminar linea</button></td>
+        </tr>
+      </tbody>
+    </table>
 </div>
 </template>
 
 <script>
 import {Dialog, Toast} from 'quasar'
-import {mapState, mapActions} from 'vuex'
+import {mapActions} from 'vuex'
 
 export default {
   computed: {
-    ...mapState({lineas: 'investigationLines'}),
+    lineas () {
+      return this.$store.state.investigationLines.map(line => Object.assign({
+        group: this.groups.find(g => g.value === line.id_grupo) || {label: 'Grupo no encontrado'}
+      }, line))
+    },
     groups () {
-      return Array.from(new Set(this.lineas.map(l => l.id_grupo)))
+      return this.$store.state.groups.map(group => ({label: `Grupo ${group.nombre}`, value: group.id}))
     }
   },
   mounted () {
+    this.getGroups()
     this.getLineasDeInvestigacion()
   },
   methods: {
@@ -42,7 +50,8 @@ export default {
       createLine: 'create-investigation-line',
       updateLine: 'update-investigation-line',
       removeLine: 'remove-investigation-line',
-      getLineasDeInvestigacion: 'get-lines'
+      getLineasDeInvestigacion: 'get-lines',
+      getGroups: 'get-groups'
     }),
     newLineCreationDialog () {
       Dialog.create({
@@ -56,7 +65,7 @@ export default {
           group_id: {
             type: 'radio',
             model: '',
-            items: this.groups.map(id => ({label: `Grupo ${id}`, value: id}))
+            items: this.groups
           }
         },
         buttons: [
@@ -79,7 +88,7 @@ export default {
           group_id: {
             type: 'radio',
             model: linea.group_id,
-            items: this.groups.map(id => ({label: id, value: id}))
+            items: this.groups
           }
         },
         buttons: [

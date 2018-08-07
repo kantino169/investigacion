@@ -1,23 +1,27 @@
 <template>
 <div>
   <div>
-    <h4 style="text-align: center">Disciplinas de estudio</h4>
+    <h4>Disciplinas de estudio</h4>
   </div>
-    <table class="q-table bordered full-width"> 
-        <tr>
-            <td>Id</td>
-            <td>Nombre</td>
-            <td colspan="2"></td>
-        </tr>
-        <tr v-for="disciplina in disciplinas"
-            :key="disciplina.id">
-            <td class="">{{disciplina.id}}</td>
-            <td class="">{{disciplina.nombre}}</td>
-            <td><button class="orange" @click="updateDisciplineCreationDialog(disciplina)">Modificar disciplina</button></td>
-            <td><button class="red" @click="confirmRemoval(disciplina)">Eliminar disciplina</button></td>
-        </tr>
-    </table>
+  <div class="buttons row justify-center">
     <button class="primary" @click="newDisciplineCreationDialog()">Crear nueva disciplina</button>
+  </div>
+    <table class="q-table vertical-delimeter bordered full-width"> 
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th colspan="2"></th>
+        </tr>
+        <tbody>
+          <tr v-for="disciplina in disciplinas"
+              :key="disciplina.id">
+              <td class="">{{disciplina.id}}</td>
+              <td class="">{{disciplina.nombre}}</td>
+              <td><button class="orange" @click="updateDisciplineCreationDialog(disciplina)">Modificar disciplina</button></td>
+              <td><button class="red" @click="confirmRemoval(disciplina)">Eliminar disciplina</button></td>
+          </tr>
+        </tbody>
+    </table>
 </div>
 </template>
 
