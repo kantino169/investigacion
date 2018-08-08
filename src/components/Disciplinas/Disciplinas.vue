@@ -6,11 +6,10 @@
   <div class="buttons row justify-center">
     <button class="primary" @click="newDisciplineCreationDialog()">Crear nueva disciplina</button>
   </div>
-    <table class="q-table bordered striped  vertical-delimeter full-width"> 
+    <table class="q-table bordered striped vertical-delimeter full-width"> 
         <tr>
             <th>Id</th>
             <th>Nombre</th>
-            <th colspan="2"></th>
         </tr>
         <tbody>
           <tr v-for="disciplina in disciplinas"

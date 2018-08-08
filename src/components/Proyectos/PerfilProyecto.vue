@@ -14,7 +14,6 @@
           <button class="proy light small" v-link="`/proyectos/${proyecto.id}`"><i class="on-right">remove_red_eye</i>Ver</button>
           <button class="proy warning small" v-link="`/proyectos/${proyecto.id}/editar`"><i class="on-right">mode_edit</i>Editar</button>
           <button class="proy red small" @click="deleteProject(proyecto.id)"><i class="on-right">delete</i>Borrar</button>
-
         </div>
       </q-collapsible>
     </div>

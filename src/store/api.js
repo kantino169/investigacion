@@ -2,7 +2,7 @@ const headers = new Headers({
   'Content-Type': 'application/json'
 })
 
-const base = 'http://192.168.1.103:3000/api'
+const base = 'http://192.168.1.128:3000/api'
 
 const get = (url) => fetch(`${base}/${url}`, {headers})
   .then(r => r.json())
@@ -63,4 +63,16 @@ export const updateUser = (data) => post('usuarios', data, 'PUT')
 export const giveAccess = (data) => post('usuarios/privilegios', data, 'PUT')
 
 // export const updatePassword = (data) => post('usuarios/contraseña', data, 'PUT')
+
+// unidades academicas
 export const getUnidadesAcademicas = () => get('unidad_academica')
+
+//
+export const getModalidades = () => get('modalidades')
+
+// proyectos
+export const getProyectos = () => get('proyecto')
+
+export const createProject = (data) => post('proyecto', data)
+
+export const deleteProject = (_id) => post(`proyecto/${_id}`, {}, 'DELETE')

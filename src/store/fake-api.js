@@ -1,26 +1,21 @@
-export const login = async ({email}) => ({email, token: '123', _id: 'hola'})
+// export const login = async ({email}) => ({email, token: '123', _id: 'hola'})
 
 export const setToken = token => true
 
-export const logout = () => Promise.resolve()
+// export const logout = () => Promise.resolve()
 
 export const changePassword = ({oldPassword, newPassword, email}) => Promise.resolve({oldPassword, newPassword, email})
 
-export const userList = () => Promise.resolve()
+// export const userList = () => Promise.resolve()
 
-export const createUser = ({email, password}) => Promise.resolve({email, password})
+// export const createUser = ({email, password}) => Promise.resolve({email, password})
 
-export const removeUser = (_id) => Promise.resolve(_id)
+// export const removeUser = (_id) => Promise.resolve(_id)
 
-export async function getModalidades () {
-  return [{nombre: 'modalidad 1', id: 1}]
-}
-
-export async function getGrupoLineaDeInvestigacion () {
+/* export async function getGrupoLineaDeInvestigacion () {
   return []
-}
-
-export async function getLineasDeInvestigacion () {
+} */
+/* export async function getLineasDeInvestigacion () {
   return []
 }
 
@@ -44,3 +39,4 @@ export async function getProyecto (id) {
 export async function editFormularioProyecto (proyecto) {}
 
 export async function deleteProyecto (id) {}
+*/

@@ -89,6 +89,7 @@
 
       <div>
         <button class="primary" @click="finish()">Finalizar</button>
+        <button class="red" @click="cancel()">Cancelar</button>
       </div>
   </div>
 </template>
@@ -196,7 +197,11 @@ export default {
   },
   methods: {
     async finish () {
+      this.createProject(this.form)
       Toast.create.positive('Se ha creado el proyecto con exito')
+      this.$router.push('/proyectos')
+    },
+    async cancel () {
       this.$router.push('/proyectos')
     }
   }

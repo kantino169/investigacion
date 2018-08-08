@@ -108,6 +108,17 @@ const mutations = {
     }
   },
 
+  'remove-project' (state, project) {
+    const index = state.projects.indexOf(project)
+    if (index >= -1) {
+      state.projects.splice(index, 1)
+    }
+  },
+
+  'set-projects-list' (state, projects) {
+    state.projects = projects
+  },
+
   'set-groups-list' (state, groups) {
     state.groups = groups
   },
@@ -181,35 +192,32 @@ const actions = {
     }
   },
 
-  async 'crear-usuario' (store, {email, password}) {
-    const user = await api.createUser({email, password})
-    store.commit('set-user-list', {$add: user})
-  },
-
   async 'eliminar-usuario' (store, user) {
     await api2.removeUser(user.id)
     store.commit('set-user-list', {$remove: user})
   },
+  /* async 'crear-usuario' (store, {email, password}) {
+    const user = await api.createUser({email, password})
+    store.commit('set-user-list', {$add: user})
+  }, */
 
-  async 'load-project' (store, id) {
+  /* async 'load-project' (store, id) {
     store.commit('add-or-update-project', {id, project: await api.getProyecto(id)})
   },
-
   async 'load-projects' (store) {
     const projects = await api.getProyectos()
     for (const project of projects) {
       store.commit('add-or-update-project', {id: project.id, project})
     }
-  },
-
-  async 'delete-project' (store, id) {
+  }, */
+  /* async 'delete-project' (store, id) {
     await api.deleteProyecto(id)
     store.commit('add-or-update-project', {id})
-  },
+  }, */
 
   async 'load-project-config' (store) {
     const [modes, investigationLines, groups, academicUnits, studyDisciplines] = await Promise.all([
-      api.getModalidades(),
+      api2.getModalidades(),
       api2.getLineasDeInvestigacion(),
       api2.getGroups(),
       api2.getUnidadesAcademicas(),
@@ -266,6 +274,18 @@ const actions = {
     else {
       throw Error('La disciplina seleccionada no ha podido ser eliminada. Posiblemente este siendo usada en un proyecto.')
     }
+  },
+
+  async 'remove-project' (store, project) {
+    const response = await api2.deleteProject(project.id)
+    if (response.success) {
+      store.commit('remove-project', project)
+    }
+  },
+
+  async 'get-projects' (store) {
+    const projects = await api2.getProyectos()
+    store.commit('set-projects-list', projects)
   },
 
   async 'get-groups' (store) {
