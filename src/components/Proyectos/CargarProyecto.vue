@@ -199,6 +199,7 @@ export default {
     async finish () {
       this.createProject(this.form)
       Toast.create.positive('Se ha creado el proyecto con exito')
+      // a
       this.$router.push('/proyectos')
     },
     async cancel () {
