@@ -1,5 +1,5 @@
 <template>
-  <div class="list item-delimeter adrian">
+  <div class="list item-delimeter margenes-formularios">
       <h4>PROTOCOLO PROYECTO DE INVESTIGACION</h4>
       <q-collapsible label="I. IDENTIFICACION DEL PROYECTO">
         <div class="stacked-label">
@@ -95,11 +95,6 @@
 </template>
 
 <style scoped>
-.adrian {
-  margin-top: 4%;
-  margin-right: 4%;
-  margin-left: 4%;
-}
 .stacked-label {
   margin-bottom: 5px;
 }
@@ -114,6 +109,7 @@ textarea {
 
 <script>
 import {Toast} from 'quasar'
+import {mapActions} from 'vuex'
 
 export default {
   data: () => ({
@@ -193,9 +189,14 @@ export default {
     }
   },
   async mounted () {
-    this.$store.dispatch('load-project-config')
+    // this.$store.dispatch('load-project-config')
+    this.getProjectInformation()
   },
   methods: {
+    ...mapActions({
+      createProject: 'create-project',
+      getProjectInformation: 'load-project-config'
+    }),
     async finish () {
       this.createProject(this.form)
       Toast.create.positive('Se ha creado el proyecto con exito')

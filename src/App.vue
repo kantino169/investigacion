@@ -81,4 +81,10 @@ export default {
     text-align: center;
     text-transform: uppercase;
   }
+  .margenes-formularios {
+  margin: 10px 10px;
+  }
+  .q-table{
+    margin: 10px 10px;
+  }
 </style>

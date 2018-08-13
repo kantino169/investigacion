@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let api = axios.create({
-  baseURL: 'http://192.1.103:3000/api/'
+  baseURL: 'http://192.189.103:3000/api/'
 })
 
 export function setInstance (url) {

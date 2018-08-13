@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as api from './fake-api'
-import * as api2 from './api'
+import * as api from './api'
+
+import group from './group'
 
 Vue.use(Vuex)
 
 const state = {
   user: undefined,
   userList: [],
-  projects: {},
+  projects: [],
   projectsInformation: undefined,
   investigationLines: [],
   groups: [],
@@ -50,7 +51,7 @@ const mutations = {
     }
   },
 
-  'add-or-update-project' (state, {id, project}) {
+  /* 'add-or-update-project' (state, {id, project}) {
     if (id === undefined) return
     if (state.projects[id]) {
       state.projects[id] = project
@@ -58,7 +59,7 @@ const mutations = {
     else {
       Vue.set(state.projects, id, project)
     }
-  },
+  }, */
 
   'set-projects-information' (state, payload) {
     Vue.set(state, 'projectsInformation', Object.assign({}, state.projectsInformation || {}, payload))
@@ -91,6 +92,16 @@ const mutations = {
     }
     else {
       state.groups.push(group)
+    }
+  },
+
+  'save-project' (state, project) {
+    const index = state.projects.findIndex(i => i.id === project.id)
+    if (index > -1) {
+      state.projects.splice(index, 1, project)
+    }
+    else {
+      state.projects.push(project)
     }
   },
 
@@ -163,8 +174,9 @@ const mutations = {
 const actions = {
   // USERS
   async 'crear-cuenta' (store, datos) {
-    await api2.signup(datos)
+    await api.signup(datos)
     await store.dispatch('iniciar-sesion', datos)
+    // store.commit('set-user-list', datos)
   },
 
   async 'iniciar-sesion' (store, datos) {
@@ -172,7 +184,7 @@ const actions = {
       store.commit('set-user', datos)
     }
     else {
-      const user = await api2.login(datos)
+      const user = await api.login(datos)
       store.commit('set-user', user)
     }
   },
@@ -182,18 +194,17 @@ const actions = {
   },
 
   async 'cambiar-password' (store, {oldPassword, newPassword}) {
-    await api2.changePassword({oldPassword, newPassword, email: store.state.user.email})
+    await api.changePassword({oldPassword, newPassword, email: store.state.user.email})
   },
 
   async 'cargar-usuarios' (store) {
-    if (store.state.userList.length === 0) {
-      const list = await api2.userList()
-      store.commit('set-user-list', list)
-    }
+    // if (store.state.userList.length === 0)
+    const list = await api.userList()
+    store.commit('set-user-list', list)
   },
 
   async 'eliminar-usuario' (store, user) {
-    await api2.removeUser(user.id)
+    await api.removeUser(user.id)
     store.commit('set-user-list', {$remove: user})
   },
   /* async 'crear-usuario' (store, {email, password}) {
@@ -217,47 +228,57 @@ const actions = {
 
   async 'load-project-config' (store) {
     const [modes, investigationLines, groups, academicUnits, studyDisciplines] = await Promise.all([
-      api2.getModalidades(),
-      api2.getLineasDeInvestigacion(),
-      api2.getGroups(),
-      api2.getUnidadesAcademicas(),
-      api2.getDisciplinasDeEstudio()
+      api.getModalidades(),
+      api.getLineasDeInvestigacion(),
+      api.getGroups(),
+      api.getUnidadesAcademicas(),
+      api.getDisciplinasDeEstudio()
     ])
     store.commit('set-projects-information', {modes, investigationLines, groups, academicUnits, studyDisciplines})
   },
 
   async 'create-investigation-line' (store, data) {
-    const line = await api2.createInvestigationLine(data)
+    const line = await api.createInvestigationLine(data)
     store.commit('save-investigationLine', line)
   },
 
   async 'create-studyDiscipline' (store, data) {
-    const discipline = await api2.createDiscipline(data)
+    const discipline = await api.createDiscipline(data)
     store.commit('save-studyDiscipline', discipline)
   },
 
   async 'create-group' (store, data) {
-    const group = await api2.createGroup(data)
+    const group = await api.createGroup(data)
     store.commit('save-group', group)
   },
 
-  async 'update-investigation-line' (store, data) {
-    const line = await api2.updateInvestigationLine(data)
-    store.commit('save-investigationLine', line)
+  async 'create-project' (store, data) {
+    const project = await api.createProject(data)
+    store.commit('save-project', project)
+  },
+
+  async 'update-project' ({commit}, data) {
+    const project = await api.updateProject(data)
+    commit('save-project', project)
+  },
+
+  async 'update-investigation-line' ({commit}, data) {
+    const line = await api.updateInvestigationLine(data)
+    commit('save-investigationLine', line)
   },
 
   async 'update-studyDiscipline' (store, data) {
-    const discipline = await api2.updateDiscipline(data)
+    const discipline = await api.updateDiscipline(data)
     store.commit('save-studyDiscipline', discipline)
   },
 
   async 'update-group' (store, data) {
-    const group = await api2.updateGroup(data)
+    const group = await api.updateGroup(data)
     store.commit('save-group', group)
   },
 
   async 'remove-investigation-line' (store, line) {
-    const response = await api2.deleteLine(line.id)
+    const response = await api.deleteLine(line.id)
     if (response.success) {
       store.commit('remove-investigation-line', line)
     }
@@ -267,7 +288,7 @@ const actions = {
   },
 
   async 'remove-studyDiscipline' (store, discipline) {
-    const response = await api2.deleteDiscipline(discipline.id)
+    const response = await api.deleteDiscipline(discipline.id)
     if (response.success) {
       store.commit('remove-studyDiscipline', discipline)
     }
@@ -277,24 +298,29 @@ const actions = {
   },
 
   async 'remove-project' (store, project) {
-    const response = await api2.deleteProject(project.id)
+    const response = await api.deleteProject(project.id)
     if (response.success) {
       store.commit('remove-project', project)
     }
   },
 
   async 'get-projects' (store) {
-    const projects = await api2.getProyectos()
+    const projects = await api.getProyectos()
     store.commit('set-projects-list', projects)
   },
 
+  async 'get-project' (store, id) {
+    const project = await api.getProyecto(id)
+    store.commit('save-project', project)
+  },
+
   async 'get-groups' (store) {
-    const groups = await api2.getGroups()
+    const groups = await api.getGroups()
     store.commit('set-groups-list', groups)
   },
 
   async 'remove-group' (store, group) {
-    const response = await api2.deleteGroup(group.id)
+    const response = await api.deleteGroup(group.id)
     if (response.success) {
       store.commit('remove-group', group)
     }
@@ -303,28 +329,27 @@ const actions = {
     }
   },
 
-  async 'get-users' (store) {
-    const users = await api2.userList()
-    store.commit('set-user-list', users)
-  },
-
+  // async 'get-users' (store) {
+  //   const users = await api.userList()
+  //   store.commit('set-user-list', users)
+  // },
   async 'get-lines' (store) {
-    const investigationLines = await api2.getLineasDeInvestigacion()
+    const investigationLines = await api.getLineasDeInvestigacion()
     store.commit('set-investigationLines-list', investigationLines)
   },
 
   async 'get-disciplines' (store) {
-    const studyDisciplines = await api2.getDisciplinasDeEstudio()
+    const studyDisciplines = await api.getDisciplinasDeEstudio()
     store.commit('set-studyDisciplines-list', studyDisciplines)
   },
 
   async 'give-access' (store, data) {
-    const user = await api2.giveAccess(data)
+    const user = await api.giveAccess(data)
     store.commit('give-access', user)
   },
 
   async 'update-user' (store, data) {
-    const user = await api2.updateUser(data)
+    const user = await api.updateUser(data)
     store.commit('update-user', user)
   }
 
@@ -333,15 +358,11 @@ const actions = {
 const store = new Vuex.Store({
   state,
   mutations,
-  actions
-})
-
-{
-  const user = localStorage.getItem('inv-user')
-  if (user) {
-    store.dispatch('iniciar-sesion', JSON.parse(user))
+  actions,
+  modules: {
+    group
   }
-}
+})
 
 store.subscribe(({type, payload}, state) => {
   if (type !== 'set-user') return
@@ -354,5 +375,12 @@ store.subscribe(({type, payload}, state) => {
     api.setToken()
   }
 })
+
+{
+  const user = localStorage.getItem('inv-user')
+  if (user) {
+    store.dispatch('iniciar-sesion', JSON.parse(user))
+  }
+}
 
 export default store

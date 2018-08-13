@@ -1,7 +1,7 @@
 <template>
-  <div class="wrapper">
-    <h6>PROTOCOLO PROYECTO DE INVESTIGACION</h6>
-    <q-collapsible title="I. IDENTIFICACION DEL PROYECTO">
+  <div class="list item-delimeter margenes-formularios">
+    <h4>PROTOCOLO PROYECTO DE INVESTIGACION</h4>
+    <q-collapsible label="I. IDENTIFICACION DEL PROYECTO">
         <div class="stacked-label">
           <q-dialog-select type="radio" class="full-width"
             :options="modalidadesOptions" v-model="form.id_modalidad"/>
@@ -23,7 +23,7 @@
         </div>
       </q-collapsible>
 
-      <q-collapsible title="II. DESCRIPCION DEL PROYECTO" >
+      <q-collapsible label="II. DESCRIPCION DEL PROYECTO" >
         <div class="stacked-label">
           <q-dialog-select type="radio" class="full-width"
             :options="gruposOptions" v-model="form.grupo"/>
@@ -44,13 +44,13 @@
         <textarea v-model="form.palabras_clave" class="full-width" placeholder="5. Palabras clave - (entre 4 y 6 descriptores tematicos relevantes)"></textarea>
       </q-collapsible>
 
-      <q-collapsible title="III. INTRODUCCION DEL PROYECTO">
+      <q-collapsible label="III. INTRODUCCION DEL PROYECTO">
         <textarea v-model="form.estado_actual" class="full-width" placeholder="1. Estado actual del conocimiento sobre el tema (Marco teorico que incluya la descripcion de los principales datos de la literatura)"></textarea>
         <textarea v-model="form.problema_hipotesis" class="full-width" placeholder="2. Definicion del problema e hipotesis (dependiendo del tipo de estudio)"></textarea>
         <textarea v-model="form.justificacion" class="full-width" placeholder="3. Justificacion cientifica, academica-institucional y social"></textarea>
         <textarea v-model="form.objetivos" class="full-width" placeholder="4. Objetivos"></textarea>
       </q-collapsible>
-      <q-collapsible title="IV. METODOS">
+      <q-collapsible label="IV. METODOS">
         <textarea v-model="form.metodologia" class="full-width" placeholder="1. Metodologia (conforme el tipo de investigacion) "></textarea>
         <q-collapsible icon="help_outline" label="Mas informacion"><div>
           a. Para investigaciones empíricas cuantitativas, cualitativas, cuali-cuantitativas, o experimentales se necesita especificar, como mínimo, los siguientes aspectos con detalles: <br><br>
@@ -75,17 +75,21 @@
             - Constancia de aprobación del Comité de Ética de la UAP, en caso de trabajar con personas o animales (adjuntar la misma si ya fue presentado al Comité). 
         </div></q-collapsible>
       </q-collapsible>
-      <q-collapsible title="V. PUBLICACION CIENTIFICA">
+      <q-collapsible label="V. PUBLICACION CIENTIFICA">
         <textarea v-model="form.publicacion" class="full-width" placeholder="1. Presentar un plan viable de publicación de la investigación (Especificar si se pretende publicar los resultados de la investigación en forma de un artículo científico o un libro)."></textarea>
       </q-collapsible>
 
-      <q-collapsible title="VI. PRESUPUESTO">
+      <q-collapsible label="VI. PRESUPUESTO">
         <input v-model="form.duracion" type="number" class="full-width" placeholder="Estimacion de la duracion del proyecto (expresado en cantidad de años)">
         <input v-model="form.tiempo_semanal" type="number" class="full-width" placeholder="Estimacion del tiempo semanal necesario para realizar la investigacion (expresado en cantidad de horas reloj semanal por miembro de equipo)">
       </q-collapsible>
-      <q-collapsible title="VII. REFERENCIAS BIBLIOGRAFICAS">
+      <q-collapsible label="VII. REFERENCIAS BIBLIOGRAFICAS">
         <textarea v-model="form.referencias" class="full-width" placeholder="1.Listado de referencias bibliograficas (citados en el proyecto)"></textarea>
       </q-collapsible>
+      <div>
+        <button class="primary" @click="finish()">Terminar edicion</button>
+        <button class="red" @click="cancel()">Cancelar</button>
+      </div>
     </div>
 
 </template>
@@ -100,16 +104,13 @@
 </style>
 
 <script>
-import {getModalidades, getUnidadesAcademicas, getGrupoLineaDeInvestigacion, getLineasDeInvestigacion, getDisciplinasDeEstudio, getProyecto, editFormularioProyecto} from '../../api'
+// import {getModalidades, getUnidadesAcademicas, getGrupoLineaDeInvestigacion, getLineasDeInvestigacion, getDisciplinasDeEstudio, getProyecto, editFormularioProyecto} from '../../api'
 import {Toast} from 'quasar'
+import Vue from 'vue'
+import {mapActions} from 'vuex'
 
 export default {
   data: () => ({
-    modalidades: [],
-    unidadesAcademicas: [],
-    lineasInvestigacion: [],
-    grupos: [],
-    disciplinasEstudio: [],
     form: {
       id_modalidad: undefined,
       director: undefined,
@@ -138,26 +139,39 @@ export default {
     }
   }),
   computed: {
+    projectInformation () {
+      return this.$store.state.projectsInformation || {
+        modes: [],
+        academicUnits: [],
+        groups: [],
+        investigationLines: [],
+        studyDisciplines: []
+      }
+    },
+    project () {
+      const id = parseInt(this.$route.params.id, 10)
+      return this.$store.state.projects.find(p => p.id === id) || {}
+    },
     modalidadesOptions () {
-      return this.modalidades.map(m => ({
+      return this.projectInformation.modes.map(m => ({
         label: m.nombre,
         value: m.id
       }))
     },
     unidadOptions () {
-      return this.unidadesAcademicas.map(u => ({
+      return this.projectInformation.academicUnits.map(u => ({
         label: u.nombre,
         value: u.id
       }))
     },
     gruposOptions () {
-      return this.grupos.map(g => ({
+      return this.projectInformation.groups.map(g => ({
         label: g.nombre,
         value: g.id
       }))
     },
     lineasOptions () {
-      return this.lineasInvestigacion
+      return this.projectInformation.investigationLines
         .filter(l => l.id_grupo === this.form.grupo)
         .map(l => ({
           label: l.linea,
@@ -165,7 +179,7 @@ export default {
         }))
     },
     disciplinasOptions () {
-      return this.disciplinasEstudio.map(d => ({
+      return this.projectInformation.studyDisciplines.map(d => ({
         label: d.nombre,
         value: d.id
       }))
@@ -174,20 +188,33 @@ export default {
   watch: {
     'form.grupo' () {
       this.form.lineaInvestigacion = []
+    },
+    project () {
+      for (const k in this.project) {
+        const value = Array.isArray(this.project[k]) ? this.project[k].slice(0) : this.project[k]
+        Vue.set(this.form, k, this.form[k] || value)
+      }
     }
   },
   async mounted () {
-    this.modalidades = await getModalidades()
-    this.lineasInvestigacion = await getLineasDeInvestigacion()
-    this.grupos = await getGrupoLineaDeInvestigacion()
-    this.unidadesAcademicas = await getUnidadesAcademicas()
-    this.disciplinasEstudio = await getDisciplinasDeEstudio()
-    this.form = await getProyecto(this.$route.params.id)
+    const id = parseInt(this.$route.params.id, 10)
+    this.getProjectInformation()
+    // console.log(this.project.titulo)
+    this.getProject(id)
   },
   methods: {
+    ...mapActions({
+      getProjectInformation: 'load-project-config',
+      getProject: 'get-project',
+      updateProject: 'update-project'
+
+    }),
     async finish () {
-      await editFormularioProyecto(this.form)
+      await this.updateProject(this.form)
       Toast.create.positive('Se ha editado el proyecto con exito')
+      this.$router.push('/proyectos')
+    },
+    async cancel () {
       this.$router.push('/proyectos')
     }
   }

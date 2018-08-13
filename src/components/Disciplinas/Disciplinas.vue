@@ -55,7 +55,15 @@ export default {
         buttons: [
           'Cancelar', {
             label: 'Crear',
-            handler: (data) => { this.createDiscipline(data) }
+            handler: async (data) => {
+              try {
+                await this.createDiscipline(data)
+                Toast.create.positive({html: 'Disciplina creada con exito'})
+              }
+              catch (error) {
+                Toast.create.negative({html: 'Error. No ha sido posible crear la disciplinas'})
+              }
+            }
           }
         ]
       })
@@ -67,13 +75,21 @@ export default {
           name: {
             type: 'textbox',
             label: 'Nombre',
-            model: disciplina.name
+            model: disciplina.nombre
           }
         },
         buttons: [
           'Cancelar', {
             label: 'Modificar',
-            handler: (data) => { this.updateDiscipline(Object.assign(data, {id: disciplina.id})) }
+            handler: async (data) => {
+              try {
+                await this.updateDiscipline(Object.assign(data, {id: disciplina.id}))
+                Toast.create.positive({html: 'Disciplina modificada con exito'})
+              }
+              catch (error) {
+                Toast.create.negative({html: 'Error. No se ha podido modificar la disciplina'})
+              }
+            }
           }
         ]
       })
@@ -84,7 +100,7 @@ export default {
         buttons: [
           'No', {
             label: 'Si',
-            handler: () => this.deleteDiscipline(disciplina).catch((error) => Toast.create.negative({html: error.toString()}))}
+            handler: () => this.deleteDiscipline(disciplina).then(() => { Toast.create.positive({html: 'Disciplina eliminada con exito'}) }).catch((error) => Toast.create.negative({html: error.toString()}))}
         ]
       })
     }

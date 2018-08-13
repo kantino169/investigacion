@@ -104,7 +104,7 @@
 </style>
 
 <script>
-import {getModalidades, getUnidadesAcademicas, getGrupoLineaDeInvestigacion, getLineasDeInvestigacion, getDisciplinasDeEstudio, getProyecto} from '../../api'
+// import {getModalidades, getUnidadesAcademicas, getGrupoLineaDeInvestigacion, getLineasDeInvestigacion, getDisciplinasDeEstudio, getProyecto} from '../../api'
 
 export default {
   data: () => ({
@@ -179,12 +179,12 @@ export default {
     }
   },
   async mounted () {
-    this.modalidades = await getModalidades()
+    /* this.modalidades = await getModalidades()
     this.lineasInvestigacion = await getLineasDeInvestigacion()
     this.grupos = await getGrupoLineaDeInvestigacion()
     this.unidadesAcademicas = await getUnidadesAcademicas()
-    this.disciplinasEstudio = await getDisciplinasDeEstudio()
-    this.form = await getProyecto(this.$route.params.id)
+    this.disciplinasEstudio = await getDisciplinasDeEstudio() */
+    // this.form = await getProyecto(this.$route.params.id)
   }
 }
 </script>

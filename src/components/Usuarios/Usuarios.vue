@@ -41,13 +41,13 @@ export default {
     ...mapState({usuarios: 'userList'})
   },
   mounted () {
-    this.cargarUsuarios()
+    this.userList()
   },
   methods: {
     ...mapActions({
       updateUser: 'update-user',
       removeUser: 'eliminar-usuario',
-      cargarUsuarios: 'cargar-usuarios', // listado de los usuarios
+      userList: 'cargar-usuarios', // listado de los usuarios
       giveAccess: 'give-access'
     }),
     editUserCreationDialog (usuario) {
@@ -57,7 +57,7 @@ export default {
           name: {
             type: 'textbox',
             label: 'Nombre',
-            model: usuario.name
+            model: usuario.nombre
           },
           email: {
             type: 'textbox',
@@ -68,7 +68,15 @@ export default {
         buttons: [
           'Cancelar', {
             label: 'Modificar',
-            handler: (data) => { this.updateUser(Object.assign(data, {id: usuario.id})).then(() => Toast.create.positive({html: 'Usuario modificado con exito'})) }
+            handler: async (data) => {
+              try {
+                await this.updateUser(Object.assign(data, {id: usuario.id}))
+                Toast.create.positive({html: 'Usuario modificado con exito'})
+              }
+              catch (error) {
+                Toast.create.negative({html: 'Error. No se ha podido modificar el usuario'})
+              }
+            }
           }
         ]
       })
@@ -90,7 +98,7 @@ export default {
     },
     giveAccessCreationDialog (usuario) {
       Dialog.create({
-        title: 'Editar privilegios del usuario', // {{this.usuario.name}}
+        title: `Editar privilegios del usuario ${usuario.nombre}`,
         form: {
           tipo_usuario: {
             type: 'radio',

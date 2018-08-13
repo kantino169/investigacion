@@ -28,10 +28,11 @@
 
 <script>
 import {Dialog, Toast} from 'quasar'
-import {mapActions} from 'vuex'
+import {mapActions, mapState} from 'vuex'
 
 export default {
   computed: {
+    ...mapState({lineas: 'investigationLines'}),
     lineas () {
       return this.$store.state.investigationLines.map(line => Object.assign({
         group: this.groups.find(g => g.value === line.id_grupo) || {label: 'Grupo no encontrado'}
@@ -83,7 +84,7 @@ export default {
           name: {
             type: 'textbox',
             label: 'Nombre',
-            model: linea.name
+            model: linea.linea
           },
           group_id: {
             type: 'radio',

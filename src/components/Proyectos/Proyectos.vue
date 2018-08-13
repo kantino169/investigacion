@@ -16,6 +16,7 @@
           <tr v-for="proyecto in proyectos" :key="proyecto.id">
             <td>{{proyecto.id}}</td>
             <td>{{proyecto.titulo}}</td>
+            <td><button class="orange" @click="editProyect(proyecto.id)">Modificar proyecto</button></td>
             <td><button class="red" @click="confirmRemoval(proyecto)">Borrar proyecto</button></td>
           </tr>
         </tbody>
@@ -53,6 +54,9 @@ export default {
           }
         ]
       })
+    },
+    editProyect (id) {
+      this.$router.push(`/proyectos/${id}/editar`)
     }
   }
 }

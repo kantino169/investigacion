@@ -2,7 +2,7 @@ const headers = new Headers({
   'Content-Type': 'application/json'
 })
 
-const base = 'http://192.168.1.128:3000/api'
+const base = 'http://192.168.50.112:3000/api'
 
 const get = (url) => fetch(`${base}/${url}`, {headers})
   .then(r => r.json())
@@ -72,6 +72,10 @@ export const getModalidades = () => get('modalidades')
 
 // proyectos
 export const getProyectos = () => get('proyecto')
+
+export const getProyecto = id => get(`proyecto/${id}`)
+
+export const updateProject = project => post('proyecto', project, 'PUT')
 
 export const createProject = (data) => post('proyecto', data)
 

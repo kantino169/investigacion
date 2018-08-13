@@ -68,7 +68,7 @@ export default {
           name: {
             type: 'textbox',
             label: 'Nombre',
-            model: grupo.name
+            model: grupo.nombre
           }
         },
         buttons: [

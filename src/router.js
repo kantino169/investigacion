@@ -26,7 +26,7 @@ const router = new VueRouter({
    */
 
   routes: [
-    { path: '/', component: load('SetIP/SetIP') }, // Default
+    { path: '/', component: load('Index') }, // Default
     { path: '/index', component: load('Index') }, // Default
     { path: '/todos', component: load('Todos') },
     { path: '*', component: load('Error404') }, // Not found

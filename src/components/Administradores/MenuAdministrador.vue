@@ -1,20 +1,33 @@
 <template>
-  <div> 
-    <div class="row wrap justify-around">
-        <button class="primary circular"
+  <div>
+    <div>
+      <h4>Administrar</h4>  
+    </div>
+    <div class="row"> 
+      <div>
+        <table class="q-table bordered striped">
+          <tr></tr>
+            <th>Usuario actual</th>
+          <tbody>
+            <td>{{this.$store.state.user.email}}</td>
+          </tbody>
+        </table>
+      </div>
+      <div class="justify-around">
+        <button class="primary big buttons"
           v-for="button of buttons"
           :key="button.title"
           :title="button.title"
-          v-link="button.link">
-          <i>{{button.icon}}</i>
+          v-link="button.link"><i class="on-left">{{button.icon}}</i>{{button.title}}
         </button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
   button {
-    margin-bottom: 20px;
+    margin: 10px 10px;
     /*height: 80px; */
   }
 

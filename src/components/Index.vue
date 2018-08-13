@@ -10,7 +10,10 @@
     text-align: center; 
   }
   img {
-    width: 100%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 40%;
     height: auto;
   }
 </style>

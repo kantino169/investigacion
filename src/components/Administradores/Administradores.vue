@@ -1,14 +1,8 @@
 <template>
   <div class="wrapper justify-around">
-    <PerfilAdministrador class=" gt-md-width-1of3"/> <br>
-    <MenuAdministrador class="gt-md-width-3of5"/>
-    <div>
-      
-    </div>
-  
+    <!-- <PerfilAdministrador class=" gt-md-width-1of3"/> <br> -->
+    <MenuAdministrador class="gt-md-width-3of5"/>  
   </div>
-  
-
 </template>
 
 <style scoped>
