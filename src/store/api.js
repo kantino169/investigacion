@@ -27,7 +27,8 @@ export const changePassword = (data) => post('usuarios/password', data, 'PUT')
 export const userList = () => get('usuarios')
 
 export const createUser = ({email, password}) => post('users', {email, password})
-
+// entidades no modificables
+export const getFacultades = () => get('facultad')
 // grupos
 export const getGroups = () => get('grupo')
 

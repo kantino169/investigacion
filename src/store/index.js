@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as api from './api'
 
-import group from './group'
+import facultad from './facultad'
 
 Vue.use(Vuex)
 
@@ -360,7 +360,7 @@ const store = new Vuex.Store({
   mutations,
   actions,
   modules: {
-    group
+    facultad
   }
 })
 
