@@ -13,16 +13,32 @@
       <q-item-side icon="perm_identity" />
       <q-item-main label="Usuarios" />
     </q-item>
-    <q-item exact to="/administradores">
-      <q-item-side icon="assignment" />
-      <q-item-main label="Administrar"/>
-    </q-item>
+    <q-collapsible icon="assignment" label="Administrar">
+      <div>
+        <q-item exact to="/lineas">
+          <q-item-side icon="reorder" />
+          <q-item-main label="Lineas de investigacion" />
+        </q-item>
+        <q-item exact to="/disciplinas" >
+          <q-item-side icon='list'/>
+          <q-item-main label="Disciplinas" />
+        </q-item>
+        <q-item exact to="/fechasEntrega">
+          <q-item-side icon="date_range" />
+          <q-item-main label="Fechas de entrega" />
+        </q-item>
+        <q-item exact to="/evaluadores">
+          <q-item-side icon="assignment_ind" />
+          <q-item-main label="Evaluadores" />
+        </q-item>
+      </div>
+    </q-collapsible>
     <q-item exact to="/">
       <q-item-side icon="" />
       <q-item-main label="Reservado"/>
     </q-item>
     <q-item > <!-- cerrar sesion -->
-      <q-item-side icon="" />
+      <q-item-side icon="power_settings_new" />
       <q-item-main label="Cerrar Sesion" />
     </q-item>
   </q-list>

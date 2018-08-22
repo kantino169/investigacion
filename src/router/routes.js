@@ -12,9 +12,9 @@ const routes = [
         }
       },
       {
-        path: '/administradores',
+        path: '/fechasEntrega',
         components: {
-          default: () => import('pages/Administradores/Administradores.vue'),
+          default: () => import('pages/FechasEntrega/FechasEntrega.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
       },
@@ -29,6 +29,27 @@ const routes = [
         path: '/usuarios',
         components: {
           default: () => import('pages/Usuarios/Usuarios.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/lineas',
+        components: {
+          default: () => import('pages/LineasInvestigacion/LineasInvestigacion.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/disciplinas',
+        components: {
+          default: () => import('pages/Disciplinas/Disciplinas.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/evaluadores',
+        components: {
+          default: () => import('pages/Evaluadores/Evaluadores.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
       }
