@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { getSubtree } from './utils'
 
 const path = ['carrera', 'grupo', 'subgrupo', 'linea']
 
@@ -17,16 +18,6 @@ export function agregar (state, facultades) {
 export function agregarCarrera (state, carrera) {
   const carreras = state[carrera.id_facultad].carreras
   Vue.set(carreras, carrera.id, carrera)
-}
-
-function getSubtree (tree, id, current, ...rest) {
-  if (current === undefined) {
-    return tree[id]
-  }
-  for (const idparent in tree) {
-    const value = getSubtree(tree[idparent][`${current}s`], id, ...rest)
-    if (value) return value
-  }
 }
 
 export function agregarGrupo (state, grupo) {

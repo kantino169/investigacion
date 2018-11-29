@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import { setToken } from './interface'
 
 import facultad from './facultad'
+import usuario from './usuario'
 
 Vue.use(Vuex)
 
@@ -13,15 +14,18 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    facultad
+    facultad,
+    usuario
   }
 })
 
 store.subscribe(mutation => {
-  if (mutation.type === 'user/set') {
-    setToken(mutation.payload.token)
-  } else if (mutation.type === 'user/unset') {
-    setToken()
+  if (mutation.type === 'usuario/guardar') {
+    if (mutation.payload) {
+      setToken(mutation.payload.token)
+    } else {
+      setToken()
+    }
   }
 })
 

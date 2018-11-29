@@ -15,7 +15,7 @@
       </q-toolbar>
     </q-layout-header>
 
-    <router-view name="drawer" :leftDrawerOpen="leftDrawerOpen"/>
+    <router-view name="drawer" v-model="leftDrawerOpen"/>
 
     <q-page-container>
       <router-view />

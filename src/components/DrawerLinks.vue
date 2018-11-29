@@ -37,9 +37,21 @@
       <q-item-side icon="" />
       <q-item-main label="Reservado"/>
     </q-item>
-    <q-item > <!-- cerrar sesion -->
+    <q-item v-if="isLogged" @click.native="$emit('logout')"> <!-- cerrar sesion -->
       <q-item-side icon="power_settings_new" />
-      <q-item-main label="Cerrar Sesion" />
+      <q-item-main label="Cerrar Sesión" />
+    </q-item>
+    <q-item v-else @click.native="$emit('login')">
+      <q-item-side icon="person" />
+      <q-item-main label="Iniciar Sesión" />
     </q-item>
   </q-list>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: mapGetters('usuario', ['isLogged'])
+}
+</script>

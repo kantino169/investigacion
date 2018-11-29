@@ -1,4 +1,5 @@
 import axios from 'axios'
+const path = ['facultad', 'carrera', 'grupo', 'subgrupo', 'linea']
 
 export async function cargarTodas ({commit}) {
   const {data: facultades} = await axios.get('facultad')
@@ -27,8 +28,20 @@ export async function crearSubgrupo (store, {nombre, idGrupo}) {
 }
 
 export async function crearLinea ({commit}, {nombre, idSubgrupo}) {
-  const {data: linea} = await axios.post('linea', {nombre, idSubgrupo})
+  const {data: linea} = await axios.post('linea', {nombre, id_subgrupo: idSubgrupo})
   commit('agregarLinea', linea)
+}
+
+export async function modificar ({commit}, {nombre, id, tipo}) {
+  if (!path.includes(tipo)) return
+  await axios.put(`${tipo}/${id}`, {nombre})
+  commit('actualizar', {nombre, id, altura: path.indexOf(tipo)})
+}
+
+export async function eliminar ({commit}, {id, tipo}) {
+  if (!path.includes(tipo)) return
+  await axios.delete(`${tipo}/${id}`)
+  commit('eliminar', {id, altura: path.indexOf(tipo)})
 }
 
 export async function modificarFacultad ({commit}, {nombre, id}) {
@@ -37,6 +50,7 @@ export async function modificarFacultad ({commit}, {nombre, id}) {
 }
 
 export async function modificarCarrera ({commit}, {nombre, id}) {
+  await axios.put(`carrera/${id}`, {nombre})
   commit('actualizar', {nombre, id, altura: 1})
 }
 
