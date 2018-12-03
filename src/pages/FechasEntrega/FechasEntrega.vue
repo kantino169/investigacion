@@ -3,8 +3,9 @@
   <div class="row justify-center">
     <q-table
       title="Fechas de Entrega"
-      :data="tableData"
+      :data="fechasEntrega"
       :columns="columns"
+      row-key="name"
     />
   </div>
   <div class="row justify-center">
@@ -14,10 +15,7 @@
 </template>
 
 <script>
-/* const fechas = [
-  { id: '1', nombre: 'Primer fecha' },
-  { id: '2', nombre: 'Segunda fecha' }
-] */
+import { mapActions } from 'vuex'
 
 export default {
   data: () => ({
@@ -35,6 +33,10 @@ export default {
         label: 'Fecha limite de entrega'
       },
       {
+        name: 'prorroga',
+        label: 'Prorroga'
+      },
+      {
         name: 'informe1',
         label: 'Primer Informe'
       },
@@ -45,13 +47,19 @@ export default {
       {
         name: 'informe3',
         label: 'Tercer Informe'
-      },
-      {
-        name: 'prorroga',
-        label: 'Prorroga'
       }
-    ],
-    tableData: []
-  })
+    ]
+  }),
+  mounted () {
+    this.cargarTodas()
+  },
+  computed: {
+    fechasEntrega () {
+      return this.$store.getters['fechaEntrega/fechasEntrega']
+    }
+  },
+  methods: {
+    ...mapActions('fechaEntrega', ['cargarTodas'])
+  }
 }
 </script>

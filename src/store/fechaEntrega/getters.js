@@ -1,5 +1,6 @@
 const armarLista = state => id => ({
   id,
+  año: state[id].año,
   convocatoria: state[id].convocatoria,
   fecha_limite: state[id].fecha_limite,
   prorroga: state[id].prorroga,
