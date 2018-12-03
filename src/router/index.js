@@ -25,13 +25,13 @@ export default function ({ store }) {
   Router.beforeEach((to, from, next) => {
     if (to.matched.some(route => route.meta.auth)) {
       if (!store.getters['usuario/isLogged']) {
-        console.log(to.matched.some(route => route.meta.auth) && !store.getters['usuario/isLogged'])
         Notify.create({
           type: 'negative',
           message: 'Error, debe haber iniciado sesión para acceder a esta página.'
         })
         return next({
-          path: '/'
+          path: '/',
+          query: { login: true }
         })
       }
     }

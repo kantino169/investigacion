@@ -23,12 +23,25 @@ export default {
       set (val) { this.$emit('input', val) }
     }
   },
+  watch: {
+    '$route.query.login' (val) {
+      console.log('route')
+      if (this.$route.query.login) {
+        this.login()
+        this.$router.replace(this.$route.path)
+      }
+    }
+  },
   methods: {
     ...mapActions('usuario', ['iniciarSesion', 'cerrarSesion']),
     async login () {
       try {
         const {email, password} = await this.$refs.login.getLoginData()
         await this.iniciarSesion({email, password})
+        this.$q.notify({
+          type: 'positive',
+          message: 'Ha iniciado sesión con éxito'
+        })
       } catch (error) {}
     }
   }

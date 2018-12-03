@@ -63,7 +63,14 @@ module.exports = function (ctx) {
         'QStep',
         'QStepperNavigation',
         'QDialog',
-        'QInput'
+        'QInput',
+        'QField',
+        'QSelect',
+        'QTable',
+        'QTh',
+        'QTr',
+        'QTd',
+        'QTableColumns'
       ],
       directives: [
         'Ripple'

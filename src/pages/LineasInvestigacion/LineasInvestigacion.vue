@@ -15,6 +15,16 @@
           :carrera="selected.carrera"
           @set="selected.grupo = $event" />
       </q-step>
+      <q-step name="subgrupo" title="Subgrupo" :subtitle="labels.subgrupo">
+        <subgrupos-step
+          :grupo="selected.grupo"
+          @set="selected.subgrupo = $event" />
+      </q-step>
+      <q-step name="linea" title="Linea" :subtitle="labels.linea">
+        <lineas-step
+          :subgrupo="selected.subgrupo"
+          @set="selected.linea = $event" />
+      </q-step>
     </q-stepper>
   </q-page>
 </template>
@@ -24,6 +34,8 @@ import { mapActions } from 'vuex'
 import FacultadesStep from 'components/LineasInvestigacion/Facultades'
 import CarrerasStep from 'components/LineasInvestigacion/Carreras'
 import GruposStep from 'components/LineasInvestigacion/Grupos'
+import SubgruposStep from 'components/LineasInvestigacion/Subgrupos'
+import LineasStep from 'components/LineasInvestigacion/Lineas'
 
 const selectedModel = () => ({
   facultad: undefined,
@@ -35,7 +47,8 @@ const selectedModel = () => ({
 const order = ['facultad', 'carrera', 'grupo', 'subgrupo', 'linea']
 
 export default {
-  components: {FacultadesStep, CarrerasStep, GruposStep},
+  name: 'LineasInvestigacion',
+  components: {FacultadesStep, CarrerasStep, GruposStep, SubgruposStep, LineasStep},
   mounted () {
     this.cargarTodas()
   },
