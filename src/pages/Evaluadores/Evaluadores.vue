@@ -9,3 +9,21 @@
     </q-list>
   </div>
 </template>
+
+<script>
+import { mapActions } from 'vuex'
+
+export default {
+  mounted () {
+    this.cargarTodos()
+  },
+  computed: {
+    evaluadores () {
+      return this.$store.getters['evaluador/evaluadores']
+    }
+  },
+  methods: {
+    ...mapActions('evaluador', ['cargarTodos'])
+  }
+}
+</script>
