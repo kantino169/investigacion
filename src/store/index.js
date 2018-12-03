@@ -5,6 +5,7 @@ import { setToken } from './interface'
 import facultad from './facultad'
 import usuario from './usuario'
 import fechaEntrega from './fechaEntrega'
+import evaluador from './evaluador'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ const store = new Vuex.Store({
   modules: {
     facultad,
     usuario,
-    fechaEntrega
+    fechaEntrega,
+    evaluador
   }
 })
 
