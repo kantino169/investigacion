@@ -3,7 +3,7 @@
     <span slot="title">Agregar evaluador</span>
     <div slot="body">
       <q-input float-label="Nombre" v-model="datos.nombre" />
-      <q-input float-label="Apellido" v-model="datos.apellido" type="password" />
+      <q-input float-label="Apellido" v-model="datos.apellido"/>
       <q-input float-label="Email" type="email" v-model="datos.email" />
       <q-input float-label="Telefono" type="tel" v-model="datos.telefono" />
       <q-input float-label="Profesion" v-model="datos.profesion" />
