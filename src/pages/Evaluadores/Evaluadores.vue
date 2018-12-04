@@ -32,13 +32,16 @@
         </q-btn-group>
       </q-collapsible>
     </q-list>
+    <form-dialog ref="form" />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import FormDialog from '../../components/FormDialog'
 
 export default {
+  components: {FormDialog},
   mounted () {
     this.cargarTodos()
   },
@@ -48,7 +51,20 @@ export default {
     }
   },
   methods: {
-    ...mapActions('evaluador', ['cargarTodos'])
+    ...mapActions('evaluador', ['cargarTodos']),
+    async agregar () {
+      try {
+        const datos = await this.$refs.form.getData({
+          title: 'Nuevo evaluador',
+          form: {
+            nombre: {label: 'Nombre'},
+            apellido: {label: 'Apellido'}
+          }
+        })
+        console.log(datos)
+      } catch (error) {
+      }
+    }
   }
 }
 </script>

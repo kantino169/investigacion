@@ -44,6 +44,10 @@ export async function eliminar ({commit}, {id, tipo}) {
   commit('eliminar', {id, altura: path.indexOf(tipo)})
 }
 
+export function eliminarFacultad ({dispatch}, {id}) {
+  return dispatch('eliminar', {id, tipo: 'facultad'})
+}
+
 export async function modificarFacultad ({commit}, {nombre, id}) {
   await axios.put(`facultad/${id}`, {nombre})
   commit('actualizar', {nombre, id, altura: 0})

@@ -4,7 +4,7 @@
     <q-table
       title="Fechas de Entrega"
       :data="fechasEntrega"
-      :columns="columns"
+      :columns="$options.columns"
       row-key="name"
     />
   </div>
@@ -17,39 +17,39 @@
 <script>
 import { mapActions } from 'vuex'
 
+const columns = [
+  {
+    name: 'año',
+    label: 'Año'
+  },
+  {
+    name: 'convocatoria',
+    label: 'Propuesta de proyecto'
+  },
+  {
+    name: 'fecha_limite',
+    label: 'Fecha limite de entrega'
+  },
+  {
+    name: 'prorroga',
+    label: 'Prorroga'
+  },
+  {
+    name: 'informe1',
+    label: 'Primer Informe'
+  },
+  {
+    name: 'informe2',
+    label: 'Segundo Informe'
+  },
+  {
+    name: 'informe3',
+    label: 'Tercer Informe'
+  }
+]
+
 export default {
-  data: () => ({
-    columns: [
-      {
-        name: 'año',
-        label: 'Año'
-      },
-      {
-        name: 'propuesta',
-        label: 'Propuesta de proyecto'
-      },
-      {
-        name: 'fechaLimite',
-        label: 'Fecha limite de entrega'
-      },
-      {
-        name: 'prorroga',
-        label: 'Prorroga'
-      },
-      {
-        name: 'informe1',
-        label: 'Primer Informe'
-      },
-      {
-        name: 'informe2',
-        label: 'Segundo Informe'
-      },
-      {
-        name: 'informe3',
-        label: 'Tercer Informe'
-      }
-    ]
-  }),
+  columns: columns.map(obj => ({...obj, field: obj.name})),
   mounted () {
     this.cargarTodas()
   },
