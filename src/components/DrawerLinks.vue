@@ -5,10 +5,6 @@
       <q-item-side icon="home" />
       <q-item-main label="INICIO" />
     </q-item>
-    <q-item exact to="/proyectos">
-      <q-item-side icon="school" />
-      <q-item-main label="Proyectos" />
-    </q-item>
     <q-item exact to="/usuarios">
       <q-item-side icon="perm_identity" />
       <q-item-main label="Usuarios" />
@@ -17,7 +13,7 @@
       <div>
         <q-item exact to="/lineas">
           <q-item-side icon="reorder" />
-          <q-item-main label="Lineas de investigacion" />
+          <q-item-main label="Proyectos" />
         </q-item>
         <q-item exact to="/disciplinas" >
           <q-item-side icon='list'/>
