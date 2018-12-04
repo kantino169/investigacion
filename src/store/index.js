@@ -6,6 +6,7 @@ import facultad from './facultad'
 import usuario from './usuario'
 import fechaEntrega from './fechaEntrega'
 import evaluador from './evaluador'
+import proyecto from './proyecto'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,8 @@ const store = new Vuex.Store({
     facultad,
     usuario,
     fechaEntrega,
-    evaluador
+    evaluador,
+    proyecto
   }
 })
 
