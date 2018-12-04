@@ -3,7 +3,7 @@
     <q-stepper ref="stepper" color="primary" v-model="step" :alternative-labels="alt" vertical>
       <q-step default name="parte1" title="I. IDENTIFICACION DEL PROYECTO">
         <q-select
-          value="modalidad"
+          v-model="datos.modalidad"
           placeholder="Modalidad:"
           :options="modalidades"
         />
@@ -108,15 +108,25 @@ export default {
   data () {
     return {
       step: 'first',
+      datos: {
+        modalidad: undefined,
+        lineaInvestigacion: undefined
+      },
       options: ['contractable', 'step_error']
     }
   },
   mounted () {
     this.cargarModalidades()
+    if (this.$route.query.linea === undefined) {
+      this.$router.replace('/lineas')
+    } else {
+      this.datos.lineaInvestigacion = parseInt(this.$route.query.linea, 10)
+    }
   },
   computed: {
     modalidades () {
       return this.$store.getters['proyecto/modalidades']
+        .map(({id, nombre}) => ({label: nombre, value: id}))
     },
     alt () {
       return this.options.includes('alt')

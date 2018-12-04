@@ -23,7 +23,7 @@
       <q-step name="linea" title="Linea" :subtitle="labels.linea">
         <lineas-step
           :subgrupo="selected.subgrupo"
-          @set="selected.linea = $event" />
+          @set="setLinea" />
       </q-step>
     </q-stepper>
   </q-page>
@@ -72,6 +72,12 @@ export default {
     ...mapActions('facultad', ['cargarTodas']),
     onStep (step) {
       order.slice(order.indexOf(step)).forEach(k => { this.selected[k] = undefined })
+    },
+    setLinea ({id: linea}) {
+      this.$router.push({
+        path: 'proyectos',
+        query: {linea}
+      })
     }
   }
 }

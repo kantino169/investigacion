@@ -23,7 +23,7 @@
         </q-item-main>
       </q-item>
     </q-list>
-    <nuevo-usuario ref="form"/>
+    <form-dialog ref="form"/>
   </div>
 </template>
 
@@ -42,7 +42,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('listaUsuario', ['cargarTodos']),
+    ...mapActions('listaUsuario', ['cargarTodos', 'crear']),
     async agregar () {
       try {
         const datos = await this.$refs.form.getData({
@@ -53,7 +53,7 @@ export default {
             email: {label: 'Email'}
           }
         })
-        console.log(datos)
+        await this.crear(datos)
       } catch (error) {
       }
     }

@@ -9,22 +9,22 @@ export async function cargarTodos ({commit}) {
   commit('agregar', usuarios)
 }
 
-export async function crearUsuario ({commit}, {nombre, email, password}) {
-  const {data: usuario} = await axios.post('usuarios', {nombre, email, password})
+export async function crear ({commit}, {name, email, password}) {
+  const {data: usuario} = await axios.post('usuarios', {name, email, password})
   commit('agregar', {[usuario.id]: usuario})
 }
 
-export async function modificarUsuario ({commit}, {nombre, id, email}) {
+export async function modificar ({commit}, {nombre, id, email}) {
   await axios.put(`usuarios/`, {id, nombre, email})
   commit('actualizar', {nombre, id, email})
 }
 
-export async function eliminarUsuario ({commit}, {id}) {
+export async function eliminar ({commit}, {id}) {
   await axios.delete(`usuarios/${id}`)
   commit('eliminar', {id})
 }
 
 export async function modificarContraseña ({commit}, {email, oldPassword, newPassword}) {
   await axios.put(`usuarios/password`, {email, oldPassword, newPassword})
-  // commit('actualizar', {nombre, id, email})
+  // commit('actualizar', {email})
 }
