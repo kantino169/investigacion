@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-btn color="primary" @click="$emit('add')">Agregar</q-btn>
+    <q-btn color="primary" v-if="isAdmin" @click="$emit('add')">Agregar</q-btn>
 
     <q-list hightlight separator>
       <q-item v-if="!elements.length">
@@ -12,8 +12,8 @@
         <q-item-side>
           <q-btn-group>
             <q-btn color="green" title="Seleccionar" icon="check_circle" @click="$emit('set', element)"/>
-            <q-btn color="orange" title="Editar" icon="edit" @click="$emit('edit', element)"/>
-            <q-btn color="red" title="Eliminar" icon="delete" @click="$emit('remove', element)"/>
+            <q-btn color="orange" title="Editar" v-if="isAdmin" icon="edit" @click="$emit('edit', element)"/>
+            <q-btn color="red" title="Eliminar" v-if="isAdmin" icon="delete" @click="$emit('remove', element)"/>
           </q-btn-group>
         </q-item-side>
       </q-item>
@@ -22,9 +22,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   props: {
     elements: Array
-  }
+  },
+  computed: mapGetters('usuario', ['isAdmin'])
 }
 </script>

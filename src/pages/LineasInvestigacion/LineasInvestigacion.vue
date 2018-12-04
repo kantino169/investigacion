@@ -1,5 +1,6 @@
 <template>
   <q-page class="q-px-lg column">
+    <seleccionador-lineas />
     <q-stepper :value="step" alternative-labels @step="onStep">
       <q-step default name="facultad" title="Facultad" :subtitle="labels.facultad">
         <facultades-step :value="selected.facultad" @set="selected.facultad = $event"/>
@@ -36,6 +37,7 @@ import CarrerasStep from 'components/LineasInvestigacion/Carreras'
 import GruposStep from 'components/LineasInvestigacion/Grupos'
 import SubgruposStep from 'components/LineasInvestigacion/Subgrupos'
 import LineasStep from 'components/LineasInvestigacion/Lineas'
+import SeleccionadorLineas from 'components/Proyecto/SeleccionadorLineas/SeleccionadorLineas.vue'
 
 const selectedModel = () => ({
   facultad: undefined,
@@ -48,7 +50,7 @@ const order = ['facultad', 'carrera', 'grupo', 'subgrupo', 'linea']
 
 export default {
   name: 'LineasInvestigacion',
-  components: {FacultadesStep, CarrerasStep, GruposStep, SubgruposStep, LineasStep},
+  components: {FacultadesStep, CarrerasStep, GruposStep, SubgruposStep, LineasStep, SeleccionadorLineas},
   mounted () {
     this.cargarTodas()
   },

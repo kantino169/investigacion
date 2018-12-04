@@ -2,7 +2,7 @@
   <q-layout-drawer
     v-model="open"
     content-class="bg-grey-2">
-    <drawer-links @login="login" @logout="cerrarSesion" />
+    <drawer-links @login="login" @logout="logout" />
     <login-dialog ref="login"/>
   </q-layout-drawer>
 </template>
@@ -43,6 +43,10 @@ export default {
           message: 'Ha iniciado sesión con éxito'
         })
       } catch (error) {}
+    },
+    logout () {
+      this.cerrarSesion()
+      this.$router.push('/')
     }
   }
 }
