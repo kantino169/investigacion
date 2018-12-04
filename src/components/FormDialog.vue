@@ -33,13 +33,6 @@ export default {
       if (!value && typeof this.reject === 'function') this.reject()
     }
   },
-  form: {
-    email: {
-      label: '',
-      model: '',
-      type: 'text'
-    }
-  },
   methods: {
     getData ({title, ok, cancel, form}) {
       this.title = title
