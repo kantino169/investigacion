@@ -2,6 +2,7 @@
 export function someMutation (state) {
 }
 */
+
 export function guardar (state, {id, email, token} = {}) {
   state.id = id
   state.email = email
