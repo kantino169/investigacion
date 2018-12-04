@@ -1,4 +1,4 @@
-d<template>
+<template>
   <div class="row justify-center">
     <q-stepper ref="stepper" color="primary" v-model="step" :alternative-labels="alt" vertical>
       <q-step default name="parte1" title="I. IDENTIFICACION DEL PROYECTO">
