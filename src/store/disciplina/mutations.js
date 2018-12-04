@@ -11,8 +11,8 @@ export function eliminar (state, {id}) {
 }
 
 export function agregar (state, disciplinas) {
-  for (const id in disciplinas) {
-    Vue.set(state, id, disciplinas[id])
+  for (const disciplina of disciplinas) {
+    Vue.set(state, disciplina.id, disciplina)
   }
 }
 

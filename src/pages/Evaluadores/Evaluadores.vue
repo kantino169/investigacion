@@ -51,14 +51,20 @@ export default {
     }
   },
   methods: {
-    ...mapActions('evaluador', ['cargarTodos']),
+    ...mapActions('evaluador', ['cargarTodos', 'crear', 'modificar', 'eliminar']),
     async agregar () {
       try {
         const datos = await this.$refs.form.getData({
           title: 'Nuevo evaluador',
           form: {
             nombre: {label: 'Nombre'},
-            apellido: {label: 'Apellido'}
+            apellido: {label: 'Apellido'},
+            email: {label: 'Email'},
+            telefono: {label: 'Telefono'},
+            profesion: {label: 'Profesion'},
+            especialidad: {label: 'Especialidad'},
+            dni: {label: 'DNI'},
+            lugarTrabajo: {label: 'Lugar de Trabajo'}
           }
         })
         console.log(datos)
