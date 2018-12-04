@@ -29,10 +29,10 @@
 
 <script>
 import { mapActions } from 'vuex'
-import NuevoUsuario from '../components/Usuarios/Nuevo'
+import FormDialog from '../../components/FormDialog'
 
 export default {
-  components: {NuevoUsuario},
+  components: {FormDialog},
   mounted () {
     this.cargarTodos()
   },
@@ -44,6 +44,18 @@ export default {
   methods: {
     ...mapActions('listaUsuario', ['cargarTodos']),
     async agregar () {
+      try {
+        const datos = await this.$refs.form.getData({
+          title: 'Nuevo Usuario',
+          form: {
+            name: {label: 'Nombre'},
+            password: {label: 'Password', type: 'password'},
+            email: {label: 'Email'}
+          }
+        })
+        console.log(datos)
+      } catch (error) {
+      }
     }
   },
   filters: {
