@@ -11,6 +11,21 @@ const routes = [
           default: () => import('pages/Index.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('layouts/MyLayout.vue'),
+    meta: { auth: true },
+    children: [
+      // Autenticadas
+      {
+        path: '/lineas',
+        components: {
+          default: () => import('pages/LineasInvestigacion/LineasInvestigacion.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
       },
       {
         path: '/fechasEntrega',
@@ -51,21 +66,6 @@ const routes = [
         path: '/evaluadores',
         components: {
           default: () => import('pages/Evaluadores/Evaluadores.vue'),
-          drawer: () => import('layouts/Drawer.vue')
-        }
-      }
-    ]
-  },
-  {
-    path: '/',
-    component: () => import('layouts/MyLayout.vue'),
-    meta: { auth: true },
-    children: [
-      // Autenticadas
-      {
-        path: '/lineas',
-        components: {
-          default: () => import('pages/LineasInvestigacion/LineasInvestigacion.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
       }
