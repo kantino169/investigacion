@@ -28,7 +28,7 @@ export async function crearSubgrupo (store, {nombre, idGrupo}) {
 }
 
 export async function crearLinea ({commit}, {nombre, idSubgrupo}) {
-  const {data: linea} = await axios.post('linea', {nombre, id_subgrupo: idSubgrupo})
+  const {data: linea} = await axios.post('linea', {nombre, idSubgrupo})
   commit('agregarLinea', linea)
 }
 
@@ -59,13 +59,16 @@ export async function modificarCarrera ({commit}, {nombre, id}) {
 }
 
 export async function modificarGrupo ({commit}, {nombre, id}) {
+  await axios.put(`grupo/${id}`, {nombre})
   commit('actualizar', {nombre, id, altura: 2})
 }
 
 export async function modificarSubgrupo ({commit}, {nombre, id}) {
+  await axios.put(`subgrupo/${id}`, {nombre})
   commit('actualizar', {nombre, id, altura: 3})
 }
 
 export async function modificarLinea ({commit}, {nombre, id}) {
+  await axios.put(`linea/${id}`, {nombre})
   commit('actualizar', {nombre, id, altura: 4})
 }

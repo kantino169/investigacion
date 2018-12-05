@@ -2,8 +2,8 @@
   <lista-con-botones
     :elements="carreras"
     @set="$emit('set', $event)"
-    @edit="$emit('edit', $event)"
-    @remove="$emit('remove', $event)"
+    @edit="editar($event)"
+    @remove="remover($event)"
     @add="agregar()">
     No hay carreras actualmente
   </lista-con-botones>
@@ -39,7 +39,7 @@ export default {
     async editar ({id, nombre: nombreAnterior}) {
       try {
         const nombre = await this.$q.dialog({
-          title: 'Modificar facultad',
+          title: 'Modificar Carrera',
           message: 'Nombre:',
           prompt: {model: nombreAnterior, type: 'text'}
         })
