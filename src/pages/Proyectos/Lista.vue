@@ -3,7 +3,7 @@
     <q-btn class="q-ma-sm" label="Agregar" to="/proyectos" icon="create" @click="$emit('add')"></q-btn>
     <q-list>
       <q-list-header>Proyectos</q-list-header>
-      <q-item highlight v-for="proyecto in proyectos" :key="proyecto.id" class="row">
+      <q-item separator highlight v-for="proyecto in proyectos" :key="proyecto.id" class="row">
         <q-item-main class="row">
           <div class="col-4">
             {{proyecto.titulo}}
