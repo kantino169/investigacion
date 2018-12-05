@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-export async function cargarTodos({ commit }) {
+export async function cargarTodos ({ commit }) {
   const { data: evaluadores } = await axios.get('evaluadores')
   commit('agregar', evaluadores)
 }
 
-export async function crear(
+export async function crear (
   { commit },
   {
     nombre,
@@ -31,7 +31,7 @@ export async function crear(
   commit('agregar', [evaluador])
 }
 
-export async function modificar(
+export async function modificar (
   { commit },
   {
     nombre,
@@ -58,7 +58,7 @@ export async function modificar(
   commit('actualizar', evaluador)
 }
 
-export async function eliminar({ commit }, { id }) {
+export async function eliminar ({ commit }, { id }) {
   const {
     data: { success }
   } = await axios.delete(`evaluadores/${id}`)
