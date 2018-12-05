@@ -42,7 +42,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('listaUsuario', ['cargarTodos', 'crear']),
+    ...mapActions('listaUsuario', ['cargarTodos', 'crear', 'modificar', 'eliminar']),
     async agregar () {
       try {
         const datos = await this.$refs.form.getData({
@@ -54,6 +54,21 @@ export default {
           }
         })
         await this.crear(datos)
+      } catch (error) {
+      }
+    },
+    async editar (usuario) {
+      try {
+        const id = usuario.id
+        const datos = await this.$refs.form.getData({
+          title: 'Modificar usuario',
+          form: {
+            name: {label: 'Nombre', model: usuario.nombre},
+            email: {label: 'Email', model: usuario.email}
+            // password: {label: 'Lugar de Trabajo', model: evaluador.lugarTrabajo}
+          }
+        })
+        await this.modificar({id, ...datos})
       } catch (error) {
       }
     }

@@ -5,15 +5,13 @@ export function someMutation (state) {
 import Vue from 'vue'
 
 export function agregar (state, usuarios) {
-  for (const id in usuarios) {
-    Vue.set(state, id, usuarios[id])
+  for (const usuario of usuarios) {
+    Vue.set(state, usuario.id, usuario)
   }
 }
 
-export function actualizar (state, {id, email, name}) {
-  state[id].name = name
-  state[id].id = id
-  state[id].email = email
+export function actualizar (state, usuario) {
+  state[usuario.id] = usuario
 }
 
 export function eliminarTodos (state) {

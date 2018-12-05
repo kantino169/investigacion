@@ -14,9 +14,9 @@ export async function crear ({commit}, {name, email, password}) {
   commit('agregar', {[usuario.id]: usuario})
 }
 
-export async function modificar ({commit}, {nombre, id, email}) {
-  await axios.put(`usuarios/`, {id, nombre, email})
-  commit('actualizar', {nombre, id, email})
+export async function modificar ({commit}, {name, id, email}) {
+  const {data: usuario} = await axios.put('usuarios', {id, name, email})
+  commit('actualizar', {[usuario.id]: usuario})
 }
 
 export async function eliminar ({commit}, {id}) {
