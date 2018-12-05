@@ -49,8 +49,10 @@ export function eliminar (state, {id, altura}) {
   if (altura === 0) {
     parent = state
   } else {
-    const subtree = getSubtree(state, id, ...path.slice(0, altura))
-    console.log(subtree)
+    const instance = getSubtree(state, id, ...path.slice(0, altura))
+    const idAttr = Object.keys(instance).find(k => k.indexOf('id_') === 0)
+    const parentId = instance[idAttr]
+    const subtree = getSubtree(state, parentId, ...path.slice(0, altura - 1))
     parent = subtree[`${path[altura - 1]}s`]
   }
   Vue.delete(parent, id)
