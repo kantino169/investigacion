@@ -3,7 +3,7 @@
     <q-stepper ref="stepper" color="primary" v-model="step" :alternative-labels="alt" vertical>
       <q-step default name="parte1" title="I. IDENTIFICACION DEL PROYECTO">
         <q-select
-          v-model="datos.id_modalidad"
+          v-model="datos.idModalidad"
           placeholder="1. Modalidad:"
           :options="modalidades"
         />
@@ -124,7 +124,7 @@ export default {
     return {
       step: 'first',
       datos: {
-        id_modalidad: undefined,
+        idModalidad: undefined,
         lineaInvestigacion: undefined,
         director_id: undefined,
         codirector_id: undefined,
@@ -179,7 +179,7 @@ export default {
   methods: {
     ...mapActions('proyecto', ['cargarModalidades', 'cargarUnidadesAcademicas', 'agregar']),
     async crear (datos) {
-      await this.agregar(this.datos)
+      await this.agregar(this.datos) // .then(() => { this.$router.push('/listaProyectos') })
       this.$router.push('/listaProyectos')
     }
   }
