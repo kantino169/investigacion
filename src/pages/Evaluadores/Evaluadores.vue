@@ -28,7 +28,7 @@
         </q-item>
         <q-btn-group class="q-ml-md">
           <q-btn color="orange" title="Editar" icon="edit" @click="editar(evaluador)"/>
-          <q-btn color="red" title="Eliminar" icon="delete" @click="eliminar(evaluador)"/>
+          <q-btn color="red" title="Eliminar" icon="delete" @click="borrar(evaluador)"/>
         </q-btn-group>
       </q-collapsible>
     </q-list>
