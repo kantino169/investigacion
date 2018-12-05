@@ -17,6 +17,12 @@ export async function cargarUnidadesAcademicas ({commit}) {
 }
 
 export async function agregar ({commit}, datos) {
+  console.log(datos)
   const {data: proyecto} = await axios.post('proyecto', {datos})
   commit('agregar', {[proyecto.id]: proyecto})
+}
+
+export async function eliminar ({ commit }, { id }) {
+  await axios.delete(`proyecto/${id}`)
+  commit('eliminar', { id })
 }
