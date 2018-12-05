@@ -11,7 +11,7 @@
     </q-item>
     <q-collapsible icon="assignment" label="Administrar">
       <div>
-        <q-item exact to="/lineas">
+        <q-item exact to="/proyectos">
           <q-item-side icon="reorder" />
           <q-item-main label="Proyectos" />
         </q-item>

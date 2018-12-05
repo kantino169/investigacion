@@ -35,6 +35,7 @@ store.subscribe(mutation => {
       setToken(mutation.payload.token)
       localStorage.setItem('inv-session', JSON.stringify(mutation.payload))
     } else {
+      localStorage.clear('inv-session')
       setToken()
     }
   }
