@@ -17,3 +17,7 @@ export function agregar (state, proyectos) {
     Vue.set(state, proyecto.id, proyecto)
   }
 }
+
+export function eliminar (state, {id}) {
+  Vue.delete(state, id)
+}
