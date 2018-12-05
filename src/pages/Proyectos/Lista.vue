@@ -1,6 +1,6 @@
 <template>
   <div class="row-full-width">
-    <q-btn class="q-ma-sm" label="Agregar" icon="create" @click="$emit('add')"></q-btn>
+    <q-btn class="q-ma-sm" label="Agregar" to="/proyectos" icon="create" @click="$emit('add')"></q-btn>
     <q-list>
       <q-list-header>Proyectos</q-list-header>
       <q-item highlight v-for="proyecto in proyectos" :key="proyecto.id" class="row">
