@@ -3,20 +3,20 @@
     <q-stepper ref="stepper" color="primary" v-model="step" :alternative-labels="alt" vertical>
       <q-step default name="parte1" title="I. IDENTIFICACION DEL PROYECTO">
         <q-select
-          v-model="datos.modalidad"
+          v-model="datos.id_modalidad"
           placeholder="1. Modalidad:"
           :options="modalidades"
         />
         <seleccionador-lineas v-model="datos.lineaInvestigacion" />
-        <q-input v-model="datos.director" float-label="Director"></q-input>
-        <q-input v-model="datos.codirector" float-label="Co-director/es"></q-input>
+        <q-input v-model="datos.director_id" float-label="Director"></q-input>
+        <q-input v-model="datos.codirector_id" float-label="Co-director/es"></q-input>
         <q-collapsible icon="help_outline" label="Mas informacion">
           <div>
             En caso de proyecto TESIS, agregar nombre  del director o consejero de la TESIS
           </div>
         </q-collapsible>
-        <q-input v-model="datos.otrosMiembrosUap" type="textarea" float-label="Otros miembros del equipo de investigacion de la UAP"></q-input>
-        <q-input v-model="datos.otrosMiembros" type="textarea" float-label="Otros miembros del equipo de investigación externos a la Institución"></q-input>
+        <q-input v-model="datos.otros_miembros_uap" type="textarea" float-label="Otros miembros del equipo de investigacion de la UAP"></q-input>
+        <q-input v-model="datos.otros_miembros" type="textarea" float-label="Otros miembros del equipo de investigación externos a la Institución"></q-input>
         <q-input v-model="datos.asistentes" type="textarea" float-label="Asistentes de investigacion"></q-input>
         <q-input v-model="datos.becarios" type="textarea" float-label="Becarios de investigacion"></q-input>
         <q-select
@@ -31,15 +31,15 @@
       <q-step name="parte2" title="II. DESCRIPCION DEL PROYECTO">
         <q-input v-model="datos.titulo" float-label="Titulo del proyecto"></q-input>
         <q-input v-model="datos.resumen" type="textarea" float-label="4. Resumen tecnico - (entre 150-250 palabras)"></q-input>
-        <q-input v-model="datos.palabarasClave" type="textarea" float-label="5. Palabras clave - (entre 4 y 6 descriptores tematicos relevantes)"></q-input>
+        <q-input v-model="datos.palabaras_clave" type="textarea" float-label="5. Palabras clave - (entre 4 y 6 descriptores tematicos relevantes)"></q-input>
         <q-stepper-navigation v-if="!globalNavigation">
           <q-btn color="primary" @click="$refs.stepper.next()">Continue</q-btn>
           <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
         </q-stepper-navigation>
       </q-step>
       <q-step name="parte3" title="III. INTRODUCCION DEL PROYECTO">
-        <q-input v-model="datos.estadoActual" type="textarea" float-label="1. Estado actual del conocimiento sobre el tema (Marco teorico que incluya la descripcion de los principales datos de la literatura)"></q-input>
-        <q-input v-model="datos.definicionProblema" type="textarea" float-label="2. Definicion del problema e hipotesis (dependiendo del tipo de estudio)"></q-input>
+        <q-input v-model="datos.estado_actual" type="textarea" float-label="1. Estado actual del conocimiento sobre el tema (Marco teorico que incluya la descripcion de los principales datos de la literatura)"></q-input>
+        <q-input v-model="datos.problema_hipotesis" type="textarea" float-label="2. Definicion del problema e hipotesis (dependiendo del tipo de estudio)"></q-input>
         <q-input v-model="datos.justificacion" type="textarea" float-label="3. Justificacion cientifica, academica-institucional y social"></q-input>
         <q-input v-model="datos.objetivos" type="textarea" float-label="4. Objetivos"></q-input>
         <q-stepper-navigation v-if="!globalNavigation">
@@ -88,15 +88,15 @@
         </q-stepper-navigation>
       </q-step>
       <q-step name="parte6" title="VI. PRESUPUESTO">
-        <q-input v-model="datos.estimacionDuracionProyecto" type="number" float-label="1. Estimacion de la duracion del proyecto (expresado en cantidad de años)"></q-input>
-        <q-input v-model="datos.estimacionTiempoSemanal" type="number" float-label="2. Estimacion del tiempo semanal necesario para realizar la investigacion (expresado en cantidad de horas reloj semanal por miembro de equipo)"></q-input>
+        <q-input v-model="datos.duracion" type="number" float-label="1. Estimacion de la duracion del proyecto (expresado en cantidad de años)"></q-input>
+        <q-input v-model="datos.tiempo_semanal" type="number" float-label="2. Estimacion del tiempo semanal necesario para realizar la investigacion (expresado en cantidad de horas reloj semanal por miembro de equipo)"></q-input>
         <q-stepper-navigation v-if="!globalNavigation">
           <q-btn color="primary" @click="$refs.stepper.next()">Continue</q-btn>
           <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
         </q-stepper-navigation>
       </q-step>
       <q-step name="parte7" title="VII. REFERENCIAS BIBLIOGRAFICAS">
-        <q-input v-model="datos.bibliografia" type="textarea" float-label="1.Listado de referencias bibliograficas (citados en el proyecto)" />
+        <q-input v-model="datos.referencias" type="textarea" float-label="1.Listado de referencias bibliograficas (citados en el proyecto)" />
         <q-stepper-navigation v-if="!globalNavigation">
           <q-btn class="q-ml-sm" @click="crear(datos)" color="primary">Finalizar</q-btn>
           <q-btn color="red" class="q-ml-sm" @click="$refs.stepper.goToStep('parte1')">Reiniciar</q-btn>
@@ -124,7 +124,7 @@ export default {
     return {
       step: 'first',
       datos: {
-        modalidad: undefined,
+        id_modalidad: undefined,
         lineaInvestigacion: undefined,
         director_id: undefined,
         codirector_id: undefined,
@@ -132,6 +132,7 @@ export default {
         otros_miembros: undefined,
         asistentes: undefined,
         becarios: undefined,
+        disciplinaEstudio: undefined,
         unidadAcademica: undefined,
         titulo: undefined,
         resumen: undefined,
@@ -145,6 +146,7 @@ export default {
         publicacion: undefined,
         estimacionDuracionProyecto: undefined,
         estimacionTiempoSemanal: undefined,
+        items_presupuesto: undefined,
         bibliografia: undefined
       },
       options: ['contractable', 'step_error']
@@ -161,9 +163,9 @@ export default {
     unidadesAcademicas () {
       return this.$store.getters['proyecto/unidadesAcademicas'].map(({id, nombre}) => ({label: nombre, value: id}))
     },
-    disciplinas () {
-      return this.$store.getters['disciplina/disciplinas'].map(({id, nombre}) => ({label: nombre, value: id}))
-    },
+    // disciplinas () {
+    //   return this.$store.getters['disciplina/disciplinas'].map(({id, nombre}) => ({label: nombre, value: id}))
+    // },
     alt () {
       return this.options.includes('alt')
     },
@@ -178,6 +180,7 @@ export default {
     ...mapActions('proyecto', ['cargarModalidades', 'cargarUnidadesAcademicas', 'agregar']),
     async crear (datos) {
       await this.agregar(this.datos)
+      this.$router.push('/listaProyectos')
     }
   }
 }
