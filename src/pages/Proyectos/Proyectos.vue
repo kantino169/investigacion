@@ -122,6 +122,70 @@ export default {
   components: {SeleccionadorLineas},
   data () {
     return {
+      modalidades: [
+        {
+          id: '1',
+          nombre: 'PRI',
+          value: '1',
+          label: 'PRI'
+        },
+        {
+          id: '2',
+          nombre: 'PIB',
+          value: '2',
+          label: 'PIB'
+        },
+        {
+          id: '3',
+          nombre: 'PIC',
+          value: '3',
+          label: 'PIC'
+        },
+        {
+          id: '4',
+          nombre: 'Tesis',
+          value: '4',
+          label: 'Tesis'
+        },
+        {
+          id: '5',
+          nombre: 'Proyecto',
+          value: '5',
+          label: 'Proyecto'
+        },
+        {
+          id: '6',
+          nombre: 'Interfacultad',
+          value: '6',
+          label: 'Interfacultad'
+        }
+      ],
+      unidadesAcademicas: [
+        {
+          id: '1',
+          nombre: 'FACEA',
+          value: '1',
+          label: 'FACEA'
+        },
+        {
+          id: '2',
+          nombre: 'FHECIS',
+          value: '2',
+          label: 'FHECIS'
+        },
+        {
+          id: '3',
+          nombre: 'FCS',
+          value: '3',
+          label: 'FCS'
+        },
+        {
+          id: '4',
+          nombre: 'Teologia',
+          value: '4',
+          label: 'Teologia'
+        }
+      ],
       step: 'first',
       datos: {
         idModalidad: undefined,
@@ -153,16 +217,16 @@ export default {
     }
   },
   mounted () {
-    this.cargarModalidades()
-    this.cargarUnidadesAcademicas()
+    // this.cargarModalidades()
+    // this.cargarUnidadesAcademicas()
   },
   computed: {
-    modalidades () {
-      return this.$store.getters['proyecto/modalidades'].map(({id, nombre}) => ({label: nombre, value: id}))
-    },
-    unidadesAcademicas () {
-      return this.$store.getters['proyecto/unidadesAcademicas'].map(({id, nombre}) => ({label: nombre, value: id}))
-    },
+    // modalidades () {
+    //   return this.$store.getters['proyecto/modalidades'].map(({id, nombre}) => ({label: nombre, value: id}))
+    // },
+    // unidadesAcademicas () {
+    //   return this.$store.getters['proyecto/unidadesAcademicas'].map(({id, nombre}) => ({label: nombre, value: id}))
+    // },
     // disciplinas () {
     //   return this.$store.getters['disciplina/disciplinas'].map(({id, nombre}) => ({label: nombre, value: id}))
     // },
