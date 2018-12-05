@@ -7,6 +7,7 @@
           placeholder="Modalidad:"
           :options="modalidades"
         />
+        <seleccionador-lineas v-model="datos.lineaInvestigacion" />
         <q-stepper-navigation v-if="!globalNavigation">
           <q-btn class="q-ml-sm" color="primary" @click="$refs.stepper.next()">Continue</q-btn>
           <q-btn class="q-ml-sm" color="green" @click="$refs.stepper.goToStep('parte7')">Finish</q-btn>
@@ -103,8 +104,10 @@
 
 <script>
 import { mapActions } from 'vuex'
+import SeleccionadorLineas from 'components/Proyecto/SeleccionadorLineas/SeleccionadorLineas.vue'
 
 export default {
+  components: {SeleccionadorLineas},
   data () {
     return {
       step: 'first',
@@ -117,11 +120,6 @@ export default {
   },
   mounted () {
     this.cargarModalidades()
-    if (this.$route.query.linea === undefined) {
-      this.$router.replace('/lineas')
-    } else {
-      this.datos.lineaInvestigacion = parseInt(this.$route.query.linea, 10)
-    }
   },
   computed: {
     modalidades () {
