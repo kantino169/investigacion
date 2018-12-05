@@ -1,6 +1,6 @@
 <template>
   <div class="row-full-width">
-    <q-btn class="q-ma-sm" label="Agregar" icon="create" @click="$emit('add')">Agregar</q-btn>
+    <q-btn class="q-ma-sm" label="Agregar" icon="create" @click="$emit('add')"></q-btn>
     <q-list>
       <q-list-header>Proyectos</q-list-header>
       <q-item highlight v-for="proyecto in proyectos" :key="proyecto.id" class="row">
@@ -38,40 +38,12 @@ export default {
   },
   computed: {
     proyectos () {
-      return this.$store.getters['listaUsuario/usuarios']
+      return this.$store.getters['proyecto/proyectos']
     }
   },
   methods: {
-    ...mapActions('proyecto', ['cargarTodos', 'crear', 'modificar', 'eliminar']),
-    async agregar () {
-      try {
-        const datos = await this.$refs.form.getData({
-          title: 'Nuevo Usuario',
-          form: {
-            name: {label: 'Nombre'},
-            password: {label: 'Password', type: 'password'},
-            email: {label: 'Email'}
-          }
-        })
-        await this.crear(datos)
-      } catch (error) {
-      }
-    },
-    async editar (proyecto) {
-      try {
-        const id = usuario.id
-        const datos = await this.$refs.form.getData({
-          title: 'Modificar usuario',
-          form: {
-            name: {label: 'Nombre', model: usuario.nombre},
-            email: {label: 'Email', model: usuario.email}
-            // password: {label: 'Lugar de Trabajo', model: evaluador.lugarTrabajo}
-          }
-        })
-        await this.modificar({id, ...datos})
-      } catch (error) {
-      }
-    },
+    ...mapActions('proyecto', ['cargarTodos', 'eliminar']),
+
     async borrar ({id, titulo}) {
       try {
         await this.$q.dialog({
@@ -83,6 +55,6 @@ export default {
       } catch (error) {
       }
     }
-  },
+  }
 }
 </script>

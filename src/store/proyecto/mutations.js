@@ -13,7 +13,7 @@ export function cargarUnidadesAcademicas (state, unidadesAcademicas) {
 }
 
 export function agregar (state, proyectos) {
-  for (const id in proyectos) {
-    Vue.set(state, id, proyectos[id])
+  for (const proyecto of proyectos) {
+    Vue.set(state, proyecto.id, proyecto)
   }
 }

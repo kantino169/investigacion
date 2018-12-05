@@ -20,6 +20,13 @@ const routes = [
         }
       },
       {
+        path: '/listaProyectos',
+        components: {
+          default: () => import('pages/Proyectos/Lista.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
         path: '/proyectos',
         components: {
           default: () => import('pages/Proyectos/Proyectos.vue'),

@@ -98,7 +98,7 @@
       <q-step name="parte7" title="VII. REFERENCIAS BIBLIOGRAFICAS">
         <q-input v-model="datos.bibliografia" type="textarea" float-label="1.Listado de referencias bibliograficas (citados en el proyecto)" />
         <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn class="q-ml-sm" @click="crear()" color="primary">Finalizar</q-btn>
+          <q-btn class="q-ml-sm" @click="crear(datos)" color="primary">Finalizar</q-btn>
           <q-btn color="red" class="q-ml-sm" @click="$refs.stepper.goToStep('parte1')">Reiniciar</q-btn>
           <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
         </q-stepper-navigation>
