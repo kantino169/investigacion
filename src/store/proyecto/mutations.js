@@ -5,3 +5,9 @@ export function cargarModalidades (state, modalidades) {
     Vue.set(state, id, modalidades[id])
   }
 }
+
+export function cargarUnidadesAcademicas (state, unidadesAcademicas) {
+  for (const id in unidadesAcademicas) {
+    Vue.set(state, id, unidadesAcademicas[id])
+  }
+}

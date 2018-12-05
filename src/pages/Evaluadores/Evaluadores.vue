@@ -28,7 +28,7 @@
         </q-item>
         <q-btn-group class="q-ml-md">
           <q-btn color="orange" title="Editar" icon="edit" @click="editar(evaluador)"/>
-          <q-btn color="red" title="Eliminar" icon="delete" @click="eliminar(evaluador)"/>
+          <q-btn color="red" title="Eliminar" icon="delete" @click="borrar(evaluador)"/>
         </q-btn-group>
       </q-collapsible>
     </q-list>
@@ -88,6 +88,18 @@ export default {
           }
         })
         await this.modificar({id, ...datos})
+      } catch (error) {
+      }
+    },
+    async borrar (evaluador) {
+      try {
+        await this.$q.dialog({
+          title: 'Eliminar evaluador',
+          message: `Desea eliminar el evaluador ${evaluador.nombre} ${evaluador.apellido}?`,
+          ok: 'Aceptar',
+          cancel: 'Cancelar'
+        })
+        await this.eliminar(evaluador)
       } catch (error) {
       }
     }
