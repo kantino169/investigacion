@@ -98,7 +98,7 @@
       <q-step name="parte7" title="VII. REFERENCIAS BIBLIOGRAFICAS">
         <q-input v-model="datos.bibliografia" type="textarea" float-label="1.Listado de referencias bibliograficas (citados en el proyecto)" />
         <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn class="q-ml-sm" @click="crear()" color="primary">Finalizar</q-btn>
+          <q-btn class="q-ml-sm" @click="crear(datos)" color="primary">Finalizar</q-btn>
           <q-btn color="red" class="q-ml-sm" @click="$refs.stepper.goToStep('parte1')">Reiniciar</q-btn>
           <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
         </q-stepper-navigation>
@@ -126,13 +126,13 @@ export default {
       datos: {
         modalidad: undefined,
         lineaInvestigacion: undefined,
-        director: undefined,
-        codirector: undefined,
-        otrosMiembrosUap: undefined,
-        otrosMiembros: undefined,
+        director_id: undefined,
+        codirector_id: undefined,
+        otros_miembros_uap: undefined,
+        otros_miembros: undefined,
         asistentes: undefined,
         becarios: undefined,
-        unidadesAcademicas: undefined,
+        unidadAcademica: undefined,
         titulo: undefined,
         resumen: undefined,
         palabrasClave: undefined,
@@ -161,6 +161,9 @@ export default {
     unidadesAcademicas () {
       return this.$store.getters['proyecto/unidadesAcademicas'].map(({id, nombre}) => ({label: nombre, value: id}))
     },
+    disciplinas () {
+      return this.$store.getters['disciplina/disciplinas'].map(({id, nombre}) => ({label: nombre, value: id}))
+    },
     alt () {
       return this.options.includes('alt')
     },
@@ -169,14 +172,11 @@ export default {
     // },
     globalNavigation () {
       return this.options.includes('global_navigation')
-    },
-    progress () {
-      return this.options.includes('progress')
     }
   },
   methods: {
     ...mapActions('proyecto', ['cargarModalidades', 'cargarUnidadesAcademicas', 'agregar']),
-    async crear () {
+    async crear (datos) {
       await this.agregar(this.datos)
     }
   }

@@ -10,7 +10,7 @@ export async function cargarUnidadesAcademicas ({commit}) {
   commit('cargarUnidadesAcademicas', unidadesAcademicas)
 }
 
-export async function agregar ({commit}, {datos}) {
+export async function agregar ({commit}, datos) {
   const {data: proyecto} = await axios.post('proyecto', {datos})
   commit('agregar', {[proyecto.id]: proyecto})
 }

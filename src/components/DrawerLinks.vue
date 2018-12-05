@@ -9,6 +9,10 @@
       <q-item-side icon="perm_identity" />
       <q-item-main label="Usuarios" />
     </q-item>
+    <q-item exact to="/listaProyectos">
+      <q-item-side icon="reorder" />
+      <q-item-main label="Lista de proyectos" />
+    </q-item>
     <q-collapsible icon="assignment" label="Administrar">
       <div>
         <q-item exact to="/proyectos">
