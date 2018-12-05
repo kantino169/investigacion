@@ -28,7 +28,7 @@
         </q-item>
         <q-btn-group class="q-ml-md">
           <q-btn color="orange" title="Editar" icon="edit" @click="editar(evaluador)"/>
-          <q-btn color="red" title="Eliminar" icon="delete" @click="borrar(evaluador)"/>
+          <q-btn color="red" title="Eliminar" icon="delete" @click="eliminar(evaluador)"/>
         </q-btn-group>
       </q-collapsible>
     </q-list>
@@ -67,7 +67,27 @@ export default {
             lugarTrabajo: {label: 'Lugar de Trabajo'}
           }
         })
-        console.log(datos)
+        await this.crear(datos)
+      } catch (error) {
+      }
+    },
+    async editar (evaluador) {
+      try {
+        const id = evaluador.id
+        const datos = await this.$refs.form.getData({
+          title: 'Modificar Evaluador',
+          form: {
+            nombre: {label: 'Nombre', model: evaluador.nombre},
+            apellido: {label: 'Apellido', model: evaluador.apellido},
+            email: {label: 'Email', model: evaluador.email},
+            telefono: {label: 'Telefono', model: evaluador.telefono},
+            profesion: {label: 'Profesion', model: evaluador.profesion},
+            especialidad: {label: 'Especialidad', model: evaluador.especialidad},
+            dni: {label: 'DNI', model: evaluador.dni},
+            lugarTrabajo: {label: 'Lugar de Trabajo', model: evaluador.lugarTrabajo}
+          }
+        })
+        await this.modificar({id, ...datos})
       } catch (error) {
       }
     }

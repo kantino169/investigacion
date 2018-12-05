@@ -16,6 +16,7 @@ export async function modificar ({commit}, {nombre, id, apellido, email, telefon
 }
 
 export async function eliminar ({commit}, {id}) {
-  await axios.delete(`evaluadores/${id}`)
-  commit('eliminar', {id})
+  const {data: {success}} = await axios.delete(`evaluadores/${id}`)
+  if (success) commit('eliminar', {id})
+  return success
 }

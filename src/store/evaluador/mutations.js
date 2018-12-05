@@ -1,8 +1,8 @@
 import Vue from 'vue'
 
 export function agregar (state, evaluadores) {
-  for (const id in evaluadores) {
-    Vue.set(state, id, evaluadores[id])
+  for (const evaluador of evaluadores) {
+    Vue.set(state, evaluador.id, evaluador)
   }
 }
 
