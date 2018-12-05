@@ -11,3 +11,9 @@ export function cargarUnidadesAcademicas (state, unidadesAcademicas) {
     Vue.set(state, id, unidadesAcademicas[id])
   }
 }
+
+export function agregar (state, proyectos) {
+  for (const id in proyectos) {
+    Vue.set(state, id, proyectos[id])
+  }
+}

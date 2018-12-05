@@ -98,7 +98,7 @@
       <q-step name="parte7" title="VII. REFERENCIAS BIBLIOGRAFICAS">
         <q-input v-model="datos.bibliografia" type="textarea" float-label="1.Listado de referencias bibliograficas (citados en el proyecto)" />
         <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn class="q-ml-sm" @click="crear" color="primary">Finalizar</q-btn>
+          <q-btn class="q-ml-sm" @click="crear()" color="primary">Finalizar</q-btn>
           <q-btn color="red" class="q-ml-sm" @click="$refs.stepper.goToStep('parte1')">Reiniciar</q-btn>
           <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
         </q-stepper-navigation>
@@ -126,26 +126,26 @@ export default {
       datos: {
         modalidad: undefined,
         lineaInvestigacion: undefined,
-        director: '',
-        codirector: '',
-        otrosMiembrosUap: '',
-        otrosMiembros: '',
-        asistentes: '',
-        becarios: '',
+        director: undefined,
+        codirector: undefined,
+        otrosMiembrosUap: undefined,
+        otrosMiembros: undefined,
+        asistentes: undefined,
+        becarios: undefined,
         unidadesAcademicas: undefined,
-        titulo: '',
-        resumen: '',
-        palabrasClave: '',
-        estadoActual: '',
-        definicionProblema: '',
-        justificacion: '',
-        objetivos: '',
-        metodologia: '',
-        anexos: '',
-        publicacion: '',
-        estimacionDuracionProyecto: '',
-        estimacionTiempoSemanal: '',
-        bibliografia: ''
+        titulo: undefined,
+        resumen: undefined,
+        palabrasClave: undefined,
+        estadoActual: undefined,
+        definicionProblema: undefined,
+        justificacion: undefined,
+        objetivos: undefined,
+        metodologia: undefined,
+        anexos: undefined,
+        publicacion: undefined,
+        estimacionDuracionProyecto: undefined,
+        estimacionTiempoSemanal: undefined,
+        bibliografia: undefined
       },
       options: ['contractable', 'step_error']
     }
@@ -176,8 +176,8 @@ export default {
   },
   methods: {
     ...mapActions('proyecto', ['cargarModalidades', 'cargarUnidadesAcademicas', 'agregar']),
-    async crear (datos) {
-      await this.agregar(datos)
+    async crear () {
+      await this.agregar(this.datos)
     }
   }
 }
