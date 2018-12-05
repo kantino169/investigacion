@@ -71,6 +71,17 @@ export default {
         await this.modificar({id, ...datos})
       } catch (error) {
       }
+    },
+    async borrar ({id, nombre}) {
+      try {
+        await this.$q.dialog({
+          message: `¿Desea eliminar el usuario ${nombre}?`,
+          ok: 'Aceptar',
+          cancel: 'Cancelar'
+        })
+        this.eliminar({id})
+      } catch (error) {
+      }
     }
   },
   filters: {

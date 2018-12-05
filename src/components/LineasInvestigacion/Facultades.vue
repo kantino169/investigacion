@@ -2,8 +2,8 @@
   <lista-con-botones
     :elements="facultades"
     @set="$emit('set', $event)"
-    @edit="$emit('edit', $event)"
-    @remove="$emit('remove', $event)"
+    @edit="editar($event)"
+    @remove="remover($event)"
     @add="agregar">
     No hay facultades actualmente
   </lista-con-botones>
@@ -44,7 +44,7 @@ export default {
     async remover ({id, nombre}) {
       try {
         await this.$q.dialog({
-          message: `¿Desea eliminar la disciplina ${nombre}?`,
+          message: `¿Desea eliminar la facultad ${nombre}?`,
           ok: 'Aceptar',
           cancel: 'Cancelar'
         })

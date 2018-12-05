@@ -39,7 +39,7 @@ export function agregarLinea (state, linea) {
 }
 
 export function actualizar (state, {id, nombre, altura}) {
-  if (altura < 0 || altura > 3) throw Error('Profundidad incorrecta')
+  if (altura < 0 || altura > 4) throw Error('Profundidad incorrecta')
   const subtree = getSubtree(state, id, ...path.slice(0, altura))
   subtree.nombre = nombre
 }
