@@ -5,3 +5,6 @@ export const modalidades = state =>
 
 export const unidadesAcademicas = state =>
   Object.keys(state).map(armarLista(state))
+
+export const proyectos = state =>
+  Object.keys(state).map(armarLista(state))

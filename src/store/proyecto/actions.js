@@ -1,5 +1,11 @@
 import axios from 'axios'
 
+export async function cargarTodos ({ commit }) {
+  const id = this.state.usuario.id
+  const { data: proyectos } = await axios.get(`proyecto/todos/${id}`)
+  commit('agregar', proyectos)
+}
+
 export async function cargarModalidades ({commit}) {
   const {data: modalidades} = await axios.get('modalidades')
   commit('cargarModalidades', modalidades)
