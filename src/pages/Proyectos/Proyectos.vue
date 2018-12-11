@@ -117,6 +117,7 @@
 <script>
 import { mapActions } from 'vuex'
 import SeleccionadorLineas from 'components/Proyecto/SeleccionadorLineas/SeleccionadorLineas.vue'
+import { Notify } from 'quasar'
 
 export default {
   components: {SeleccionadorLineas},
@@ -244,8 +245,13 @@ export default {
   methods: {
     ...mapActions('proyecto', ['cargarModalidades', 'cargarUnidadesAcademicas', 'agregar']),
     async crear (datos) {
-      await this.agregar(this.datos) // .then(() => { this.$router.push('/listaProyectos') })
-      this.$router.push('/listaProyectos')
+      await this.agregar(this.datos).then(() => {
+        Notify.create({
+          type: 'positive',
+          message: 'Proyecto creado con exito'
+        })
+        this.$router.push('/listaProyectos')
+      })
     }
   }
 }

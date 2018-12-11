@@ -30,6 +30,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import FormDialog from '../../components/FormDialog'
+import { Notify } from 'quasar'
 
 export default {
   components: {FormDialog},
@@ -64,7 +65,12 @@ export default {
           ok: 'Aceptar',
           cancel: 'Cancelar'
         })
-        this.eliminar({id})
+        await this.eliminar({id}).then(() => {
+          Notify.create({
+            type: 'positive',
+            message: 'Proyecto eliminado con exito'
+          })
+        })
       } catch (error) {
       }
     }

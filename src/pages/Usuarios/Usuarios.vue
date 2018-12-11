@@ -1,12 +1,7 @@
 <template>
   <div class="row-full-width">
-<<<<<<< HEAD
     <q-btn class="q-ma-sm" label="Agregar" icon="create" @click="agregar"></q-btn>
-    <q-list v-if="isAdmin" >
-=======
-    <q-btn class="q-ma-sm" label="Agregar" icon="create" @click="agregar" v-if="isAdmin"></q-btn>
-    <q-list>
->>>>>>> 609fa0b57ca86246987ddd7dd8a5f99fb5bd88e8
+    <q-list v-if="isAdmin">
       <q-list-header>Usuarios</q-list-header>
       <q-item highlight v-for="usuario in usuarios" :key="usuario.id" class="row">
         <q-item-main class="row">
@@ -35,6 +30,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import FormDialog from '../../components/FormDialog'
+import { Notify } from 'quasar'
 
 export default {
   components: {FormDialog},
@@ -55,12 +51,21 @@ export default {
           title: 'Nuevo Usuario',
           form: {
             name: {label: 'Nombre'},
-            password: {label: 'Password', type: 'password'},
+            password: {label: 'Contraseña', type: 'password'},
             email: {label: 'Email'}
           }
         })
-        await this.crear(datos)
+        await this.crear(datos).then(() => {
+          Notify.create({
+            type: 'positive',
+            message: 'Usuario creado con exito'
+          })
+        })
       } catch (error) {
+        Notify.create({
+          type: 'negative',
+          message: 'Error al crear un usuario'
+        })
       }
     },
     async editar (usuario) {
@@ -74,7 +79,12 @@ export default {
             // password: {label: 'Lugar de Trabajo', model: evaluador.lugarTrabajo}
           }
         })
-        await this.modificar({id, ...datos})
+        await this.modificar({id, ...datos}).then(() => {
+          Notify.create({
+            type: 'positive',
+            message: 'Usuario modificado con exito'
+          })
+        })
       } catch (error) {
       }
     },
@@ -85,7 +95,12 @@ export default {
           ok: 'Aceptar',
           cancel: 'Cancelar'
         })
-        this.eliminar({id})
+        await this.eliminar({id}).then(() => {
+          Notify.create({
+            type: 'positive',
+            message: 'Usuario eliminado con exito'
+          })
+        })
       } catch (error) {
       }
     }
