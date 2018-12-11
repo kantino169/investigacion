@@ -17,7 +17,7 @@
           <div class="col-4">
             <q-btn-group class="q-ml-md">
               <!-- <q-btn color="orange" title="Editar" icon="edit" @click="$emit('edit', element)"/> -->
-              <q-btn color="red" title="Eliminar" icon="delete" @click="borrar(proyecto)"/>
+              <q-btn v-if="isAdmin" color="red" title="Eliminar" icon="delete" @click="borrar(proyecto)"/>
             </q-btn-group>
           </div>
         </q-item-main>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import FormDialog from '../../components/FormDialog'
 
 export default {
@@ -39,7 +39,8 @@ export default {
   computed: {
     proyectos () {
       return this.$store.getters['proyecto/proyectos']
-    }
+    },
+    ...mapGetters('usuario', ['isAdmin'])
   },
   filters: {
     modalidad (idModalidad) {
