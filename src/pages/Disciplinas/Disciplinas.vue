@@ -7,6 +7,7 @@
         color="primary"
         label="Agregar disciplina"
         @click="agregar"
+        v-if="isAdmin"
         />
       </div>
       <div>
@@ -18,7 +19,7 @@
               :label="disciplina.nombre"/>
             <q-item-side>
               <div>
-                <q-btn-group>
+                <q-btn-group v-if="isAdmin">
                   <q-btn class="q-md" color="orange" @click="editar(disciplina)" label="Editar" title="Editar" icon="edit" />
                   <q-btn class="q-md" color="red" @click="borrar(disciplina)" label="Eliminar" title="Eliminar" icon="delete"/>
                 </q-btn-group>
@@ -32,7 +33,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   mounted () {
@@ -41,7 +42,8 @@ export default {
   computed: {
     disciplinas () {
       return this.$store.getters['disciplina/disciplinas']
-    }
+    },
+    ...mapGetters('usuario', ['isAdmin'])
   },
   methods: {
     ...mapActions('disciplina', ['cargarTodas', 'crear', 'modificar', 'eliminar']),

@@ -9,13 +9,13 @@
     />
   </div>
   <div class="row justify-center">
-      <q-btn icon="alarm_add" color="primary" label="Agregar nueva fecha de entrega" />
+      <q-btn v-if="isAdmin" icon="alarm_add" color="primary" label="Agregar nueva fecha de entrega" />
     </div>
 </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 const columns = [
   {
@@ -56,7 +56,8 @@ export default {
   computed: {
     fechasEntrega () {
       return this.$store.getters['fechaEntrega/fechasEntrega']
-    }
+    },
+    ...mapGetters('usuario', ['isAdmin'])
   },
   methods: {
     ...mapActions('fechaEntrega', ['cargarTodas'])
