@@ -1,7 +1,7 @@
 <template>
   <div class="row-full-width">
     <q-btn class="q-ma-sm" label="Agregar" icon="create" @click="agregar"></q-btn>
-    <q-list>
+    <q-list v-if="isAdmin" >
       <q-list-header>Usuarios</q-list-header>
       <q-item highlight v-for="usuario in usuarios" :key="usuario.id" class="row">
         <q-item-main class="row">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import FormDialog from '../../components/FormDialog'
 
 export default {
@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     ...mapActions('listaUsuario', ['cargarTodos', 'crear', 'modificar', 'eliminar']),
+    ...mapGetters('usuario', ['isAdmin']),
     async agregar () {
       try {
         const datos = await this.$refs.form.getData({

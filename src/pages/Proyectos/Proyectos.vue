@@ -188,6 +188,7 @@ export default {
       ],
       step: 'first',
       datos: {
+        idUsuario: this.$store.state.usuario.id,
         idModalidad: undefined,
         lineaInvestigacion: undefined,
         director_id: undefined,
