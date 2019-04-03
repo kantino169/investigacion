@@ -68,6 +68,13 @@ const routes = [
           default: () => import('pages/Evaluadores/Evaluadores.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
+      },
+      {
+        path: '/presupuesto',
+        components: {
+          default: () => import('components/Presupuesto/tablaPresupuesto.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
       }
     ]
   }

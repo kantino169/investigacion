@@ -9,13 +9,15 @@
     />
   </div>
   <div class="row justify-center">
-      <q-btn v-if="isAdmin" icon="alarm_add" color="primary" label="Agregar nueva fecha de entrega" />
+      <q-btn v-if="isAdmin" icon="alarm_add" color="primary" label="Agregar nueva fecha de entrega" @click="agregar()"/>
     </div>
+  <date-form-dialog ref="form" />
 </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import DateFormDialog from '../../components/DateFormDialog'
 
 const columns = [
   {
@@ -50,6 +52,7 @@ const columns = [
 
 export default {
   columns: columns.map(obj => ({...obj, field: obj.name})),
+  components: {DateFormDialog},
   mounted () {
     this.cargarTodas()
   },
@@ -60,7 +63,24 @@ export default {
     ...mapGetters('usuario', ['isAdmin'])
   },
   methods: {
-    ...mapActions('fechaEntrega', ['cargarTodas'])
+    ...mapActions('fechaEntrega', ['cargarTodas', 'crear']),
+    async agregar () {
+      try {
+        const datos = await this.$refs.form.getData({
+          title: 'Nueva fecha',
+          form: {
+            convocatoria: {label: 'Convocatoria'},
+            fechaLimite: {label: 'Fecha Limite'},
+            prorroga: {label: 'Prorroga'},
+            informe1: {label: 'Primer Informe'},
+            informe2: {label: 'Segundo Informe'},
+            informe3: {label: 'Tercer Informe'}
+          }
+        })
+        await this.crear(datos)
+      } catch (error) {
+      }
+    }
   }
 }
 </script>
