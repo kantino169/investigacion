@@ -9,6 +9,10 @@
       <q-item-side icon="perm_identity" />
       <q-item-main label="Usuarios" />
     </q-item>
+    <q-item exact to="/actividades">
+      <q-item-side icon="reorder" />
+      <q-item-main label="Actividades" />
+    </q-item>
     <q-item exact to="/listaProyectos">
       <q-item-side icon="reorder" />
       <q-item-main label="Lista de proyectos" />

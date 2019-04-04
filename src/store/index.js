@@ -10,6 +10,7 @@ import proyecto from './proyecto'
 import disciplina from './disciplina'
 import listaUsuario from './listaUsuario'
 import presupuesto from './presupuesto'
+import actividades from './actividades'
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ const store = new Vuex.Store({
     proyecto,
     disciplina,
     listaUsuario,
-    presupuesto
+    presupuesto,
+    actividades
   }
 })
 

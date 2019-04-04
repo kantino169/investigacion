@@ -72,7 +72,14 @@ const routes = [
       {
         path: '/presupuesto',
         components: {
-          default: () => import('components/Presupuesto/tablaPresupuesto.vue'),
+          default: () => import('pages/Presupuesto/Presupuesto.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/actividades',
+        componentes: {
+          default: () => import('pages/Actividades/Actividades.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
       }
