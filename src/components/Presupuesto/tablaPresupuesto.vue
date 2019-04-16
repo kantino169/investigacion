@@ -4,10 +4,18 @@
       title="Presupuesto"
       :data="presupuestos"
       :columns="$options.columns"
-      row-key="name"
+      row-key="id"
       :pagination="{rowsPerPage: Number.MAX_SAFE_INTEGER}"
-      :rows-per-page-options="[]" />
+      :rows-per-page-options="[]"
+      selection="single"
+      :selected.sync="selectedInput"
+    >
 
+    <!-- <template slot="top-selection">
+      <div class="col" />
+      <q-btn color="negative" flat round delete icon="delete" @click="$emit('borrar(selected)')" />
+    </template> -->
+    </q-table>
     <q-list highlight separator>
       <q-item>
         <q-item-side>TOTAL</q-item-side>
@@ -40,21 +48,21 @@ export default {
     presupuestos: {
       type: Array,
       default: () => []
+    },
+    selected: {
+      type: Object,
+      default: () => ({})
     }
   },
   computed: {
     suma () {
-      // let total = 0
-      // const presupuestos = this.presupuestos
-      // console.log(presupuestos)
-      // for (const presupuesto of presupuestos) {
-      //   console.log(presupuesto.monto)
-      //   total += presupuesto.monto
-      //   console.log(total)
-      // }
-      // console.log(total)
-      // return total
       return this.presupuestos.reduce((suma, {monto}) => suma + monto, 0)
+    },
+    selectedInput: {
+      get () { return this.selected ? [this.selected] : [] },
+      set (val) {
+        this.$emit('update:selected', val.length ? val[0] : undefined)
+      }
     }
   }
 }

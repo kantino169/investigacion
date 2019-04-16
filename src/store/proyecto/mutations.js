@@ -7,8 +7,8 @@ export function cargarModalidades (state, modalidades) {
 }
 
 export function cargarUnidadesAcademicas (state, unidadesAcademicas) {
-  for (const id in unidadesAcademicas) {
-    Vue.set(state, id, unidadesAcademicas[id])
+  for (const unidadAcademica of unidadesAcademicas) {
+    Vue.set(state, unidadAcademica.id, unidadAcademica)
   }
 }
 

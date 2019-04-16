@@ -1,110 +1,110 @@
 <template>
-  <div class="row justify-center">
-    <q-stepper ref="stepper" color="primary" v-model="step" :alternative-labels="alt" vertical>
-      <q-step default name="parte1" title="I. IDENTIFICACION DEL PROYECTO">
-        <q-select
-          v-model="datos.idModalidad"
-          placeholder="1. Modalidad:"
-          :options="modalidades"
-        />
-        <seleccionador-lineas v-model="datos.lineaInvestigacion" />
-        <q-input v-model="datos.director_id" float-label="Director"></q-input>
-        <q-input v-model="datos.codirector_id" float-label="Co-director/es"></q-input>
-        <q-collapsible icon="help_outline" label="Mas informacion">
-          <div>
-            En caso de proyecto TESIS, agregar nombre  del director o consejero de la TESIS
-          </div>
-        </q-collapsible>
-        <q-input v-model="datos.otros_miembros_uap" type="textarea" float-label="Otros miembros del equipo de investigacion de la UAP"></q-input>
-        <q-input v-model="datos.otros_miembros" type="textarea" float-label="Otros miembros del equipo de investigación externos a la Institución"></q-input>
-        <q-input v-model="datos.asistentes" type="textarea" float-label="Asistentes de investigacion"></q-input>
-        <q-input v-model="datos.becarios" type="textarea" float-label="Becarios de investigacion"></q-input>
-        <q-select
-          v-model="datos.unidadesAcademicas"
-          placeholder="Unidad academica patrocinante:"
-          :options="unidadesAcademicas"
-        />
-        <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn class="q-ml-sm" color="primary" @click="$refs.stepper.next()">Continue</q-btn>
-        </q-stepper-navigation>
-      </q-step>
-      <q-step name="parte2" title="II. DESCRIPCION DEL PROYECTO">
-        <q-input v-model="datos.titulo" float-label="Titulo del proyecto"></q-input>
-        <q-input v-model="datos.resumen" type="textarea" float-label="4. Resumen tecnico - (entre 150-250 palabras)"></q-input>
-        <q-input v-model="datos.palabaras_clave" type="textarea" float-label="5. Palabras clave - (entre 4 y 6 descriptores tematicos relevantes)"></q-input>
-        <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn color="primary" @click="$refs.stepper.next()">Continue</q-btn>
-          <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
-        </q-stepper-navigation>
-      </q-step>
-      <q-step name="parte3" title="III. INTRODUCCION DEL PROYECTO">
-        <q-input v-model="datos.estado_actual" type="textarea" float-label="1. Estado actual del conocimiento sobre el tema (Marco teorico que incluya la descripcion de los principales datos de la literatura)"></q-input>
-        <q-input v-model="datos.problema_hipotesis" type="textarea" float-label="2. Definicion del problema e hipotesis (dependiendo del tipo de estudio)"></q-input>
-        <q-input v-model="datos.justificacion" type="textarea" float-label="3. Justificacion cientifica, academica-institucional y social"></q-input>
-        <q-input v-model="datos.objetivos" type="textarea" float-label="4. Objetivos"></q-input>
-        <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn color="primary" @click="$refs.stepper.next()">Continue</q-btn>
-          <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
-        </q-stepper-navigation>
-      </q-step>
-      <q-step name="parte4" title="IV. METODOS">
-        <q-input v-model="datos.metodologia" type="textarea" float-label="1. Metodologia (conforme el tipo de investigacion)"></q-input>
-        <q-collapsible icon="help_outline" label="Mas informacion">
-          <div>
-            a. Para investigaciones empíricas cuantitativas, cualitativas, cuali-cuantitativas, o experimentales se necesita especificar, como mínimo, los siguientes aspectos con detalles: <br>
-            - Diseño o tipo de investigación<br>
-            - Participantes (muestra y tipo de muestreo)<br>
-            - Instrumentos de Recolección de Datos<br>
-            - Variables <br>
-            - Procedimientos para Recolección de Datos<br>
-            - Consideraciones Éticas del Estudio<br>
-            - Procesamiento y Análisis de datos<br>
-            <br>
-            b. Para investigaciones de tipo teóricas: detallar la metodología que se utilizará.
-          </div>
-        </q-collapsible>
-        <q-input v-model="datos.anexos" type="textarea" float-label="2. Anexos (conforme el tipo de investigacion)"></q-input>
-        <q-collapsible icon="help_outline" label="Mas informacion">
-          <div>
-            - Solicitud de autorización de la Institución donde se pretende realizar el estudio <br>
-            - Invitación a la participación del estudio y Consentimiento Informado<br>
-            - Especificaciones de Técnicas y Métodos de Estudio<br>
-            - Descripción de tests, maniobras o procedimientos <br>
-            - Protocolos de Experimentación <br>
-            - Fórmulas, Reactivos, etc. <br>
-            - Constancia de aprobación del Comité de Ética de la UAP, en caso de trabajar con personas o animales (adjuntar la misma si ya fue presentado al Comité).
-          </div>
-        </q-collapsible>
-        <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn color="primary" @click="$refs.stepper.next()">Continue</q-btn>
-          <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
-        </q-stepper-navigation>
-      </q-step>
-      <q-step name="parte5" title="V. PUBLICACION CIENTIFICA">
-        <q-input v-model="datos.publicacion" type="textarea" float-label="1. Presentar un plan viable de publicación de la investigación (Especificar si se pretende publicar los resultados de la investigación en forma de un artículo científico o un libro)."></q-input>
-        <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn color="primary" @click="$refs.stepper.next()">Continue</q-btn>
-          <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
-        </q-stepper-navigation>
-      </q-step>
-      <q-step name="parte6" title="VI. PRESUPUESTO">
-        <q-input v-model="datos.duracion" type="number" float-label="1. Estimacion de la duracion del proyecto (expresado en cantidad de años)"></q-input>
-        <q-input v-model="datos.tiempo_semanal" type="number" float-label="2. Estimacion del tiempo semanal necesario para realizar la investigacion (expresado en cantidad de horas reloj semanal por miembro de equipo)"></q-input>
-        <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn color="primary" @click="$refs.stepper.next()">Continue</q-btn>
-          <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
-        </q-stepper-navigation>
-      </q-step>
-      <q-step name="parte7" title="VII. REFERENCIAS BIBLIOGRAFICAS">
-        <q-input v-model="datos.referencias" type="textarea" float-label="1.Listado de referencias bibliograficas (citados en el proyecto)" />
-        <q-stepper-navigation v-if="!globalNavigation">
-          <q-btn class="q-ml-sm" @click="crear(datos)" color="primary">Finalizar</q-btn>
-          <q-btn color="red" class="q-ml-sm" @click="$refs.stepper.goToStep('parte1')">Reiniciar</q-btn>
-          <q-btn class="q-ml-sm" color="secundary" flat @click="$refs.stepper.previous()">Atras</q-btn>
-        </q-stepper-navigation>
-      </q-step>
-    </q-stepper>
-  </div>
+  <q-page padding>
+    <h5>I. IDENTIFICACION DEL PROYECTO</h5>
+    <q-select
+      v-model="datos.idModalidad"
+      placeholder="1. Modalidad:"
+      :options="modalidades"
+    />
+    <q-input v-model="datos.director_id" float-label="Director"></q-input>
+    <q-input v-model="datos.codirector_id" float-label="Co-director/es"></q-input>
+    <q-collapsible icon="help_outline" label="Mas informacion">
+      <div>
+        En caso de proyecto TESIS, agregar nombre  del director o consejero de la TESIS
+      </div>
+    </q-collapsible>
+    <q-input v-model="datos.otros_miembros_uap" type="textarea" float-label="Otros miembros del equipo de investigacion de la UAP"></q-input>
+    <q-input v-model="datos.otros_miembros" type="textarea" float-label="Otros miembros del equipo de investigación externos a la Institución"></q-input>
+    <q-input v-model="datos.asistentes" type="textarea" float-label="Asistentes de investigacion"></q-input>
+    <q-input v-model="datos.becarios" type="textarea" float-label="Becarios de investigacion"></q-input>
+    <q-select
+      v-model="datos.unidadesAcademicas"
+      placeholder="Unidad academica patrocinante:"
+      :options="unidadesAcademicas"
+    />
+
+    <h5>II. DESCRIPCION DEL PROYECTO</h5>
+    <seleccionador-lineas v-model="datos.lineaInvestigacion" />
+    <q-input v-model="datos.titulo" float-label="Titulo del proyecto"></q-input>
+    <q-input v-model="datos.resumen" type="textarea" float-label="4. Resumen tecnico - (entre 150-250 palabras)"></q-input>
+    <q-input v-model="datos.palabaras_clave" type="textarea" float-label="5. Palabras clave - (entre 4 y 6 descriptores tematicos relevantes)"></q-input>
+
+    <h5>III. INTRODUCCION DEL PROYECTO</h5>
+    <q-input v-model="datos.estado_actual" type="textarea" float-label="1. Estado actual del conocimiento sobre el tema (Marco teorico que incluya la descripcion de los principales datos de la literatura)"></q-input>
+    <q-input v-model="datos.problema_hipotesis" type="textarea" float-label="2. Definicion del problema e hipotesis (dependiendo del tipo de estudio)"></q-input>
+    <q-input v-model="datos.justificacion" type="textarea" float-label="3. Justificacion cientifica, academica-institucional y social"></q-input>
+    <q-input v-model="datos.objetivos" type="textarea" float-label="4. Objetivos"></q-input>
+
+    <h5>IV. METODOS</h5>
+    <q-input v-model="datos.metodologia" type="textarea" float-label="1. Metodologia (conforme el tipo de investigacion)"></q-input>
+    <q-collapsible icon="help_outline" label="Mas informacion">
+      <div>
+        a. Para investigaciones empíricas cuantitativas, cualitativas, cuali-cuantitativas, o experimentales se necesita especificar, como mínimo, los siguientes aspectos con detalles: <br>
+        - Diseño o tipo de investigación<br>
+        - Participantes (muestra y tipo de muestreo)<br>
+        - Instrumentos de Recolección de Datos<br>
+        - Variables <br>
+        - Procedimientos para Recolección de Datos<br>
+        - Consideraciones Éticas del Estudio<br>
+        - Procesamiento y Análisis de datos<br>
+        <br>
+        b. Para investigaciones de tipo teóricas: detallar la metodología que se utilizará.
+      </div>
+    </q-collapsible>
+    <q-input v-model="datos.anexos" type="textarea" float-label="2. Anexos (conforme el tipo de investigacion)"></q-input>
+    <q-collapsible icon="help_outline" label="Mas informacion">
+      <div>
+        - Solicitud de autorización de la Institución donde se pretende realizar el estudio <br>
+        - Invitación a la participación del estudio y Consentimiento Informado<br>
+        - Especificaciones de Técnicas y Métodos de Estudio<br>
+        - Descripción de tests, maniobras o procedimientos <br>
+        - Protocolos de Experimentación <br>
+        - Fórmulas, Reactivos, etc. <br>
+        - Constancia de aprobación del Comité de Ética de la UAP, en caso de trabajar con personas o animales (adjuntar la misma si ya fue presentado al Comité).
+      </div>
+    </q-collapsible>
+
+    <h5>V. PUBLICACION CIENTIFICA</h5>
+    <q-input v-model="datos.publicacion" type="textarea" float-label="1. Presentar un plan viable de publicación de la investigación (Especificar si se pretende publicar los resultados de la investigación en forma de un artículo científico o un libro)."></q-input>
+
+    <h5>VI. PRESUPUESTO</h5>
+    <q-input v-model="datos.duracion" type="number" float-label="1. Estimacion de la duracion del proyecto (expresado en cantidad de años)"></q-input>
+    <q-input v-model="datos.tiempo_semanal" type="number" float-label="2. Estimacion del tiempo semanal necesario para realizar la investigacion (expresado en cantidad de horas reloj semanal por miembro de equipo)"></q-input>
+    <br>
+    <q-btn
+      class="q-md"
+      color="primary"
+      label="Agregar Item"
+      @click="agregarPresupuesto" />
+    <tabla-presupuesto :presupuestos="presupuestos" />
+    <form-dialog ref="formPresupuesto" />
+
+    <h5>VII. REFERENCIAS BIBLIOGRAFICAS</h5>
+    <q-input v-model="datos.referencias" type="textarea" float-label="1.Listado de referencias bibliograficas (citados en el proyecto)" />
+
+    <h5>VIII. CRONOGRAMA O PLAN DE TAREAS PARA EL AÑO EN CURSO</h5>
+    <div row>
+      <q-btn
+      class="q-md"
+      color="primary"
+      label="Agregar Actividad"
+      @click="agregarActividad" />
+    <tabla-actividades :actividades="actividades" />
+    <form-dialog ref="formActividad" />
+    </div>
+    <br>
+    <div align="right">
+      <q-btn
+        class="q-md"
+        color=""
+        label="Guardar" />
+      <q-btn
+        class="q-md"
+        color="primary"
+        label="Finalizar"
+        @click="crear(datos)" />
+    </div>
+  </q-page>
 </template>
 
 <style scoped>
@@ -115,12 +115,15 @@
 </style>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import SeleccionadorLineas from 'components/Proyecto/SeleccionadorLineas/SeleccionadorLineas.vue'
 import { Notify } from 'quasar'
+import TablaPresupuesto from 'components/Presupuesto/tablaPresupuesto'
+import TablaActividades from 'components/Actividades/TablaActividades'
+import FormDialog from 'components/FormDialog'
 
 export default {
-  components: {SeleccionadorLineas},
+  components: {SeleccionadorLineas, TablaPresupuesto, TablaActividades, FormDialog},
   data () {
     return {
       modalidades: [
@@ -221,8 +224,13 @@ export default {
   mounted () {
     // this.cargarModalidades()
     // this.cargarUnidadesAcademicas()
+    this.cargarPresupustos()
+    this.cargarActividades()
   },
   computed: {
+    ...mapGetters('presupuesto', ['presupuestos']),
+    ...mapGetters('actividades', ['actividades']),
+
     // modalidades () {
     //   return this.$store.getters['proyecto/modalidades'].map(({id, nombre}) => ({label: nombre, value: id}))
     // },
@@ -244,6 +252,18 @@ export default {
   },
   methods: {
     ...mapActions('proyecto', ['cargarModalidades', 'cargarUnidadesAcademicas', 'agregar']),
+    ...mapActions('presupuesto', {
+      cargarPresupustos: 'cargarTodas',
+      crearPresupuesto: 'crear',
+      modificarPresupuesto: 'modificar',
+      eliminarPresupuesto: 'eliminar'
+    }),
+    ...mapActions('actividades', {
+      cargarActividades: 'cargarTodas',
+      crearActividad: 'crear',
+      modificarActividad: 'modificar',
+      eliminarActividad: 'eliminar'
+    }),
     async crear (datos) {
       await this.agregar(this.datos).then(() => {
         Notify.create({
@@ -252,6 +272,32 @@ export default {
         })
         this.$router.push('/listaProyectos')
       })
+    },
+    async agregarPresupuesto () {
+      try {
+        const datosPresupuesto = await this.$refs.formPresupuesto.getData({
+          title: 'Nuevo Item',
+          form: {
+            rubro: {label: 'Rubro'},
+            monto: {label: 'Monto', type: 'number'}
+          }
+        })
+        await this.crearPresupuesto(datosPresupuesto)
+      } catch (error) {
+      }
+    },
+    async agregarActividad () {
+      try {
+        const datosActividad = await this.$refs.formActividad.getData({
+          title: 'Nueva Actividad',
+          form: {
+            actividad: {label: 'Actividad'}
+            // Ver como hacer el select, la idea es que se clickee como vi en el ejemplo de la tabla
+          }
+        })
+        await this.crear(datosActividad)
+      } catch (error) {
+      }
     }
   }
 }

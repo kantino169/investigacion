@@ -78,8 +78,22 @@ const routes = [
       },
       {
         path: '/actividades',
-        componentes: {
+        components: {
           default: () => import('pages/Actividades/Actividades.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/roles',
+        components: {
+          default: () => import('pages/RolInvestigador/RolInvestigador.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: 'modalidades',
+        components: {
+          default: () => import('pages/Modalidades/Modalidades.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
       }

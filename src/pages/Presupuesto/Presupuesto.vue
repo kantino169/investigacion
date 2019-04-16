@@ -5,7 +5,9 @@
       color="primary"
       label="Agregar Item"
       @click="agregar" />
-    <tabla-presupuesto :presupuestos="presupuestos" />
+    <q-btn color="" :disabled="!selected" flat round icon="edit" @click="editar(selected)" />
+    <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
+    <tabla-presupuesto :presupuestos="presupuestos" :selected.sync="selected"/>
     <form-dialog ref="form" />
   </q-page>
 </template>
@@ -19,6 +21,7 @@ export default {
   name: 'Presupuesto',
   components: { TablaPresupuesto, FormDialog },
   mounted () { this.cargarTodas() },
+  data: () => ({selected: undefined}),
   computed: mapGetters('presupuesto', ['presupuestos']),
   methods: {
     ...mapActions('presupuesto', ['cargarTodas', 'crear', 'modificar', 'eliminar']),
@@ -36,29 +39,30 @@ export default {
       } catch (error) {
       }
     },
-    async editar ({id, nombre: nombreAnterior}) {
+    async editar (presupuesto) {
       try {
-        const nombre = await this.$q.dialog({
-          title: 'Modificar disciplina',
-          message: 'Nombre:',
-          prompt: {
-            model: nombreAnterior,
-            type: 'text'
+        const id = presupuesto.id
+        const nombreAnterior = presupuesto.rubro
+        const {rubro, monto} = await this.$refs.form.getData({
+          title: 'Modificar Item',
+          form: {
+            rubro: {label: 'Rubro', prompt: nombreAnterior},
+            monto: {label: 'Monto', type: 'number'}
           }
         })
-        await this.modificar({id, nombre})
+        await this.modificar({rubro, monto, id})
       } catch (error) {
       }
     },
-    async borrar (disciplina) {
+    async borrar (presupuesto) {
       try {
         await this.$q.dialog({
-          title: 'Eliminar disciplina',
-          message: `Desea eliminar la disciplina ${disciplina.nombre}?`,
+          title: 'Eliminar item',
+          message: `Desea eliminar el Item ${presupuesto.rubro}?`,
           ok: 'Aceptar',
           cancel: 'Cancelar'
         })
-        await this.eliminar(disciplina)
+        await this.eliminar(presupuesto)
       } catch (error) {
       }
     }

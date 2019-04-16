@@ -1,46 +1,90 @@
 <template>
-  <div class="q-mx-xl column" >
-    <q-list class="q-mt-sm" separator>
-      <q-btn v-if="isAdmin" class="q-ml-sm" label="Agregar" icon="create" @click="agregar()"></q-btn>
-      <q-list-header>Evaluadores</q-list-header>
-      <q-collapsible highlight v-for="evaluador in evaluadores" :key="evaluador.id" :label="evaluador.nombre + ' ' + evaluador.apellido"
-      :sublabel="evaluador.profesion ">
-        <q-item>
-          <q-item-main :label="'Nombre: ' + evaluador.nombre + ' ' + evaluador.apellido"></q-item-main>
-        </q-item>
-        <q-item>
-          <q-item-main :label="'Email: ' + evaluador.email"></q-item-main>
-        </q-item>
-        <q-item>
-          <q-item-main :label="'Telefono: ' + evaluador.telefono"></q-item-main>
-        </q-item>
-        <q-item>
-          <q-item-main :label="'Profesion: ' + evaluador.profesion"></q-item-main>
-        </q-item>
-        <q-item>
-          <q-item-main :label="'Especialidad: ' + evaluador.especialidad"></q-item-main>
-        </q-item>
-        <q-item>
-          <q-item-main :label="'Dni: ' + evaluador.dni"></q-item-main>
-        </q-item>
-        <q-item>
-          <q-item-main :label="'Lugar de Trabajo: ' + evaluador.lugarTrabajo"></q-item-main>
-        </q-item>
-        <q-btn-group class="q-ml-md">
-          <q-btn v-if="isAdmin" color="orange" title="Editar" icon="edit" @click="editar(evaluador)"/>
-          <q-btn v-if="isAdmin" color="red" title="Eliminar" icon="delete" @click="borrar(evaluador)"/>
-        </q-btn-group>
-      </q-collapsible>
-    </q-list>
+  <q-page padding>
+    <q-btn
+      class="q-md"
+      color="primary"
+      label="Agregar Evaluador"
+      @click="agregar" />
+    <q-btn color="" :disabled="!selected" flat round icon="edit" @click="editar(selected)" />
+    <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
+    <div>
+    <q-search v-model="filter"/>
+      <q-table
+        title="Evaluadores"
+        :data="evaluadores"
+        :columns="$options.columns"
+        row-key="id"
+        :filter="filter"
+        :pagination="{rowsPerPage: Number.MAX_SAFE_INTEGER}"
+        :rows-per-page-options="[]"
+        selection="single"
+        :selected.sync="selected" >
+      </q-table>
+    </div>
     <form-dialog ref="form" />
-  </div>
+  </q-page>
 </template>
 
 <script>
+const columns = [
+  {
+    name: 'nombre',
+    sortable: true,
+    align: 'left',
+    label: 'Nombre'
+  },
+  {
+    name: 'apellido',
+    sortable: true,
+    align: 'left',
+    label: 'Apellido'
+  },
+  {
+    name: 'email',
+    sortable: true,
+    align: 'left',
+    label: 'Email'
+  },
+  {
+    name: 'telefono',
+    sortable: true,
+    align: 'left',
+    label: 'Telefono'
+  },
+  {
+    name: 'profesion',
+    sortable: true,
+    align: 'left',
+    label: 'Profesion'
+  },
+  {
+    name: 'especialidad',
+    sortable: true,
+    align: 'left',
+    label: 'Especialidad'
+  },
+  {
+    name: 'lugarTrabajo',
+    sortable: true,
+    align: 'left',
+    label: 'Lugar de Trabajo'
+  },
+  {
+    name: 'dni',
+    sortable: true,
+    align: 'left',
+    label: 'DNI'
+  }
+]
 import { mapActions, mapGetters } from 'vuex'
 import FormDialog from '../../components/FormDialog'
 
 export default {
+  columns: columns.map(obj => ({...obj, field: obj.name})),
+  data: () => ({
+    filter: '',
+    selected: []
+  }),
   components: {FormDialog},
   mounted () {
     this.cargarTodos()
@@ -61,10 +105,10 @@ export default {
             nombre: {label: 'Nombre'},
             apellido: {label: 'Apellido'},
             email: {label: 'Email'},
-            telefono: {label: 'Telefono'},
+            telefono: {label: 'Telefono', type: 'number'},
             profesion: {label: 'Profesion'},
             especialidad: {label: 'Especialidad'},
-            dni: {label: 'DNI'},
+            dni: {label: 'DNI', type: 'number'},
             lugarTrabajo: {label: 'Lugar de Trabajo'}
           }
         })

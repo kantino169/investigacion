@@ -5,7 +5,9 @@
       color="primary"
       label="Agregar Actividad"
       @click="agregar" />
-    <tabla-actividades :actividades="actividades" />
+    <q-btn color="" :disabled="!selected" flat round icon="edit" @click="editar(selected)" />
+    <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
+    <tabla-actividades :actividades="actividades" :selected.sync="selected" />
     <form-dialog ref="form" />
   </q-page>
 </template>
@@ -19,6 +21,7 @@ export default {
   name: 'Actividades',
   components: { TablaActividades, FormDialog },
   mounted () { this.cargarTodas() },
+  data: () => ({selected: undefined}),
   computed: mapGetters('actividades', ['actividades']),
   methods: {
     ...mapActions('actividades', ['cargarTodas', 'crear', 'modificar', 'eliminar']),
@@ -28,25 +31,28 @@ export default {
         const datos = await this.$refs.form.getData({
           title: 'Nueva Actividades',
           form: {
-            actividad: {label: 'Actividad'}
+            actividad: {label: 'Actividad'},
             // Ver como hacer el select, la idea es que se clickee como vi en el ejemplo de la tabla
+            primers: {label: 'Primer semestre', type: 'check', model: true},
+            segundos: {label: 'Segundo semestre', type: 'check', model: true}
           }
         })
         await this.crear(datos)
       } catch (error) {
       }
     },
-    async editar ({id, nombre: nombreAnterior}) {
+    async editar (act) {
       try {
-        const nombre = await this.$q.dialog({
-          title: 'Modificar disciplina',
-          message: 'Nombre:',
-          prompt: {
-            model: nombreAnterior,
-            type: 'text'
+        const id = act.id
+        const {actividad, primers, segundos} = await this.$refs.form.getData({
+          title: 'Modificar actividad',
+          form: {
+            actividad: {label: 'Actividad'},
+            primers: {label: 'Primer Semestre', type: 'check', model: true},
+            segundos: {label: 'Segundo Semestre', type: 'check', model: true}
           }
         })
-        await this.modificar({id, nombre})
+        await this.modificar({id, actividad, primers, segundos})
       } catch (error) {
       }
     },

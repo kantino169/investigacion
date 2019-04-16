@@ -5,14 +5,14 @@ export async function cargarTodas ({commit}) {
   commit('agregar', actividades)
 }
 
-export async function crear ({commit}, {rubro, monto}) {
-  const {data: actividad} = await axios.post('actividades', {rubro, monto})
-  commit('agregar', [actividad])
+export async function crear ({commit}, {actividad, primers, segundos}) {
+  const {data: act} = await axios.post('actividades', {actividad, primers, segundos})
+  commit('agregar', [act])
 }
 
-export async function modificar ({commit}, {rubro, monto, id}) {
-  await axios.put(`actividades/${id}`, {rubro, monto})
-  commit('actualizar', {rubro, monto, id})
+export async function modificar ({commit}, {actividad, primers, segundos, id}) {
+  await axios.put(`actividades/${id}`, {actividad, primers, segundos})
+  commit('actualizar', {actividad, primers, segundos, id})
 }
 
 export async function eliminar ({commit}, {id}) {

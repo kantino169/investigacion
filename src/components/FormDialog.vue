@@ -3,11 +3,15 @@
     <span slot="title">{{title}}</span>
 
     <div slot="body" v-if="form">
-      <q-input v-for="(field, key) in form" :key="key"
-        :float-label="field.label"
-        v-model="datos[key]"
-        :type="field.type || 'text'"
-        @keyup.enter="enviar()"/>
+      <div v-for="(field, key) in form" :key="key">
+        <q-input v-if="field.type !== 'check'"
+          :float-label="field.label"
+          v-model="datos[key]"
+          :type="field.type || 'text'"
+          @keyup.enter="enviar()"/>
+
+        <q-checkbox v-else v-model="datos[key]" :label="field.label" />
+      </div>
     </div>
 
     <template slot="buttons" slot-scope="{ok}">

@@ -11,6 +11,8 @@ import disciplina from './disciplina'
 import listaUsuario from './listaUsuario'
 import presupuesto from './presupuesto'
 import actividades from './actividades'
+import roles from './roles'
+import modalidades from './modalidades'
 
 Vue.use(Vuex)
 
@@ -29,7 +31,9 @@ const store = new Vuex.Store({
     disciplina,
     listaUsuario,
     presupuesto,
-    actividades
+    actividades,
+    roles,
+    modalidades
   }
 })
 
