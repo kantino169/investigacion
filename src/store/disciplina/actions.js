@@ -7,7 +7,7 @@ export async function cargarTodas ({commit}) {
 
 export async function crear ({commit}, {nombre}) {
   const {data: disciplina} = await axios.post('disciplina', {nombre})
-  commit('agregar', {[disciplina.id]: disciplina})
+  commit('agregar', [disciplina])
 }
 
 export async function modificar ({commit}, {nombre, id}) {

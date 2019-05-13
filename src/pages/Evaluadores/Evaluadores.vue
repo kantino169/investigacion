@@ -7,85 +7,20 @@
       @click="agregar" />
     <q-btn color="" :disabled="!selected" flat round icon="edit" @click="editar(selected)" />
     <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
-    <div>
-    <q-search v-model="filter"/>
-      <q-table
-        title="Evaluadores"
-        :data="evaluadores"
-        :columns="$options.columns"
-        row-key="id"
-        :filter="filter"
-        :pagination="{rowsPerPage: Number.MAX_SAFE_INTEGER}"
-        :rows-per-page-options="[]"
-        selection="single"
-        :selected.sync="selected" >
-      </q-table>
-    </div>
+    <tabla-evaluadores :evaluadores="evaluadores" :selected.sync="selected" />
     <form-dialog ref="form" />
   </q-page>
 </template>
 
 <script>
-const columns = [
-  {
-    name: 'nombre',
-    sortable: true,
-    align: 'left',
-    label: 'Nombre'
-  },
-  {
-    name: 'apellido',
-    sortable: true,
-    align: 'left',
-    label: 'Apellido'
-  },
-  {
-    name: 'email',
-    sortable: true,
-    align: 'left',
-    label: 'Email'
-  },
-  {
-    name: 'telefono',
-    sortable: true,
-    align: 'left',
-    label: 'Telefono'
-  },
-  {
-    name: 'profesion',
-    sortable: true,
-    align: 'left',
-    label: 'Profesion'
-  },
-  {
-    name: 'especialidad',
-    sortable: true,
-    align: 'left',
-    label: 'Especialidad'
-  },
-  {
-    name: 'lugarTrabajo',
-    sortable: true,
-    align: 'left',
-    label: 'Lugar de Trabajo'
-  },
-  {
-    name: 'dni',
-    sortable: true,
-    align: 'left',
-    label: 'DNI'
-  }
-]
+
 import { mapActions, mapGetters } from 'vuex'
 import FormDialog from '../../components/FormDialog'
+import TablaEvaluadores from '../../components/Evaluadores/TablaEvaluadores'
 
 export default {
-  columns: columns.map(obj => ({...obj, field: obj.name})),
-  data: () => ({
-    filter: '',
-    selected: []
-  }),
-  components: {FormDialog},
+  data: () => ({ selected: undefined }),
+  components: {FormDialog, TablaEvaluadores},
   mounted () {
     this.cargarTodos()
   },
@@ -104,7 +39,7 @@ export default {
           form: {
             nombre: {label: 'Nombre'},
             apellido: {label: 'Apellido'},
-            email: {label: 'Email'},
+            email: {label: 'Email', type: 'email'},
             telefono: {label: 'Telefono', type: 'number'},
             profesion: {label: 'Profesion'},
             especialidad: {label: 'Especialidad'},
@@ -145,6 +80,7 @@ export default {
           cancel: 'Cancelar'
         })
         await this.eliminar(evaluador)
+        this.selected = undefined
       } catch (error) {
       }
     }

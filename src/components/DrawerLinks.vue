@@ -9,9 +9,13 @@
       <q-item-side icon="perm_identity" />
       <q-item-main label="Usuarios" />
     </q-item>
-    <q-item exact to="/actividades">
-      <q-item-side icon="reorder" />
-      <q-item-main label="Actividades" />
+    <q-item exact to="/horas">
+      <q-item-side icon="access_time" />
+      <q-item-main label="Mis horas" />
+    </q-item>
+    <q-item exact to="/lineas">
+      <q-item-side icon="bookmarks" />
+      <q-item-main label="Lineas de Investigación" />
     </q-item>
     <q-item exact to="/listaProyectos">
       <q-item-side icon="reorder" />
@@ -20,7 +24,7 @@
     <q-collapsible icon="assignment" label="Administrar">
       <div>
         <q-item exact to="/proyectos">
-          <q-item-side icon="reorder" />
+          <q-item-side icon="assignment" />
           <q-item-main label="Proyectos" />
         </q-item>
         <q-item exact to="/disciplinas" >
@@ -34,6 +38,14 @@
         <q-item exact to="/evaluadores">
           <q-item-side icon="assignment_ind" />
           <q-item-main label="Evaluadores" />
+        </q-item>
+        <q-item exact to="/roles">
+          <q-item-side icon="supervisor_account" />
+          <q-item-main label="Roles de Investigación" />
+        </q-item>
+        <q-item exact to="/modalidades">
+          <q-item-side icon="style" />
+          <q-item-main label="Modalidades de Investigación" />
         </q-item>
       </div>
     </q-collapsible>

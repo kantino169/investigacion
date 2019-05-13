@@ -13,6 +13,7 @@ import presupuesto from './presupuesto'
 import actividades from './actividades'
 import roles from './roles'
 import modalidades from './modalidades'
+import horas from './horas'
 
 Vue.use(Vuex)
 
@@ -33,7 +34,8 @@ const store = new Vuex.Store({
     presupuesto,
     actividades,
     roles,
-    modalidades
+    modalidades,
+    horas
   }
 })
 

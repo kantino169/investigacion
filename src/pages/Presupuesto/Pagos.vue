@@ -4,11 +4,10 @@
       class="q-md"
       color="primary"
       label="Agregar Item"
-      @click="agregar(proyecto.id)" />
+      @click="agregar" />
     <q-btn color="" :disabled="!selected" flat round icon="edit" @click="editar(selected)" />
     <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
     <tabla-presupuesto :presupuestos="presupuestos" :selected.sync="selected"/>
-    <q-btn class="q-mt-lg" icon="keyboard_backspace" label="ATRAS" @click="$router.push({name: 'MenuProyecto', params: {idProyecto: proyecto.id}})"></q-btn>
     <form-dialog ref="form" />
   </q-page>
 </template>
@@ -21,21 +20,13 @@ import FormDialog from 'components/FormDialog'
 export default {
   name: 'Presupuesto',
   components: { TablaPresupuesto, FormDialog },
-  mounted () { this.cargarTodas(this.proyecto.id) },
+  mounted () { this.cargarTodas() },
   data: () => ({selected: undefined}),
-  computed: {
-    ...mapGetters('presupuesto', ['presupuestos']),
-    proyectos () {
-      return this.$store.getters['proyecto/proyectos']
-    },
-    proyecto () {
-      return this.proyectos.find(proyecto => proyecto.id === this.$route.params.idProyecto)
-    }
-  },
+  computed: mapGetters('presupuesto', ['presupuestos']),
   methods: {
     ...mapActions('presupuesto', ['cargarTodas', 'crear', 'modificar', 'eliminar']),
 
-    async agregar (idProyecto) {
+    async agregar () {
       try {
         const datos = await this.$refs.form.getData({
           title: 'Nuevo Item',
@@ -44,7 +35,7 @@ export default {
             monto: {label: 'Monto', type: 'number'}
           }
         })
-        await this.crear({...datos, idProyecto})
+        await this.crear(datos)
       } catch (error) {
       }
     },
@@ -72,7 +63,6 @@ export default {
           cancel: 'Cancelar'
         })
         await this.eliminar(presupuesto)
-        this.selected = undefined
       } catch (error) {
       }
     }

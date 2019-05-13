@@ -1,97 +1,14 @@
 <template>
   <q-page padding>
-    <h5>I. IDENTIFICACION DEL PROYECTO</h5>
-    <q-select
-      v-model="datos.idModalidad"
-      placeholder="1. Modalidad:"
-      :options="modalidades"
-    />
-    <q-input v-model="datos.director_id" float-label="Director"></q-input>
-    <q-input v-model="datos.codirector_id" float-label="Co-director/es"></q-input>
-    <q-collapsible icon="help_outline" label="Mas informacion">
-      <div>
-        En caso de proyecto TESIS, agregar nombre  del director o consejero de la TESIS
-      </div>
-    </q-collapsible>
-    <q-input v-model="datos.otros_miembros_uap" type="textarea" float-label="Otros miembros del equipo de investigacion de la UAP"></q-input>
-    <q-input v-model="datos.otros_miembros" type="textarea" float-label="Otros miembros del equipo de investigación externos a la Institución"></q-input>
-    <q-input v-model="datos.asistentes" type="textarea" float-label="Asistentes de investigacion"></q-input>
-    <q-input v-model="datos.becarios" type="textarea" float-label="Becarios de investigacion"></q-input>
-    <q-select
-      v-model="datos.unidadesAcademicas"
-      placeholder="Unidad academica patrocinante:"
-      :options="unidadesAcademicas"
-    />
+    <identificacion-proyecto ref="identificacion"/>
+    <descripcion-proyecto ref="descripcion"/>
+    <introduccion-proyecto ref="introduccion"/>
+    <metodos-proyecto ref="metodos"/>
+    <publicacion-cientifica ref="publicacion"/>
+    <presupuesto-proyecto ref="presupuesto"/>
+    <referencias-bibliograficas ref="referencias"/>
+    <cronograma-proyecto ref="cronograma"/>
 
-    <h5>II. DESCRIPCION DEL PROYECTO</h5>
-    <seleccionador-lineas v-model="datos.lineaInvestigacion" />
-    <q-input v-model="datos.titulo" float-label="Titulo del proyecto"></q-input>
-    <q-input v-model="datos.resumen" type="textarea" float-label="4. Resumen tecnico - (entre 150-250 palabras)"></q-input>
-    <q-input v-model="datos.palabaras_clave" type="textarea" float-label="5. Palabras clave - (entre 4 y 6 descriptores tematicos relevantes)"></q-input>
-
-    <h5>III. INTRODUCCION DEL PROYECTO</h5>
-    <q-input v-model="datos.estado_actual" type="textarea" float-label="1. Estado actual del conocimiento sobre el tema (Marco teorico que incluya la descripcion de los principales datos de la literatura)"></q-input>
-    <q-input v-model="datos.problema_hipotesis" type="textarea" float-label="2. Definicion del problema e hipotesis (dependiendo del tipo de estudio)"></q-input>
-    <q-input v-model="datos.justificacion" type="textarea" float-label="3. Justificacion cientifica, academica-institucional y social"></q-input>
-    <q-input v-model="datos.objetivos" type="textarea" float-label="4. Objetivos"></q-input>
-
-    <h5>IV. METODOS</h5>
-    <q-input v-model="datos.metodologia" type="textarea" float-label="1. Metodologia (conforme el tipo de investigacion)"></q-input>
-    <q-collapsible icon="help_outline" label="Mas informacion">
-      <div>
-        a. Para investigaciones empíricas cuantitativas, cualitativas, cuali-cuantitativas, o experimentales se necesita especificar, como mínimo, los siguientes aspectos con detalles: <br>
-        - Diseño o tipo de investigación<br>
-        - Participantes (muestra y tipo de muestreo)<br>
-        - Instrumentos de Recolección de Datos<br>
-        - Variables <br>
-        - Procedimientos para Recolección de Datos<br>
-        - Consideraciones Éticas del Estudio<br>
-        - Procesamiento y Análisis de datos<br>
-        <br>
-        b. Para investigaciones de tipo teóricas: detallar la metodología que se utilizará.
-      </div>
-    </q-collapsible>
-    <q-input v-model="datos.anexos" type="textarea" float-label="2. Anexos (conforme el tipo de investigacion)"></q-input>
-    <q-collapsible icon="help_outline" label="Mas informacion">
-      <div>
-        - Solicitud de autorización de la Institución donde se pretende realizar el estudio <br>
-        - Invitación a la participación del estudio y Consentimiento Informado<br>
-        - Especificaciones de Técnicas y Métodos de Estudio<br>
-        - Descripción de tests, maniobras o procedimientos <br>
-        - Protocolos de Experimentación <br>
-        - Fórmulas, Reactivos, etc. <br>
-        - Constancia de aprobación del Comité de Ética de la UAP, en caso de trabajar con personas o animales (adjuntar la misma si ya fue presentado al Comité).
-      </div>
-    </q-collapsible>
-
-    <h5>V. PUBLICACION CIENTIFICA</h5>
-    <q-input v-model="datos.publicacion" type="textarea" float-label="1. Presentar un plan viable de publicación de la investigación (Especificar si se pretende publicar los resultados de la investigación en forma de un artículo científico o un libro)."></q-input>
-
-    <h5>VI. PRESUPUESTO</h5>
-    <q-input v-model="datos.duracion" type="number" float-label="1. Estimacion de la duracion del proyecto (expresado en cantidad de años)"></q-input>
-    <q-input v-model="datos.tiempo_semanal" type="number" float-label="2. Estimacion del tiempo semanal necesario para realizar la investigacion (expresado en cantidad de horas reloj semanal por miembro de equipo)"></q-input>
-    <br>
-    <q-btn
-      class="q-md"
-      color="primary"
-      label="Agregar Item"
-      @click="agregarPresupuesto" />
-    <tabla-presupuesto :presupuestos="presupuestos" />
-    <form-dialog ref="formPresupuesto" />
-
-    <h5>VII. REFERENCIAS BIBLIOGRAFICAS</h5>
-    <q-input v-model="datos.referencias" type="textarea" float-label="1.Listado de referencias bibliograficas (citados en el proyecto)" />
-
-    <h5>VIII. CRONOGRAMA O PLAN DE TAREAS PARA EL AÑO EN CURSO</h5>
-    <div row>
-      <q-btn
-      class="q-md"
-      color="primary"
-      label="Agregar Actividad"
-      @click="agregarActividad" />
-    <tabla-actividades :actividades="actividades" />
-    <form-dialog ref="formActividad" />
-    </div>
     <br>
     <div align="right">
       <q-btn
@@ -101,8 +18,8 @@
       <q-btn
         class="q-md"
         color="primary"
-        label="Finalizar"
-        @click="crear(datos)" />
+        label="Enviar a SECyT"
+        @click="crear" />
     </div>
   </q-page>
 </template>
@@ -116,116 +33,45 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import SeleccionadorLineas from 'components/Proyecto/SeleccionadorLineas/SeleccionadorLineas.vue'
 import { Notify } from 'quasar'
-import TablaPresupuesto from 'components/Presupuesto/tablaPresupuesto'
-import TablaActividades from 'components/Actividades/TablaActividades'
 import FormDialog from 'components/FormDialog'
+import FullEditor from 'components/FullEditor'
+import IdentificacionProyecto from 'components/Proyecto/IdentificacionProyecto'
+import DescripcionProyecto from 'components/Proyecto/DescripcionProyecto'
+import IntroduccionProyecto from 'components/Proyecto/IntroduccionProyecto'
+import MetodosProyecto from 'components/Proyecto/MetodosProyecto'
+import PublicacionCientifica from 'components/Proyecto/PublicacionCientifica'
+import PresupuestoProyecto from 'components/Proyecto/PresupuestoProyecto'
+import ReferenciasBibliograficas from 'components/Proyecto/ReferenciasBibliograficas'
+import CronogramaProyecto from 'components/Proyecto/CronogramaProyecto'
 
+// let actividades = []
 export default {
-  components: {SeleccionadorLineas, TablaPresupuesto, TablaActividades, FormDialog},
+  components: {
+    FullEditor,
+    ReferenciasBibliograficas,
+    CronogramaProyecto,
+    PresupuestoProyecto,
+    FormDialog,
+    IdentificacionProyecto,
+    DescripcionProyecto,
+    IntroduccionProyecto,
+    MetodosProyecto,
+    PublicacionCientifica},
   data () {
     return {
-      modalidades: [
-        {
-          id: '1',
-          nombre: 'PRI',
-          value: '1',
-          label: 'PRI'
-        },
-        {
-          id: '2',
-          nombre: 'PIB',
-          value: '2',
-          label: 'PIB'
-        },
-        {
-          id: '3',
-          nombre: 'PIC',
-          value: '3',
-          label: 'PIC'
-        },
-        {
-          id: '4',
-          nombre: 'Tesis',
-          value: '4',
-          label: 'Tesis'
-        },
-        {
-          id: '5',
-          nombre: 'Proyecto',
-          value: '5',
-          label: 'Proyecto'
-        },
-        {
-          id: '6',
-          nombre: 'Interfacultad',
-          value: '6',
-          label: 'Interfacultad'
-        }
-      ],
-      unidadesAcademicas: [
-        {
-          id: '1',
-          nombre: 'FACEA',
-          value: '1',
-          label: 'FACEA'
-        },
-        {
-          id: '2',
-          nombre: 'FHECIS',
-          value: '2',
-          label: 'FHECIS'
-        },
-        {
-          id: '3',
-          nombre: 'FCS',
-          value: '3',
-          label: 'FCS'
-        },
-        {
-          id: '4',
-          nombre: 'Teologia',
-          value: '4',
-          label: 'Teologia'
-        }
-      ],
       step: 'first',
       datos: {
         idUsuario: this.$store.state.usuario.id,
-        idModalidad: undefined,
-        lineaInvestigacion: undefined,
-        director_id: undefined,
-        codirector_id: undefined,
-        otros_miembros_uap: undefined,
-        otros_miembros: undefined,
-        asistentes: undefined,
-        becarios: undefined,
-        disciplinaEstudio: undefined,
-        unidadAcademica: undefined,
-        titulo: undefined,
-        resumen: undefined,
-        palabrasClave: undefined,
-        estadoActual: undefined,
-        definicionProblema: undefined,
-        justificacion: undefined,
-        objetivos: undefined,
-        metodologia: undefined,
-        anexos: undefined,
-        publicacion: undefined,
-        estimacionDuracionProyecto: undefined,
-        estimacionTiempoSemanal: undefined,
-        items_presupuesto: undefined,
-        bibliografia: undefined
-      },
-      options: ['contractable', 'step_error']
+        disciplinaEstudio: undefined
+      }
     }
   },
   mounted () {
     // this.cargarModalidades()
     // this.cargarUnidadesAcademicas()
-    this.cargarPresupustos()
-    this.cargarActividades()
+    // this.cargarPresupuestos()
+    // this.cargarActividades()
   },
   computed: {
     ...mapGetters('presupuesto', ['presupuestos']),
@@ -253,7 +99,7 @@ export default {
   methods: {
     ...mapActions('proyecto', ['cargarModalidades', 'cargarUnidadesAcademicas', 'agregar']),
     ...mapActions('presupuesto', {
-      cargarPresupustos: 'cargarTodas',
+      cargarPresupuestos: 'cargarTodas',
       crearPresupuesto: 'crear',
       modificarPresupuesto: 'modificar',
       eliminarPresupuesto: 'eliminar'
@@ -264,40 +110,22 @@ export default {
       modificarActividad: 'modificar',
       eliminarActividad: 'eliminar'
     }),
-    async crear (datos) {
-      await this.agregar(this.datos).then(() => {
+    async crear () {
+      const datos = {
+        ...this.$refs.identificacion.datos,
+        ...this.$refs.descripcion.datos,
+        ...this.$refs.introduccion.datos,
+        ...this.$refs.metodos.datos,
+        ...this.$refs.publicacion.datos,
+        ...this.$refs.cronograma.datos
+      }
+      await this.agregar(datos).then(() => {
         Notify.create({
           type: 'positive',
           message: 'Proyecto creado con exito'
         })
         this.$router.push('/listaProyectos')
       })
-    },
-    async agregarPresupuesto () {
-      try {
-        const datosPresupuesto = await this.$refs.formPresupuesto.getData({
-          title: 'Nuevo Item',
-          form: {
-            rubro: {label: 'Rubro'},
-            monto: {label: 'Monto', type: 'number'}
-          }
-        })
-        await this.crearPresupuesto(datosPresupuesto)
-      } catch (error) {
-      }
-    },
-    async agregarActividad () {
-      try {
-        const datosActividad = await this.$refs.formActividad.getData({
-          title: 'Nueva Actividad',
-          form: {
-            actividad: {label: 'Actividad'}
-            // Ver como hacer el select, la idea es que se clickee como vi en el ejemplo de la tabla
-          }
-        })
-        await this.crear(datosActividad)
-      } catch (error) {
-      }
     }
   }
 }

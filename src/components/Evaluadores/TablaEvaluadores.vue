@@ -2,8 +2,8 @@
   <div>
     <q-search v-model="filter"/>
       <q-table
-        title="Actividades"
-        :data="actividades"
+        title="Evaluadores"
+        :data="evaluadores"
         :columns="$options.columns"
         row-key="id"
         :filter="filter"
@@ -12,38 +12,67 @@
         selection="single"
         :selected.sync="selectedInput" >
       </q-table>
-  </div>
+    </div>
 </template>
 
 <script>
 const columns = [
   {
-    name: 'actividad',
+    name: 'nombre',
     sortable: true,
     align: 'left',
-    label: 'Actividades de Investigación'
+    label: 'Nombre'
   },
   {
-    name: 'primers',
+    name: 'apellido',
     sortable: true,
     align: 'left',
-    label: 'Primer Semestre'
+    label: 'Apellido'
   },
   {
-    name: 'segundos',
+    name: 'email',
     sortable: true,
     align: 'left',
-    label: 'Segundo Semestre'
+    label: 'Email'
+  },
+  {
+    name: 'telefono',
+    sortable: true,
+    align: 'left',
+    label: 'Telefono'
+  },
+  {
+    name: 'profesion',
+    sortable: true,
+    align: 'left',
+    label: 'Profesion'
+  },
+  {
+    name: 'especialidad',
+    sortable: true,
+    align: 'left',
+    label: 'Especialidad'
+  },
+  {
+    name: 'lugarTrabajo',
+    sortable: true,
+    align: 'left',
+    label: 'Lugar de Trabajo'
+  },
+  {
+    name: 'dni',
+    sortable: true,
+    align: 'left',
+    label: 'DNI'
   }
 ]
-
 export default {
   columns: columns.map(obj => ({...obj, field: obj.name})),
   data: () => ({
     filter: ''
   }),
   props: {
-    actividades: {
+    evaluadores: {
       type: Array,
       default: () => []
     },
@@ -61,5 +90,4 @@ export default {
     }
   }
 }
-
 </script>

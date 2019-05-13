@@ -6,6 +6,12 @@ export async function cargarTodos ({ commit }) {
   commit('agregar', proyectos)
 }
 
+export async function cargarProyecto ({commit}, idProyecto) {
+  const id = idProyecto
+  const {data: proyectos} = await axios.get(`proyecto/${id}`)
+  commit('agregar', proyectos)
+}
+
 export async function cargarModalidades ({commit}) {
   const {data: modalidades} = await axios.get('modalidades')
   commit('cargarModalidades', modalidades)

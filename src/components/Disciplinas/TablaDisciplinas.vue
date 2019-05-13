@@ -2,8 +2,8 @@
   <div>
     <q-search v-model="filter"/>
     <q-table
-      title="Presupuesto"
-      :data="presupuestos"
+      title="Disciplinas"
+      :data="disciplinas"
       :columns="$options.columns"
       :filter="filter"
       row-key="id"
@@ -12,18 +12,7 @@
       selection="single"
       :selected.sync="selectedInput"
     >
-
-    <!-- <template slot="top-selection">
-      <div class="col" />
-      <q-btn color="negative" flat round delete icon="delete" @click="$emit('borrar(selected)')" />
-    </template> -->
     </q-table>
-    <q-list highlight separator>
-      <q-item>
-        <q-item-side>TOTAL</q-item-side>
-        <q-item-main>$ {{suma}}</q-item-main>
-      </q-item>
-    </q-list>
   </div>
 </template>
 
@@ -31,26 +20,21 @@
 
 const columns = [
   {
-    name: 'rubro',
+    name: 'nombre',
     sortable: true,
     align: 'left',
-    label: 'Rubro'
-  },
-  {
-    name: 'monto',
-    sortable: true,
-    align: 'left',
-    label: 'Monto'
+    label: 'Disciplina'
   }
 ]
 
 export default {
+  name: 'tabla-disciplinas',
   columns: columns.map(obj => ({...obj, field: obj.name})),
   data: () => ({
     filter: ''
   }),
   props: {
-    presupuestos: {
+    disciplinas: {
       type: Array,
       default: () => []
     },
@@ -60,9 +44,6 @@ export default {
     }
   },
   computed: {
-    suma () {
-      return this.presupuestos.reduce((suma, {monto}) => suma + monto, 0)
-    },
     selectedInput: {
       get () { return this.selected ? [this.selected] : [] },
       set (val) {

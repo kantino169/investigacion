@@ -2,8 +2,8 @@
   <div>
     <q-search v-model="filter"/>
       <q-table
-        title="Actividades"
-        :data="actividades"
+        title="Anexos"
+        :data="anexos"
         :columns="$options.columns"
         row-key="id"
         :filter="filter"
@@ -18,22 +18,16 @@
 <script>
 const columns = [
   {
-    name: 'actividad',
+    name: 'nombreArchivo',
     sortable: true,
     align: 'left',
-    label: 'Actividades de Investigación'
+    label: 'Archivo'
   },
   {
-    name: 'primers',
+    name: 'idUsuario',
     sortable: true,
     align: 'left',
-    label: 'Primer Semestre'
-  },
-  {
-    name: 'segundos',
-    sortable: true,
-    align: 'left',
-    label: 'Segundo Semestre'
+    label: 'Subido por'
   }
 ]
 
@@ -43,7 +37,7 @@ export default {
     filter: ''
   }),
   props: {
-    actividades: {
+    anexos: {
       type: Array,
       default: () => []
     },

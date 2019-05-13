@@ -49,6 +49,14 @@ const routes = [
         }
       },
       {
+        path: '/proyectos/menu:idProyecto',
+        name: 'MenuProyecto',
+        components: {
+          default: () => import('pages/Proyectos/MenuProyecto.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
         path: '/usuarios',
         components: {
           default: () => import('pages/Usuarios/Usuarios.vue'),
@@ -70,14 +78,24 @@ const routes = [
         }
       },
       {
-        path: '/presupuesto',
+        path: '/presupuesto:idProyecto',
+        name: 'Presupuesto',
         components: {
           default: () => import('pages/Presupuesto/Presupuesto.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
       },
       {
-        path: '/actividades',
+        path: '/anexos:idProyecto',
+        name: 'Anexos',
+        components: {
+          default: () => import('pages/Anexos/Anexos.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/actividades:idProyecto',
+        name: 'Actividades',
         components: {
           default: () => import('pages/Actividades/Actividades.vue'),
           drawer: () => import('layouts/Drawer.vue')
@@ -91,12 +109,27 @@ const routes = [
         }
       },
       {
-        path: 'modalidades',
+        path: '/modalidades',
         components: {
           default: () => import('pages/Modalidades/Modalidades.vue'),
           drawer: () => import('layouts/Drawer.vue')
         }
+      },
+      {
+        path: '/horas',
+        components: {
+          default: () => import('pages/Horas/Horas.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/pagos',
+        components: {
+          default: () => import('pages/Presupuesto/Pagos.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
       }
+
     ]
   }
 ]

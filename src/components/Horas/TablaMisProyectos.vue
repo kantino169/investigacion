@@ -2,8 +2,8 @@
   <div>
     <q-search v-model="filter"/>
       <q-table
-        title="Actividades"
-        :data="actividades"
+        title="Mis Proyectos"
+        :data="proyectos"
         :columns="$options.columns"
         row-key="id"
         :filter="filter"
@@ -18,22 +18,10 @@
 <script>
 const columns = [
   {
-    name: 'actividad',
+    name: 'titulo',
     sortable: true,
     align: 'left',
-    label: 'Actividades de Investigación'
-  },
-  {
-    name: 'primers',
-    sortable: true,
-    align: 'left',
-    label: 'Primer Semestre'
-  },
-  {
-    name: 'segundos',
-    sortable: true,
-    align: 'left',
-    label: 'Segundo Semestre'
+    label: 'Titulo del Proyecto'
   }
 ]
 
@@ -43,7 +31,7 @@ export default {
     filter: ''
   }),
   props: {
-    actividades: {
+    proyectos: {
       type: Array,
       default: () => []
     },

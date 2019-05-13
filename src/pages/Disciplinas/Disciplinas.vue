@@ -1,32 +1,19 @@
 <template>
   <div>
     <q-page padding class="q-mx-md column">
-      <div>
+      <q-btn-group v-if="isAdmin">
         <q-btn
-        class="q-md"
+        class="q-ma-sm"
         color="primary"
         label="Agregar disciplina"
         @click="agregar"
         v-if="isAdmin"
         />
-      </div>
+        <q-btn class="q-ma-sm" color="orange" :disabled="!selected" @click="editar(selected)" label="Editar" title="Editar" icon="edit" />
+        <q-btn class="q-ma-sm" color="red" :disabled="!selected" @click="borrar(selected)" label="Eliminar" title="Eliminar" icon="delete"/>
+      </q-btn-group>
       <div>
-        <q-list hightlight separator>
-          <q-list-header>Disciplinas de estudio</q-list-header>
-          <q-item v-for="disciplina in disciplinas" :key="disciplina.id">
-            <q-item-side>{{disciplina.id}}</q-item-side>
-            <q-item-main
-              :label="disciplina.nombre"/>
-            <q-item-side>
-              <div>
-                <q-btn-group v-if="isAdmin">
-                  <q-btn class="q-md" color="orange" @click="editar(disciplina)" label="Editar" title="Editar" icon="edit" />
-                  <q-btn class="q-md" color="red" @click="borrar(disciplina)" label="Eliminar" title="Eliminar" icon="delete"/>
-                </q-btn-group>
-              </div>
-            </q-item-side>
-          </q-item>
-        </q-list>
+        <tabla-disciplinas :disciplinas="disciplinas" :selected.sync="selected"/>
       </div>
     </q-page>
   </div>
@@ -34,8 +21,11 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import TablaDisciplinas from 'components/Disciplinas/TablaDisciplinas'
 
 export default {
+  components: { TablaDisciplinas },
+  data: () => ({selected: undefined}),
   mounted () {
     this.cargarTodas()
   },
@@ -84,6 +74,7 @@ export default {
           cancel: 'Cancelar'
         })
         await this.eliminar(disciplina)
+        this.selected = undefined // sirve para volver a definir el selected y que se apliquen los disable de los botones
       } catch (error) {
       }
     }

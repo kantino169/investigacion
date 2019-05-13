@@ -1,49 +1,49 @@
 <template>
   <div>
-    <q-search v-model="filter"/>
       <q-table
-        title="Actividades"
-        :data="actividades"
+        title="Horas semanales"
+        :data="horas"
         :columns="$options.columns"
         row-key="id"
-        :filter="filter"
         :pagination="{rowsPerPage: Number.MAX_SAFE_INTEGER}"
         :rows-per-page-options="[]"
         selection="single"
         :selected.sync="selectedInput" >
       </q-table>
-  </div>
+    </div>
 </template>
 
 <script>
 const columns = [
   {
-    name: 'actividad',
+    name: 'fecha',
     sortable: true,
     align: 'left',
-    label: 'Actividades de Investigación'
+    label: 'Fecha'
   },
   {
-    name: 'primers',
+    name: 'lugarActividad',
     sortable: true,
     align: 'left',
-    label: 'Primer Semestre'
+    label: 'Lugar y Actividad realizada'
   },
   {
-    name: 'segundos',
+    name: 'horario',
     sortable: true,
     align: 'left',
-    label: 'Segundo Semestre'
+    label: 'Horario'
+  },
+  {
+    name: 'hrs',
+    sortable: true,
+    align: 'left',
+    label: 'Hrs'
   }
 ]
-
 export default {
   columns: columns.map(obj => ({...obj, field: obj.name})),
-  data: () => ({
-    filter: ''
-  }),
   props: {
-    actividades: {
+    horas: {
       type: Array,
       default: () => []
     },
@@ -61,5 +61,4 @@ export default {
     }
   }
 }
-
 </script>

@@ -4,13 +4,13 @@
 
     <div slot="body" v-if="form">
       <div v-for="(field, key) in form" :key="key">
-        <q-input v-if="field.type !== 'check'"
+        <q-datetime v-if="field.type == 'date'" v-model="datos[key]" type="date" :first-day-of-week=0 :float-label="field.label" />
+        <q-checkbox v-else-if="field.type == 'check'" v-model="datos[key]" :label="field.label" />
+        <q-input v-else
           :float-label="field.label"
           v-model="datos[key]"
           :type="field.type || 'text'"
           @keyup.enter="enviar()"/>
-
-        <q-checkbox v-else v-model="datos[key]" :label="field.label" />
       </div>
     </div>
 

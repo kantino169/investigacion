@@ -4,10 +4,11 @@
       class="q-md"
       color="primary"
       label="Agregar Actividad"
-      @click="agregar" />
+      @click="agregar(proyecto.id)" />
     <q-btn color="" :disabled="!selected" flat round icon="edit" @click="editar(selected)" />
     <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
     <tabla-actividades :actividades="actividades" :selected.sync="selected" />
+    <q-btn class="q-mt-lg" icon="keyboard_backspace" label="ATRAS" @click="$router.push({name: 'MenuProyecto', params: {idProyecto: proyecto.id}})"></q-btn>
     <form-dialog ref="form" />
   </q-page>
 </template>
@@ -20,13 +21,21 @@ import FormDialog from 'components/FormDialog'
 export default {
   name: 'Actividades',
   components: { TablaActividades, FormDialog },
-  mounted () { this.cargarTodas() },
+  mounted () { this.cargarTodas(this.proyecto.id) },
   data: () => ({selected: undefined}),
-  computed: mapGetters('actividades', ['actividades']),
+  computed: {
+    ...mapGetters('actividades', ['actividades']),
+    proyectos () {
+      return this.$store.getters['proyecto/proyectos']
+    },
+    proyecto () {
+      return this.proyectos.find(proyecto => proyecto.id === this.$route.params.idProyecto)
+    }
+  },
   methods: {
     ...mapActions('actividades', ['cargarTodas', 'crear', 'modificar', 'eliminar']),
 
-    async agregar () {
+    async agregar (idProyecto) {
       try {
         const datos = await this.$refs.form.getData({
           title: 'Nueva Actividades',
@@ -37,7 +46,7 @@ export default {
             segundos: {label: 'Segundo semestre', type: 'check', model: true}
           }
         })
-        await this.crear(datos)
+        await this.crear({...datos, idProyecto})
       } catch (error) {
       }
     },
@@ -56,15 +65,16 @@ export default {
       } catch (error) {
       }
     },
-    async borrar (disciplina) {
+    async borrar (act) {
       try {
         await this.$q.dialog({
-          title: 'Eliminar disciplina',
-          message: `Desea eliminar la disciplina ${disciplina.nombre}?`,
+          title: 'Eliminar actividad',
+          message: `Desea eliminar la actividad ${act.actividad}?`,
           ok: 'Aceptar',
           cancel: 'Cancelar'
         })
-        await this.eliminar(disciplina)
+        await this.eliminar(act)
+        this.selected = undefined
       } catch (error) {
       }
     }

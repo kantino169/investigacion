@@ -74,7 +74,10 @@ module.exports = function (ctx) {
         'QModal',
         'QChipsInput',
         'QSearch',
-        'QCheckbox'
+        'QCheckbox',
+        'QDatetime',
+        'QEditor',
+        'QUploader'
       ],
       directives: [
         'Ripple'
