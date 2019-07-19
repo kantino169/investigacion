@@ -1,44 +1,42 @@
 <template>
   <div>
-    <q-search v-model="filter"/>
       <q-table
-        title="Anexos"
-        :data="anexos"
+        title="Planillas"
+        :data="planillas"
         :columns="$options.columns"
-        row-key="id"
         :filter="filter"
+        row-key="id"
         :pagination="{rowsPerPage: Number.MAX_SAFE_INTEGER}"
         :rows-per-page-options="[]"
         selection="single"
         :selected.sync="selectedInput" >
       </q-table>
-  </div>
+    </div>
 </template>
 
 <script>
 const columns = [
   {
-    name: 'nombreArchivo',
+    name: 'mes',
     sortable: true,
     align: 'left',
-    label: 'Archivo'
+    label: 'Mes'
   },
   {
-    name: 'idUsuario',
+    name: 'idProyecto',
     sortable: true,
     align: 'left',
-    label: 'Subido por'
+    label: 'Proyecto'
   }
 ]
-
 export default {
-  name: 'tabla-anexos',
+  name: 'tabla-planillas',
   columns: columns.map(obj => ({...obj, field: obj.name})),
   data: () => ({
     filter: ''
   }),
   props: {
-    anexos: {
+    planillas: {
       type: Array,
       default: () => []
     },
@@ -56,5 +54,4 @@ export default {
     }
   }
 }
-
 </script>

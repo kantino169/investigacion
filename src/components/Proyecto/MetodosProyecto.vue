@@ -18,7 +18,7 @@
       </div>
     </q-collapsible>
    <p class="caption">2. Anexos (conforme el tipo de investigacion)</p>
-    <q-uploader url="http://localhost:3000/api/anexos/" :multiple="true" :auto-expand="true" />
+    <p>Los anexos se deben cargar dentro del respectivo proyecto en el menu del proyecto. Guardar el protocolo para poder acceder</p>
     <q-collapsible icon="help_outline" label="Mas informacion">
       <div>
         - Solicitud de autorización de la Institución donde se pretende realizar el estudio <br>

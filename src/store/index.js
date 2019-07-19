@@ -14,6 +14,10 @@ import actividades from './actividades'
 import roles from './roles'
 import modalidades from './modalidades'
 import horas from './horas'
+import anexos from './anexos'
+import informes from './informes'
+import planillas from './planillas'
+import becario from './becario'
 
 Vue.use(Vuex)
 
@@ -35,7 +39,11 @@ const store = new Vuex.Store({
     actividades,
     roles,
     modalidades,
-    horas
+    horas,
+    anexos,
+    informes,
+    planillas,
+    becario
   }
 })
 

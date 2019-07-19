@@ -75,6 +75,7 @@ export default {
           cancel: 'Cancelar'
         })
         this.presupuestos.splice(this.presupuestos.indexOf(presupuesto.id), 1)
+        this.selected = undefined
       } catch (error) {
       }
     }

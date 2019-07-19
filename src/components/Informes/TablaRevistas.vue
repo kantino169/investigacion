@@ -2,8 +2,8 @@
   <div>
     <q-search v-model="filter"/>
       <q-table
-        title="Anexos"
-        :data="anexos"
+        title="Revistas"
+        :data="revistas"
         :columns="$options.columns"
         row-key="id"
         :filter="filter"
@@ -18,27 +18,62 @@
 <script>
 const columns = [
   {
-    name: 'nombreArchivo',
+    name: 'autores',
     sortable: true,
     align: 'left',
-    label: 'Archivo'
+    label: 'Autores'
   },
   {
-    name: 'idUsuario',
+    name: 'año',
     sortable: true,
     align: 'left',
-    label: 'Subido por'
+    label: 'Año'
+  },
+  {
+    name: 'titulo',
+    sortable: true,
+    align: 'left',
+    label: 'Título del trabajo'
+  },
+  {
+    name: 'revista',
+    sortable: true,
+    align: 'left',
+    label: 'Nombre de la revista'
+  },
+  {
+    name: 'volumen',
+    sortable: true,
+    align: 'left',
+    label: 'Volumen'
+  },
+  {
+    name: 'numero',
+    sortable: true,
+    align: 'left',
+    label: 'Número'
+  },
+  {
+    name: 'paginas',
+    sortable: true,
+    align: 'left',
+    label: 'Páginas'
+  },
+  {
+    name: 'link',
+    sortable: true,
+    align: 'left',
+    label: 'Link'
   }
 ]
 
 export default {
-  name: 'tabla-anexos',
   columns: columns.map(obj => ({...obj, field: obj.name})),
   data: () => ({
     filter: ''
   }),
   props: {
-    anexos: {
+    revistas: {
       type: Array,
       default: () => []
     },

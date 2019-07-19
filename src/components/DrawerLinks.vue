@@ -9,10 +9,6 @@
       <q-item-side icon="perm_identity" />
       <q-item-main label="Usuarios" />
     </q-item>
-    <q-item exact to="/horas">
-      <q-item-side icon="access_time" />
-      <q-item-main label="Mis horas" />
-    </q-item>
     <q-item exact to="/lineas">
       <q-item-side icon="bookmarks" />
       <q-item-main label="Lineas de Investigación" />

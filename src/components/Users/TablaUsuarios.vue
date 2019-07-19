@@ -2,13 +2,11 @@
   <div>
     <q-search v-model="filter"/>
       <q-table
-        title="Anexos"
-        :data="anexos"
+        title="Usuarios"
+        :data="filterUsers"
         :columns="$options.columns"
         row-key="id"
         :filter="filter"
-        :pagination="{rowsPerPage: Number.MAX_SAFE_INTEGER}"
-        :rows-per-page-options="[]"
         selection="single"
         :selected.sync="selectedInput" >
       </q-table>
@@ -18,27 +16,44 @@
 <script>
 const columns = [
   {
-    name: 'nombreArchivo',
+    name: 'nombre',
     sortable: true,
     align: 'left',
-    label: 'Archivo'
+    label: 'Nombre'
   },
   {
-    name: 'idUsuario',
+    name: 'username',
     sortable: true,
     align: 'left',
-    label: 'Subido por'
+    label: 'Nombre de usuario'
+  },
+  {
+    name: 'tipoUsuario',
+    sortable: true,
+    align: 'left',
+    label: 'Tipo de Usuario',
+    format: row => {
+      switch (row) {
+        case 0: return 'Alumno'
+        case 1: return 'Profesor'
+        case 2: return 'Decano / Secretario Academico'
+        case 3: return 'Administrador'
+      }
+    }
   }
 ]
 
 export default {
-  name: 'tabla-anexos',
+  name: 'tabla-usuarios',
   columns: columns.map(obj => ({...obj, field: obj.name})),
   data: () => ({
     filter: ''
   }),
   props: {
-    anexos: {
+    filterSelect: {
+      type: Number
+    },
+    usuarios: {
       type: Array,
       default: () => []
     },
@@ -52,6 +67,13 @@ export default {
       get () { return this.selected ? [this.selected] : [] },
       set (val) {
         this.$emit('update:selected', val.length ? val[0] : undefined)
+      }
+    },
+    filterUsers () {
+      if (this.filterSelect === 1) {
+        return this.usuarios
+      } else {
+        return this.usuarios.filter(usuario => usuario.tipoUsuario === this.filterSelect - 2)
       }
     }
   }

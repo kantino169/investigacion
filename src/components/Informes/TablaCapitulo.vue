@@ -2,8 +2,8 @@
   <div>
     <q-search v-model="filter"/>
       <q-table
-        title="Anexos"
-        :data="anexos"
+        title="Capitulo de Libro"
+        :data="capitulos"
         :columns="$options.columns"
         row-key="id"
         :filter="filter"
@@ -18,27 +18,68 @@
 <script>
 const columns = [
   {
-    name: 'nombreArchivo',
+    name: 'autores',
     sortable: true,
     align: 'left',
-    label: 'Archivo'
+    label: 'Autores'
   },
   {
-    name: 'idUsuario',
+    name: 'año',
     sortable: true,
     align: 'left',
-    label: 'Subido por'
+    label: 'Año'
+  },
+  {
+    name: 'tituloCapitulo',
+    sortable: true,
+    align: 'left',
+    label: 'Título del capítulo'
+  },
+  {
+    name: 'editores',
+    sortable: true,
+    align: 'left',
+    label: 'Nombre de los editores'
+  },
+  {
+    name: 'tituloLibro',
+    sortable: true,
+    align: 'left',
+    label: 'Título del Libro'
+  },
+  {
+    name: 'editorial',
+    sortable: true,
+    align: 'left',
+    label: 'Nombre de la editorial'
+  },
+  {
+    name: 'lugar',
+    sortable: true,
+    align: 'left',
+    label: 'Lugar'
+  },
+  {
+    name: 'paginas',
+    sortable: true,
+    align: 'left',
+    label: 'Páginas'
+  },
+  {
+    name: 'link',
+    sortable: true,
+    align: 'left',
+    label: 'Link'
   }
 ]
 
 export default {
-  name: 'tabla-anexos',
   columns: columns.map(obj => ({...obj, field: obj.name})),
   data: () => ({
     filter: ''
   }),
   props: {
-    anexos: {
+    capitulos: {
       type: Array,
       default: () => []
     },

@@ -1,6 +1,6 @@
 export default {
   id: undefined,
-  email: undefined,
+  username: undefined,
   token: undefined,
   tipoUsuario: undefined
 }

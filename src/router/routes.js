@@ -102,6 +102,30 @@ const routes = [
         }
       },
       {
+        path: '/becarios:idProyecto',
+        name: 'Becarios',
+        components: {
+          default: () => import('pages/Usuarios/Becarios.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/proyectos/:idProyecto/informes/1',
+        name: 'PrimerInforme',
+        components: {
+          default: () => import('pages/Informes/PrimerInforme.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/proyectos/:idProyecto/informes/2',
+        name: 'SegundoInforme',
+        components: {
+          default: () => import('pages/Informes/SegundoInforme.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
         path: '/roles',
         components: {
           default: () => import('pages/RolInvestigador/RolInvestigador.vue'),
@@ -116,7 +140,16 @@ const routes = [
         }
       },
       {
-        path: '/horas',
+        path: '/proyectos/:idProyecto/planillas',
+        name: 'Planillas',
+        components: {
+          default: () => import('pages/Horas/Planillas.vue'),
+          drawer: () => import('layouts/Drawer.vue')
+        }
+      },
+      {
+        path: '/proyectos/:idProyecto/planillas/:idPlanilla/horas',
+        name: 'HorasBecarios',
         components: {
           default: () => import('pages/Horas/Horas.vue'),
           drawer: () => import('layouts/Drawer.vue')

@@ -4,8 +4,8 @@ export function someGetter (state) {
 */
 const armarLista = state => id => ({id,
   nombre: state[id].nombre,
-  email: state[id].email,
-  tipoUsuario: state[id].tipo_usuario})
+  username: state[id].username,
+  tipoUsuario: state[id].tipoUsuario})
 
 export const usuarios = state =>
   Object.keys(state).map(armarLista(state))

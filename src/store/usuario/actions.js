@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-export async function iniciarSesion ({commit}, {email, password}) {
-  const { data: usuario } = await axios.post('usuarios/session', {email, password})
+export async function iniciarSesion ({commit}, {username, password}) {
+  const { data: usuario } = await axios.post('usuarios/login', {username, password})
   commit('guardar', usuario)
 }
 

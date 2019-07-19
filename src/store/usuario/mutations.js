@@ -3,9 +3,9 @@ export function someMutation (state) {
 }
 */
 
-export function guardar (state, {id, email, token, tipoUsuario} = {}) {
+export function guardar (state, {id, username, token, tipoUsuario} = {}) {
   state.id = id
-  state.email = email
+  state.username = username
   state.token = token
   state.tipoUsuario = tipoUsuario
 }

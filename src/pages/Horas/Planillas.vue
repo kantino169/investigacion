@@ -1,13 +1,20 @@
 <template>
   <q-page padding>
-    <q-btn
-      class="q-md"
-      color="primary"
-      label="Agregar Actividad"
-      @click="agregar(proyecto.id)" />
-    <q-btn color="" :disabled="!selected" flat round icon="edit" @click="editar(selected)" />
-    <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
-    <tabla-actividades :actividades="actividades" :selected.sync="selected" />
+    <div class="row">
+      <div class="col-8">
+        <q-btn
+          class="q-md"
+          color="primary"
+          label="Agregar Planilla"
+          @click="agregar(proyecto.id)" />
+        <q-btn color="" :disabled="!selected" flat round icon="edit" @click="editar(selected)" />
+        <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
+      </div>
+      <div class="col" align="right">
+        <q-btn class="q-ma-sm" :disabled="!selected" label="Ver" @click="details(selected.id, proyecto.id)" icon="visibility"></q-btn>
+      </div>
+    </div>
+    <tabla-planillas :planillas="planillas" :selected.sync="selected" />
     <q-btn class="q-mt-lg" icon="keyboard_backspace" label="ATRAS" @click="$router.push({name: 'MenuProyecto', params: {idProyecto: proyecto.id}})"></q-btn>
     <form-dialog ref="form" />
   </q-page>
@@ -15,19 +22,19 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import TablaActividades from 'components/Actividades/TablaActividades'
+import TablaPlanillas from 'components/Horas/TablaPlanillas'
 import FormDialog from 'components/FormDialog'
 
 export default {
-  name: 'Actividades',
-  components: { TablaActividades, FormDialog },
+  name: 'Planillas',
+  components: { TablaPlanillas, FormDialog },
   async mounted () {
     await this.$store.dispatch('proyecto/cargarTodos')
     this.cargarTodas(this.proyecto.id)
   },
   data: () => ({selected: undefined}),
   computed: {
-    ...mapGetters('actividades', ['actividades']),
+    ...mapGetters('planillas', ['planillas']),
     proyectos () {
       return this.$store.getters['proyecto/proyectos']
     },
@@ -36,17 +43,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions('actividades', ['cargarTodas', 'crear', 'modificar', 'eliminar']),
+    ...mapActions('planillas', ['cargarTodas', 'crear', 'modificar', 'eliminar']),
+
+    async details (idPlanilla, idProyecto) {
+      this.$router.push({name: 'HorasBecarios', params: {idPlanilla, idProyecto}})
+    },
 
     async agregar (idProyecto) {
       try {
         const datos = await this.$refs.form.getData({
-          title: 'Nueva Actividades',
+          title: 'Nueva Planilla',
           form: {
-            actividad: {label: 'Actividad'},
-            // Ver como hacer el select, la idea es que se clickee como vi en el ejemplo de la tabla
-            primers: {label: 'Primer semestre', type: 'check', model: true},
-            segundos: {label: 'Segundo semestre', type: 'check', model: true}
+            mes: {label: 'Mes'}
           }
         })
         await this.crear({...datos, idProyecto})
