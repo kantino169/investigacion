@@ -5,11 +5,7 @@
       <q-item-side icon="home" />
       <q-item-main label="INICIO" />
     </q-item>
-    <q-item exact to="/usuarios">
-      <q-item-side icon="perm_identity" />
-      <q-item-main label="Usuarios" />
-    </q-item>
-    <q-item exact to="/lineas">
+    <q-item v-if="isNotStudent" exact to="/lineas">
       <q-item-side icon="bookmarks" />
       <q-item-main label="Lineas de Investigación" />
     </q-item>
@@ -17,8 +13,12 @@
       <q-item-side icon="reorder" />
       <q-item-main label="Lista de proyectos" />
     </q-item>
-    <q-collapsible icon="assignment" label="Administrar">
+    <q-collapsible v-if="isAdmin" icon="assignment" label="Administrar">
       <div>
+        <q-item exact to="/usuarios">
+          <q-item-side icon="perm_identity" />
+          <q-item-main label="Usuarios" />
+        </q-item>
         <q-item exact to="/proyectos">
           <q-item-side icon="assignment" />
           <q-item-main label="Proyectos" />
@@ -45,10 +45,6 @@
         </q-item>
       </div>
     </q-collapsible>
-    <q-item exact to="/">
-      <q-item-side icon="" />
-      <q-item-main label="Reservado"/>
-    </q-item>
     <q-item v-if="isLogged" @click.native="$emit('logout')"> <!-- cerrar sesion -->
       <q-item-side icon="power_settings_new" />
       <q-item-main label="Cerrar Sesión" />
@@ -64,6 +60,6 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  computed: mapGetters('usuario', ['isLogged'])
+  computed: mapGetters('usuario', ['isLogged', 'isAdmin', 'isNotStudent'])
 }
 </script>

@@ -16,9 +16,10 @@ export function agregar (state, becarios) {
   }
 }
 
-export function actualizar (state, {id, idRolInvestigador, horasSemanales, cantidadMeses, idCategoria}) {
+export function actualizar (state, {id, idRolInvestigador, horasSemanales, cantidadMeses, idCategoria, aprobacionBecario}) {
   state[id].idRolInvestigador = idRolInvestigador
   state[id].horasSemanales = horasSemanales
   state[id].cantidadMeses = cantidadMeses
   state[id].idCategoria = idCategoria
+  state[id].aprobacionBecario = aprobacionBecario
 }

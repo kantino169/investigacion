@@ -40,6 +40,20 @@ const columns = [
         case 3: return 'Administrador'
       }
     }
+  },
+  {
+    name: 'idFacultad',
+    sortable: true,
+    align: 'left',
+    label: 'Facultad',
+    format: row => {
+      switch (row) {
+        case 1: return 'FCS'
+        case 2: return 'FHECIS'
+        case 3: return 'FACEA'
+        case 4: return 'TEOLOGIA'
+      }
+    }
   }
 ]
 

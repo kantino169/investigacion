@@ -5,6 +5,7 @@
         <div class="col-8">
           <q-btn align="right" class="q-ma-sm" label="Sincronizar AD" icon="cached" @click="agregar"></q-btn>
           <q-btn class="q-ma-sm" label="Cambiar Tipo de Usuario" icon="group_add" @click="modificarPrivilegio(selected.id)"></q-btn>
+          <q-btn class="q-ma-sm" label="Asignar Facultad" @click="asignarFacultad(selected)"></q-btn>
         </div>
         <div class="col-4">
           <q-select
@@ -51,7 +52,44 @@ export default {
     ...mapGetters('usuario', ['isAdmin'])
   },
   methods: {
-    ...mapActions('listaUsuario', ['cargarTodos', 'crear', 'modificar', 'eliminar', 'insertarUsuarios', 'darPrivilegios']),
+    ...mapActions('listaUsuario', ['cargarTodos', 'crear', 'modificar', 'eliminar', 'insertarUsuarios', 'darPrivilegios', 'darFacultad']),
+    async asignarFacultad ({id}) {
+      try {
+        this.$q.dialog({
+          title: 'Facultad',
+          message: 'Seleccione la facultad',
+          options: {
+            type: 'radio',
+            model: 1,
+            items: [
+              { label: 'FCS', value: 1 },
+              { label: 'FHECIS', value: 2 },
+              { label: 'FACEA', value: 3 },
+              { label: 'TEOLOGIA', value: 4 }
+            ]
+          },
+          cancel: 'Cancelar',
+          ok: 'Aceptar'
+        }).then(data => {
+          this.darFacultad({id, idFacultad: data}).then(() => {
+            Notify.create({
+              type: 'positive',
+              message: 'Usuario actualizado'
+            })
+          })
+        }).catch(() => {
+          Notify.create({
+            type: 'negative',
+            message: 'Se canceló la operación'
+          })
+        })
+      } catch (error) {
+        Notify.create({
+          type: 'negative',
+          message: 'No se pudo realizar el cambio'
+        })
+      }
+    },
     async modificarPrivilegio (id) {
       try {
         this.$q.dialog({

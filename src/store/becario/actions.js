@@ -6,8 +6,8 @@ export async function cargarTodos ({commit}, idProyecto) {
   commit('agregar', becarios)
 }
 
-export async function crear ({commit}, {idRolInvestigador, horasSemanales, cantidadMeses, idProyecto, idUsuario, idCategoria}) {
-  const {data: act} = await axios.post('becarios', {idRolInvestigador, horasSemanales, cantidadMeses, idProyecto, idUsuario, idCategoria})
+export async function crear ({commit}, {idRolInvestigador, horasSemanales, cantidadMeses, idProyecto, bec, idCategoria}) {
+  const {data: act} = await axios.post('becarios', {idProyecto, idRolInvestigador, horasSemanales, cantidadMeses, bec, idCategoria})
   commit('agregar', [act])
 }
 
@@ -19,4 +19,9 @@ export async function modificar ({commit}, {idRolInvestigador, horasSemanales, c
 export async function eliminar ({commit}, {id}) {
   await axios.delete(`becarios/${id}`)
   commit('eliminar', {id})
+}
+
+export async function aprobacion ({commit}, {id}) {
+  await axios.put(`becarios/aprobar/${id}`)
+  commit('actualizar', {aprobacionBecario: 1})
 }

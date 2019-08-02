@@ -3,6 +3,7 @@ import axios from 'axios'
 export async function cargarTodos ({ commit }) {
   const id = this.state.usuario.id
   const { data: proyectos } = await axios.get(`proyecto/todos/${id}`)
+  commit('eliminarTodas')
   commit('agregar', proyectos)
 }
 
@@ -32,4 +33,11 @@ export async function agregar ({commit}, datos) {
 export async function eliminar ({ commit }, { id }) {
   await axios.delete(`proyecto/${id}`)
   commit('eliminar', { id })
+}
+
+export async function aprobarProyecto ({ commit }, { aprobacion, estado, id }) {
+  console.log(estado)
+  console.log(aprobacion)
+  await axios.put(`proyecto/aprobar/${id}`, {estado, aprobacion})
+  commit('modificarEstado', {estado, aprobacion, id})
 }

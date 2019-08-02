@@ -3,20 +3,28 @@
     <h5>I. IDENTIFICACION DEL PROYECTO</h5>
     <q-select
       v-model="datos.idModalidad"
-      placeholder="1. Modalidad:"
+      float-label="Modalidad:"
       :options="modalidades"
     />
-    <q-input v-model="datos.director_id" float-label="Director"></q-input>
-    <q-input v-model="datos.codirector_id" float-label="Co-director/es"></q-input>
+    <q-search v-model="datos.director_id" float-label="Director">
+      <q-autocomplete :static-data="{field: 'username', label: 'username', list: investigadores}"/>
+    </q-search>
+    <q-search v-model="datos.codirector_id" float-label="Co-Director">
+      <q-autocomplete :static-data="{field: 'username', label: 'username', list: investigadores}"/>
+    </q-search>
     <q-collapsible icon="help_outline" label="Mas informacion">
       <div>
         En caso de proyecto TESIS, agregar nombre  del director o consejero de la TESIS
       </div>
     </q-collapsible>
-    <q-input v-model="datos.otros_miembros_uap" type="textarea" float-label="Otros miembros del equipo de investigacion de la UAP"></q-input>
+    <q-chips-input v-model="datos.otros_miembros_uap" float-label="Otros Miembros">
+      <q-autocomplete :static-data="{field: 'username', list: investigadores}" />
+    </q-chips-input>
+
+    <!-- Las siguientes son textos porque son externos a la institucion -->
     <q-input v-model="datos.otros_miembros" type="textarea" float-label="Otros miembros del equipo de investigación externos a la Institución"></q-input>
     <q-input v-model="datos.asistentes" type="textarea" float-label="Asistentes de investigacion"></q-input>
-    <q-input v-model="datos.becarios" type="textarea" float-label="Becarios de investigacion"></q-input>
+    <q-input v-model="datos.becarios" type="number" float-label="Becarios de investigacion (número de becarios)"></q-input>
     <q-select
       v-model="datos.unidadAcademica"
       placeholder="Unidad academica patrocinante:"
@@ -29,7 +37,8 @@
 import { mapActions } from 'vuex'
 export default {
   name: 'identificacion-proyecto',
-  mounted () {
+  async mounted () {
+    await this.$store.dispatch('listaUsuario/cargarTodos')
     this.cargarTodas()
   },
   data () {
@@ -64,7 +73,7 @@ export default {
         idModalidad: undefined,
         director_id: undefined,
         codirector_id: undefined,
-        otros_miembros_uap: undefined,
+        otros_miembros_uap: [],
         otros_miembros: undefined,
         asistentes: undefined,
         becarios: undefined,
@@ -75,6 +84,12 @@ export default {
   computed: {
     modalidades () {
       return this.$store.getters['modalidades/modalidades'].map(({id, nombre}) => ({label: nombre, value: id}))
+    },
+    usuarios () {
+      return this.$store.getters['listaUsuario/usuarios']
+    },
+    investigadores () {
+      return this.usuarios.filter(usuario => usuario.tipoUsuario !== 0)
     }
   },
   methods: {

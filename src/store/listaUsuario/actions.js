@@ -9,6 +9,11 @@ export async function cargarTodos ({ commit }) {
   commit('agregar', usuarios)
 }
 
+export async function darFacultad ({commit}, {id, idFacultad}) {
+  const { data: usuario } = await axios.put('usuarios/asignar/facultad', {id, idFacultad})
+  commit('actualizar', usuario)
+}
+
 export async function darPrivilegios ({commit}, {id, tipoUsuario}) {
   const { data: usuario } = await axios.put('usuarios/privilegios', {id, tipoUsuario})
   commit('actualizar', usuario)

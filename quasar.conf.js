@@ -77,10 +77,12 @@ module.exports = function (ctx) {
         'QCheckbox',
         'QDatetime',
         'QEditor',
-        'QUploader'
+        'QUploader',
+        'QAutocomplete'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [

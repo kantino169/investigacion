@@ -14,7 +14,8 @@
       <q-btn
         class="q-md"
         color=""
-        label="Guardar" />
+        label="Guardar"
+        @click="crear" />
       <q-btn
         class="q-md"
         color="primary"
@@ -117,8 +118,10 @@ export default {
         ...this.$refs.introduccion.datos,
         ...this.$refs.metodos.datos,
         ...this.$refs.publicacion.datos,
+        ...this.$refs.presupuesto.datos,
         ...this.$refs.cronograma.datos
       }
+      // Validar si es guardar o crear
       await this.agregar(datos).then(() => {
         Notify.create({
           type: 'positive',

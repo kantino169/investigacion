@@ -5,7 +5,8 @@ const armarLista = state => id => ({
   cantidadMeses: state[id].cantidadMeses,
   idProyecto: state[id].idProyecto,
   idUsuario: state[id].idUsuario,
-  idCategoria: state[id].idCategoria
+  idCategoria: state[id].idCategoria,
+  aprobacionBecario: state[id].aprobacionBecario
 })
 
 export const becarios = state =>

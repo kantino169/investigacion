@@ -11,7 +11,7 @@
       @click="agregarPresupuesto" />
     <q-btn color="" :disabled="!selected" flat round icon="edit" @click="modificarPresupuesto(selected)" />
     <q-btn color="negative" :disabled="!selected" flat round delete icon="delete" @click="borrar(selected)" />
-    <tabla-presupuesto :presupuestos="presupuestos" :selected.sync="selected" />
+    <tabla-presupuesto :presupuestos="datos.presupuestos" :selected.sync="selected" />
     <form-dialog ref="formPresupuesto" />
   </div>
 </template>
@@ -28,9 +28,9 @@ export default {
     return {
       datos: {
         duracion: undefined,
-        tiempoSemanal: undefined
+        tiempoSemanal: undefined,
+        presupuestos: []
       },
-      presupuestos: [],
       selected: undefined
     }
   },
@@ -47,7 +47,7 @@ export default {
             monto: {label: 'Monto', type: 'number'}
           }
         })
-        this.presupuestos.push({...datosPresupuesto, id: uid()})
+        this.datos.presupuestos.push({...datosPresupuesto, id: uid()})
       } catch (error) {
       }
     },
@@ -74,7 +74,7 @@ export default {
           ok: 'Aceptar',
           cancel: 'Cancelar'
         })
-        this.presupuestos.splice(this.presupuestos.indexOf(presupuesto.id), 1)
+        this.datos.presupuestos.splice(this.datos.presupuestos.indexOf(presupuesto.id), 1)
         this.selected = undefined
       } catch (error) {
       }

@@ -3,7 +3,7 @@
     <q-search v-model="filter"/>
       <q-table
         title="Becarios"
-        :data="becarios"
+        :data="rows"
         :columns="$options.columns"
         row-key="id"
         :filter="filter"
@@ -18,10 +18,11 @@
 <script>
 const columns = [
   {
-    name: 'idUsuario',
+    name: 'usuario',
     sortable: true,
     align: 'left',
-    label: 'Becario'
+    label: 'Becario',
+    format: (usuario = {}) => usuario.nombre
   },
   {
     name: 'idCategoria',
@@ -40,6 +41,18 @@ const columns = [
     sortable: true,
     align: 'left',
     label: 'Cantidad de meses asignados'
+  },
+  {
+    name: 'aprobacionBecario',
+    sortable: true,
+    align: 'left',
+    label: 'Aprobado por SECyT',
+    format: row => {
+      switch (row) {
+        case 1: return 'Aprobado'
+        case 0: return 'No Aprobado'
+      }
+    }
   }
 ]
 
@@ -56,6 +69,10 @@ export default {
     selected: {
       type: Object,
       default: () => ({})
+    },
+    usuarios: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
@@ -64,6 +81,12 @@ export default {
       set (val) {
         this.$emit('update:selected', val.length ? val[0] : undefined)
       }
+    },
+    rows () {
+      return this.becarios.map(becario => ({
+        ...becario,
+        usuario: this.usuarios.find(u => u.id === String(becario.idUsuario))
+      }))
     }
   }
 }

@@ -1,6 +1,8 @@
 export const isLogged = (state) => !!state.id
 
-export const isAdmin = state => state.tipoUsuario === 3
+export const isAdmin = state => state.tipoUsuario === 4
+
+export const isRectoria = state => state.tipoUsuario === 3
 
 export const isTeacher = state => state.tipoUsuario === 1
 
