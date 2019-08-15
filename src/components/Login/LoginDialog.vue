@@ -3,7 +3,7 @@
     <span slot="title">Iniciar sesión</span>
 
     <div slot="body">
-      <q-input float-label="Email" v-model="datos.email" />
+      <q-input float-label="Username" v-model="datos.username" />
       <q-input float-label="Contraseña" v-model="datos.password" type="password" />
     </div>
 
@@ -17,7 +17,7 @@
 export default {
   data: () => ({
     datos: {
-      email: '',
+      username: '',
       password: ''
     },
     open: false,
@@ -33,7 +33,7 @@ export default {
     getLoginData () {
       this.open = true
       this.datos = {
-        email: '',
+        username: '',
         password: ''
       }
       return new Promise((resolve, reject) => {

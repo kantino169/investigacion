@@ -27,13 +27,29 @@ const columns = [
     name: 'primers',
     sortable: true,
     align: 'left',
-    label: 'Primer Semestre'
+    label: 'Primer Semestre',
+    format: row => {
+      switch (row) {
+        case true: return '*'
+        case false: return ''
+        case 1: return '*'
+        case 0: return ''
+      }
+    }
   },
   {
     name: 'segundos',
     sortable: true,
     align: 'left',
-    label: 'Segundo Semestre'
+    label: 'Segundo Semestre',
+    format: row => {
+      switch (row) {
+        case true: return '*'
+        case false: return ''
+        case 1: return '*'
+        case 0: return ''
+      }
+    }
   }
 ]
 

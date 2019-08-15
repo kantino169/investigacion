@@ -77,15 +77,18 @@ module.exports = function (ctx) {
         'QCheckbox',
         'QDatetime',
         'QEditor',
-        'QUploader'
+        'QUploader',
+        'QAutocomplete'
       ],
       directives: [
-        'Ripple'
+        'Ripple',
+        'CloseOverlay'
       ],
       // Quasar plugins
       plugins: [
         'Notify',
-        'Dialog'
+        'Dialog',
+        'Loading'
       ]
       // iconSet: ctx.theme.mat ? 'material-icons' : 'ionicons'
       // i18n: 'de' // Quasar language

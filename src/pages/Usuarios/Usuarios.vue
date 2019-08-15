@@ -1,41 +1,49 @@
 <template>
-  <div class="row-full-width">
-    <q-btn class="q-ma-sm" label="Agregar" icon="create" @click="agregar"></q-btn>
-    <q-list v-if="isAdmin">
-      <q-list-header>Usuarios</q-list-header>
-      <q-item highlight v-for="usuario in usuarios" :key="usuario.id" class="row">
-        <q-item-main class="row">
-          <div class="col-3">
-            {{usuario.nombre}}
-          </div>
-          <div class="col-3">
-            {{usuario.email}}
-          </div>
-          <div class="col-3">
-            {{usuario.tipoUsuario | tipoDeUsuario}}
-          </div>
-          <div class="col-3">
-            <q-btn-group class="q-ml-md">
-              <q-btn v-if="isAdmin" color="orange" title="Editar" icon="edit" @click="editar(usuario)"/>
-              <q-btn v-if="isAdmin" color="red" title="Eliminar" icon="delete" @click="borrar(usuario)"/>
-            </q-btn-group>
-          </div>
-        </q-item-main>
-      </q-item>
-    </q-list>
-    <form-dialog ref="form"/>
-  </div>
+  <q-page padding>
+    <div class="row-full-width">
+      <div class="row">
+        <div class="col-8">
+          <q-btn align="right" class="q-ma-sm" label="Sincronizar AD" icon="cached" @click="agregar"></q-btn>
+          <q-btn class="q-ma-sm" label="Cambiar Tipo de Usuario" icon="group_add" @click="modificarPrivilegio(selected.id)"></q-btn>
+          <q-btn class="q-ma-sm" label="Asignar Facultad" @click="asignarFacultad(selected)"></q-btn>
+        </div>
+        <div class="col-4">
+          <q-select
+          class="q-ma-sm"
+            v-model="filterSelect"
+            :options="selectOptions"
+          />
+        </div>
+      </div>
+      <tabla-usuarios :usuarios="usuarios" :selected.sync="selected" :filterSelect="filterSelect"/>
+      <form-dialog ref="form"/>
+    </div>
+  </q-page>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import FormDialog from '../../components/FormDialog'
 import { Notify } from 'quasar'
+import TablaUsuarios from 'components/Users/TablaUsuarios'
 
 export default {
-  components: {FormDialog},
+  components: {FormDialog, TablaUsuarios},
   mounted () {
     this.cargarTodos()
+  },
+  data () {
+    return {
+      selected: undefined,
+      filterSelect: 1,
+      selectOptions: [
+        { label: 'Todos', value: 1 },
+        { label: 'Alumnos', value: 2 },
+        { label: 'Profesores', value: 3 },
+        { label: 'Decanos/Secretarios', value: 4 },
+        { label: 'Administradores', value: 5 }
+      ]
+    }
   },
   computed: {
     usuarios () {
@@ -44,48 +52,94 @@ export default {
     ...mapGetters('usuario', ['isAdmin'])
   },
   methods: {
-    ...mapActions('listaUsuario', ['cargarTodos', 'crear', 'modificar', 'eliminar']),
-    async agregar () {
+    ...mapActions('listaUsuario', ['cargarTodos', 'crear', 'modificar', 'eliminar', 'insertarUsuarios', 'darPrivilegios', 'darFacultad']),
+    async asignarFacultad ({id}) {
       try {
-        const datos = await this.$refs.form.getData({
-          title: 'Nuevo Usuario',
-          form: {
-            name: {label: 'Nombre'},
-            password: {label: 'Contraseña', type: 'password'},
-            email: {label: 'Email'}
-          }
-        })
-        await this.crear(datos).then(() => {
+        this.$q.dialog({
+          title: 'Facultad',
+          message: 'Seleccione la facultad',
+          options: {
+            type: 'radio',
+            model: 1,
+            items: [
+              { label: 'FCS', value: 1 },
+              { label: 'FHECIS', value: 2 },
+              { label: 'FACEA', value: 3 },
+              { label: 'TEOLOGIA', value: 4 }
+            ]
+          },
+          cancel: 'Cancelar',
+          ok: 'Aceptar'
+        }).then(data => {
+          this.darFacultad({id, idFacultad: data}).then(() => {
+            Notify.create({
+              type: 'positive',
+              message: 'Usuario actualizado'
+            })
+          })
+        }).catch(() => {
           Notify.create({
-            type: 'positive',
-            message: 'Usuario creado con exito'
+            type: 'negative',
+            message: 'Se canceló la operación'
           })
         })
       } catch (error) {
         Notify.create({
           type: 'negative',
-          message: 'Error al crear un usuario'
+          message: 'No se pudo realizar el cambio'
         })
       }
     },
-    async editar (usuario) {
+    async modificarPrivilegio (id) {
       try {
-        const id = usuario.id
-        const datos = await this.$refs.form.getData({
-          title: 'Modificar usuario',
-          form: {
-            name: {label: 'Nombre', model: usuario.nombre},
-            email: {label: 'Email', model: usuario.email}
-            // password: {label: 'Lugar de Trabajo', model: evaluador.lugarTrabajo}
-          }
-        })
-        await this.modificar({id, ...datos}).then(() => {
+        this.$q.dialog({
+          title: 'Tipo de Usuario',
+          message: 'Seleccione el tipo de usuario que desea asignar',
+          options: {
+            type: 'radio',
+            model: 0,
+            items: [
+              { label: 'Alumno', value: 0 },
+              { label: 'Profesor', value: 1 },
+              { label: 'Decano, Secretario Investigación', value: 2 },
+              { label: 'Administrador del Sistema', value: 3 }
+            ]
+          },
+          cancel: 'Cancelar',
+          ok: 'Aceptar'
+        }).then(data => {
+          this.darPrivilegios({id, tipoUsuario: data}).then(() => {
+            Notify.create({
+              type: 'positive',
+              message: 'Usuario actualizado'
+            })
+          })
+        }).catch(() => {
           Notify.create({
-            type: 'positive',
-            message: 'Usuario modificado con exito'
+            type: 'negative',
+            message: 'Se canceló la operación'
           })
         })
       } catch (error) {
+        Notify.create({
+          type: 'negative',
+          message: 'No se pudo realizar el cambio'
+        })
+      }
+    },
+    async agregar () {
+      try {
+        await this.insertarUsuarios().then(() => {
+          Notify.create({
+            type: 'positive',
+            message: 'Usuarios agregados con exito'
+          })
+        })
+      } catch (error) {
+        Notify.create({
+          type: 'negative',
+          message: 'Error al agregar usuarios'
+        })
       }
     },
     async borrar ({id, nombre}) {
@@ -102,15 +156,6 @@ export default {
           })
         })
       } catch (error) {
-      }
-    }
-  },
-  filters: {
-    tipoDeUsuario (tipoUsuario) {
-      switch (tipoUsuario) {
-        case 0: return 'Alumno'
-        case 1: return 'Profesor'
-        case 2: return 'Administrador'
       }
     }
   }

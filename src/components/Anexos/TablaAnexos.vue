@@ -32,6 +32,7 @@ const columns = [
 ]
 
 export default {
+  name: 'tabla-anexos',
   columns: columns.map(obj => ({...obj, field: obj.name})),
   data: () => ({
     filter: ''

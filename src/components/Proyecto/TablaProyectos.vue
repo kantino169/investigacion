@@ -34,6 +34,36 @@ const columns = [
     sortable: true,
     align: 'left',
     label: 'Director del Proyecto'
+  },
+  {
+    name: 'aprobado1',
+    sortable: true,
+    align: 'left',
+    label: 'Aprobacion..'
+  },
+  {
+    name: 'aprobado2',
+    sortable: true,
+    align: 'left',
+    label: 'Aprobacion..'
+  },
+  {
+    name: 'aprobado3',
+    sortable: true,
+    align: 'left',
+    label: 'Aprobacion..'
+  },
+  {
+    name: 'aprobado4',
+    sortable: true,
+    align: 'left',
+    label: 'Aprobacion..'
+  },
+  {
+    name: 'aprobado5',
+    sortable: true,
+    align: 'left',
+    label: 'Aprobacion..'
   }
 ]
 

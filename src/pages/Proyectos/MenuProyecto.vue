@@ -21,9 +21,18 @@
         <q-btn label="Anexos" icon="folder" @click="$router.push({name: 'Anexos', params: {idProyecto: proyecto.id}})"></q-btn>
         <q-btn label="Presupuesto" icon="monetization_on" @click="$router.push({name: 'Presupuesto', params: {idProyecto: proyecto.id}})"></q-btn>
         <q-btn label="Actividades" icon="event_note" @click="$router.push({name: 'Actividades', params: {idProyecto: proyecto.id}})"></q-btn>
-        <q-btn label="Becarios" icon="person"></q-btn>
-        <q-btn label="Informes" icon="note"></q-btn>
+        <q-btn label="Becarios" icon="person" @click="$router.push({name: 'Becarios', params: {idProyecto: proyecto.id}})"></q-btn>
+        <q-btn label="Planillas Becarios" icon="notes" @click="$router.push({name: 'Planillas', params: {idProyecto: proyecto.id}})"></q-btn>
         <q-btn label="Protocolo" icon="assignment"></q-btn>
+      </q-btn-group>
+    </div>
+
+    <div align="center"  class="q-mt-lg">
+      <h6>Informes</h6>
+      <q-btn-group class="row">
+        <q-btn label="1 Informe" icon="note" @click="$router.push({name: 'PrimerInforme', params: {idProyecto: proyecto.id}})"></q-btn>
+        <q-btn label="2 Informe" icon="note" @click="$router.push({name: 'SegundoInforme', params: {idProyecto: proyecto.id}})"></q-btn>
+        <q-btn label="Informe Final" icon="note"></q-btn>
       </q-btn-group>
     </div>
   </q-page>

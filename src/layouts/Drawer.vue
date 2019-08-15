@@ -36,8 +36,8 @@ export default {
     ...mapActions('usuario', ['iniciarSesion', 'cerrarSesion']),
     async login () {
       try {
-        const {email, password} = await this.$refs.login.getLoginData()
-        await this.iniciarSesion({email, password})
+        const {username, password} = await this.$refs.login.getLoginData()
+        await this.iniciarSesion({username, password})
         this.$q.notify({
           type: 'positive',
           message: 'Ha iniciado sesión con éxito'

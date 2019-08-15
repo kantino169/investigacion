@@ -21,7 +21,10 @@ import FormDialog from 'components/FormDialog'
 export default {
   name: 'Actividades',
   components: { TablaActividades, FormDialog },
-  mounted () { this.cargarTodas(this.proyecto.id) },
+  async mounted () {
+    await this.$store.dispatch('proyecto/cargarTodos')
+    this.cargarTodas(this.proyecto.id)
+  },
   data: () => ({selected: undefined}),
   computed: {
     ...mapGetters('actividades', ['actividades']),

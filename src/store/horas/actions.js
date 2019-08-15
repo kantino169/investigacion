@@ -1,17 +1,18 @@
 import axios from 'axios'
 
-export async function cargarTodas ({commit}, {semana}) {
-  const {data: horasBecarios} = await axios.get('horas', {semana})
+export async function cargarTodas ({commit}, idPlanilla) {
+  const {data: horasBecarios} = await axios.get(`horas/${idPlanilla}`)
+  commit('eliminarTodas')
   commit('agregar', horasBecarios)
 }
 
-export async function crear ({commit}, {fecha, mes, lugarActividad, horario, hrs, semana}) {
-  const {data: horas} = await axios.post('horas', {fecha, mes, lugarActividad, horario, hrs, semana})
+export async function crear ({commit}, {idPlanilla, fecha, lugarActividad, horario, hrs, semana}) {
+  const {data: horas} = await axios.post('horas', {idPlanilla, fecha, lugarActividad, horario, hrs, semana})
   commit('agregar', [horas])
 }
 
 export async function modificar ({commit}, {actividad, primers, segundos, id}) {
-  await axios.put(`actividades/${id}`, {actividad, primers, segundos})
+  await axios.put(`horas/${id}`, {actividad, primers, segundos})
   commit('actualizar', {actividad, primers, segundos, id})
 }
 
